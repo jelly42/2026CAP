@@ -297,48 +297,35 @@ body {
   <!-- Subject Filter -->
   <div class="filter-bar">
     <button class="filter-btn active" onclick="filterSubject('all')">全部</button>
-    <button class="filter-btn" onclick="filterSubject('math')">📐 數學</button>
-    <button class="filter-btn" onclick="filterSubject('eng')">📖 英文</button>
     <button class="filter-btn" onclick="filterSubject('chi')">📕 國文</button>
-    <button class="filter-btn" onclick="filterSubject('phy')">🔬 理化</button>
-    <button class="filter-btn" onclick="filterSubject('bio')">🧬 生物</button>
-    <button class="filter-btn" onclick="filterSubject('ear')">🌍 地球科學</button>
+    <button class="filter-btn" onclick="filterSubject('eng')">📖 英文</button>
+    <button class="filter-btn" onclick="filterSubject('math')">📐 數學</button>
     <button class="filter-btn" onclick="filterSubject('his')">🏛️ 歷史</button>
     <button class="filter-btn" onclick="filterSubject('geo')">🗺️ 地理</button>
     <button class="filter-btn" onclick="filterSubject('civ')">⚖️ 公民</button>
+    <button class="filter-btn" onclick="filterSubject('phy')">🔬 理化</button>
+    <button class="filter-btn" onclick="filterSubject('bio')">🧬 生物</button>
+    <button class="filter-btn" onclick="filterSubject('ear')">🌍 地球科學</button>
   </div>
   
   <div class="portal-body">
 
     <!-- ═══════════════════════════════════════ -->
-    <!-- 📐 數學                                -->
+    <!-- 📕 國文                                -->
     <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-math" data-subject="math">
+    <div class="subject-section subject-chi" data-subject="chi">
       <div class="section-header">
-        <div class="section-icon">📐</div>
-        <div class="section-title">數學</div>
-        <span class="section-count">1 個章節</span>
+        <div class="section-icon">📕</div>
+        <div class="section-title">國文</div>
+        <span class="section-count">即將新增</span>
       </div>
       <div class="chapter-grid">
-        
-        <a class="chapter-card" href="math-ch3-geometry/index.html">
-          <span class="card-grade">九上</span>
-          <div class="card-emoji">📐</div>
-          <div class="card-title">第三章 幾何與證明</div>
-          <div class="card-desc">證明與推理、三角形的外心、內心與重心</div>
-          <span class="card-tag">7 份學習工具</span>
-        </a>
-        
-        <!-- ★ 新增數學章節：複製下方模板，修改內容 ★
-        <a class="chapter-card" href="math-ch4-statistics/index.html">
-          <span class="card-grade">九上</span>
-          <div class="card-emoji">📊</div>
-          <div class="card-title">第四章 統計與機率</div>
-          <div class="card-desc">資料整理、統計圖表、機率</div>
-          <span class="card-tag">7 份學習工具</span>
-        </a>
-        -->
-
+        <div class="chapter-card soon">
+          <div class="card-emoji">🔜</div>
+          <div class="card-title">即將新增</div>
+          <div class="card-desc">上傳教材後自動產生</div>
+          <span class="card-tag">敬請期待</span>
+        </div>
       </div>
     </div>
 
@@ -373,12 +360,82 @@ body {
     </div>
 
     <!-- ═══════════════════════════════════════ -->
-    <!-- 📕 國文                                -->
+    <!-- 📐 數學                                -->
     <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-chi" data-subject="chi">
+    <div class="subject-section subject-math" data-subject="math">
       <div class="section-header">
-        <div class="section-icon">📕</div>
-        <div class="section-title">國文</div>
+        <div class="section-icon">📐</div>
+        <div class="section-title">數學</div>
+        <span class="section-count">1 個章節</span>
+      </div>
+      <div class="chapter-grid">
+        
+        <a class="chapter-card" href="math-ch3-geometry/index.html">
+          <span class="card-grade">九上</span>
+          <div class="card-emoji">📐</div>
+          <div class="card-title">第三章 幾何與證明</div>
+          <div class="card-desc">證明與推理、三角形的外心、內心與重心</div>
+          <span class="card-tag">7 份學習工具</span>
+        </a>
+        
+        <!-- ★ 新增數學章節：複製下方模板，修改內容 ★
+        <a class="chapter-card" href="math-ch4-statistics/index.html">
+          <span class="card-grade">九上</span>
+          <div class="card-emoji">📊</div>
+          <div class="card-title">第四章 統計與機率</div>
+          <div class="card-desc">資料整理、統計圖表、機率</div>
+          <span class="card-tag">7 份學習工具</span>
+        </a>
+        -->
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- 🏛️ 歷史                               -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="subject-section subject-his" data-subject="his">
+      <div class="section-header">
+        <div class="section-icon">🏛️</div>
+        <div class="section-title">歷史</div>
+        <span class="section-count">即將新增</span>
+      </div>
+      <div class="chapter-grid">
+        <div class="chapter-card soon">
+          <div class="card-emoji">🔜</div>
+          <div class="card-title">即將新增</div>
+          <div class="card-desc">上傳教材後自動產生</div>
+          <span class="card-tag">敬請期待</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- 🗺️ 地理                               -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="subject-section subject-geo" data-subject="geo">
+      <div class="section-header">
+        <div class="section-icon">🗺️</div>
+        <div class="section-title">地理</div>
+        <span class="section-count">即將新增</span>
+      </div>
+      <div class="chapter-grid">
+        <div class="chapter-card soon">
+          <div class="card-emoji">🔜</div>
+          <div class="card-title">即將新增</div>
+          <div class="card-desc">上傳教材後自動產生</div>
+          <span class="card-tag">敬請期待</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- ⚖️ 公民                               -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="subject-section subject-civ" data-subject="civ">
+      <div class="section-header">
+        <div class="section-icon">⚖️</div>
+        <div class="section-title">公民</div>
         <span class="section-count">即將新增</span>
       </div>
       <div class="chapter-grid">
@@ -436,63 +493,6 @@ body {
       <div class="section-header">
         <div class="section-icon">🌍</div>
         <div class="section-title">地球科學</div>
-        <span class="section-count">即將新增</span>
-      </div>
-      <div class="chapter-grid">
-        <div class="chapter-card soon">
-          <div class="card-emoji">🔜</div>
-          <div class="card-title">即將新增</div>
-          <div class="card-desc">上傳教材後自動產生</div>
-          <span class="card-tag">敬請期待</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- 🏛️ 歷史                               -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-his" data-subject="his">
-      <div class="section-header">
-        <div class="section-icon">🏛️</div>
-        <div class="section-title">歷史</div>
-        <span class="section-count">即將新增</span>
-      </div>
-      <div class="chapter-grid">
-        <div class="chapter-card soon">
-          <div class="card-emoji">🔜</div>
-          <div class="card-title">即將新增</div>
-          <div class="card-desc">上傳教材後自動產生</div>
-          <span class="card-tag">敬請期待</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- 🗺️ 地理                               -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-geo" data-subject="geo">
-      <div class="section-header">
-        <div class="section-icon">🗺️</div>
-        <div class="section-title">地理</div>
-        <span class="section-count">即將新增</span>
-      </div>
-      <div class="chapter-grid">
-        <div class="chapter-card soon">
-          <div class="card-emoji">🔜</div>
-          <div class="card-title">即將新增</div>
-          <div class="card-desc">上傳教材後自動產生</div>
-          <span class="card-tag">敬請期待</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- ⚖️ 公民                               -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-civ" data-subject="civ">
-      <div class="section-header">
-        <div class="section-icon">⚖️</div>
-        <div class="section-title">公民</div>
         <span class="section-count">即將新增</span>
       </div>
       <div class="chapter-grid">
