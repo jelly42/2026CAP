@@ -6,263 +6,80 @@
 <title>🔒 2026 學習工具組</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans TC', sans-serif; min-height: 100vh; background: linear-gradient(135deg, #065A82, #21295C); }
 
-body {
-  font-family: 'Noto Sans TC', sans-serif;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #065A82, #21295C);
-}
-
-/* ─── Login ─── */
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-.login-box {
-  background: white;
-  border-radius: 20px;
-  padding: 48px 40px;
-  width: 90%;
-  max-width: 420px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
-  text-align: center;
-  animation: fadeIn 0.5s ease;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+/* Login */
+.login-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+.login-box { background: white; border-radius: 20px; padding: 48px 40px; width: 90%; max-width: 420px; box-shadow: 0 30px 80px rgba(0,0,0,0.3); text-align: center; animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .login-box .icon { font-size: 56px; margin-bottom: 16px; }
 .login-box h1 { font-size: 22px; color: #1E293B; margin-bottom: 8px; }
 .login-box p { font-size: 14px; color: #64748B; margin-bottom: 28px; line-height: 1.6; }
-.login-box input {
-  width: 100%;
-  padding: 14px 18px;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 16px;
-  font-family: inherit;
-  outline: none;
-  margin-bottom: 16px;
-}
+.login-box input { width: 100%; padding: 14px 18px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px; font-family: inherit; outline: none; margin-bottom: 16px; }
 .login-box input:focus { border-color: #065A82; }
-.login-box .btn {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, #065A82, #1C7293);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.login-box .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(6,90,130,0.3);
-}
+.login-box .btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #065A82, #1C7293); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; font-family: inherit; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+.login-box .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(6,90,130,0.3); }
 .error { color: #E8363A; font-size: 13px; margin-top: 12px; display: none; }
 .error.show { display: block; animation: shake 0.4s ease; }
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-8px); }
-  75% { transform: translateX(8px); }
-}
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
 
-/* ─── Portal ─── */
+/* Portal */
 .portal { display: none; background: #F4F7FA; min-height: 100vh; }
 .portal.show { display: block; }
-
-.portal-header {
-  background: linear-gradient(135deg, #065A82, #21295C);
-  padding: 28px 32px 20px;
-  color: white;
-  text-align: center;
-}
+.portal-header { background: linear-gradient(135deg, #065A82, #21295C); padding: 28px 32px 20px; color: white; text-align: center; }
 .portal-header h1 { font-size: 24px; margin-bottom: 4px; }
 .portal-header p { font-size: 12px; opacity: 0.7; }
 
-/* ─── Subject Filter ─── */
-.filter-bar {
-  background: white;
-  padding: 12px 20px;
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  border-bottom: 1px solid #e2e8f0;
-  -webkit-overflow-scrolling: touch;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.filter-btn {
-  padding: 6px 16px;
-  border: 2px solid #e2e8f0;
-  background: white;
-  border-radius: 20px;
-  font-size: 13px;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-  font-weight: 500;
-}
+/* Filter */
+.filter-bar { background: white; padding: 12px 20px; display: flex; gap: 8px; overflow-x: auto; border-bottom: 1px solid #e2e8f0; justify-content: center; flex-wrap: wrap; }
+.filter-btn { padding: 6px 16px; border: 2px solid #e2e8f0; background: white; border-radius: 20px; font-size: 13px; font-family: inherit; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-weight: 500; }
 .filter-btn:hover { border-color: #065A82; color: #065A82; }
-.filter-btn.active {
-  background: #065A82;
-  color: white;
-  border-color: #065A82;
-}
+.filter-btn.active { background: #065A82; color: white; border-color: #065A82; }
 
-/* ─── Portal Body ─── */
-.portal-body {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 24px 20px 60px;
-}
-
-/* ─── Subject Section ─── */
-.subject-section {
-  margin-bottom: 28px;
-}
+/* Body */
+.portal-body { max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; }
+.subject-section { margin-bottom: 28px; }
 .subject-section.hidden { display: none; }
+.section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #e2e8f0; }
+.section-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.section-title { font-size: 16px; font-weight: 700; color: #1E293B; }
+.section-count { font-size: 11px; color: #94a3b8; background: #f1f5f9; padding: 2px 8px; border-radius: 10px; }
 
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-  padding-bottom: 6px;
-  border-bottom: 2px solid #e2e8f0;
-}
-.section-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-.section-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #1E293B;
-}
-.section-count {
-  font-size: 11px;
-  color: #94a3b8;
-  background: #f1f5f9;
-  padding: 2px 8px;
-  border-radius: 10px;
-}
-
-/* ─── Chapter Cards ─── */
-.chapter-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 14px;
-}
-.chapter-card {
-  background: white;
-  border-radius: 14px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  text-decoration: none;
-  color: #1E293B;
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: block;
-  border-left: 4px solid #065A82;
-  position: relative;
-}
-.chapter-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
+/* Cards */
+.chapter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.chapter-card { background: white; border-radius: 14px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); text-decoration: none; color: #1E293B; transition: transform 0.2s, box-shadow 0.2s; display: block; border-left: 4px solid #065A82; position: relative; }
+.chapter-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
 .card-emoji { font-size: 28px; margin-bottom: 6px; }
 .card-title { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
 .card-desc { font-size: 12px; color: #64748B; line-height: 1.5; }
-.card-tag {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 2px 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 600;
-}
-.card-grade {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 10px;
-  color: #94a3b8;
-  background: #f8fafc;
-  padding: 2px 8px;
-  border-radius: 8px;
-}
+.card-tag { display: inline-block; margin-top: 8px; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+.card-grade { position: absolute; top: 12px; right: 12px; font-size: 10px; color: #94a3b8; background: #f8fafc; padding: 2px 8px; border-radius: 8px; }
+.chapter-card.soon { opacity: 0.45; pointer-events: none; border-left-color: #d1d5db; }
 
-/* Coming soon */
-.chapter-card.soon {
-  opacity: 0.45;
-  pointer-events: none;
-  border-left-color: #d1d5db;
-}
+/* Subject Colors */
+[data-subject="chi"] .section-icon { background: #fef2f2; color: #b91c1c; }
+[data-subject="eng"] .section-icon { background: #f5f3ff; color: #7c3aed; }
+[data-subject="math"] .section-icon { background: #f0f7ff; color: #065A82; }
+[data-subject="his"] .section-icon { background: #fffbeb; color: #92400e; }
+[data-subject="geo"] .section-icon { background: #f0fdf4; color: #166534; }
+[data-subject="civ"] .section-icon { background: #eff6ff; color: #1e40af; }
+[data-subject="phy"] .section-icon { background: #ecfeff; color: #0e7490; }
+[data-subject="bio"] .section-icon { background: #f0fdf4; color: #15803d; }
+[data-subject="ear"] .section-icon { background: #f5f3ff; color: #6d28d9; }
 
-/* ─── Subject Colors ─── */
-.subject-math { --sc: #065A82; }
-.subject-eng  { --sc: #7c3aed; }
-.subject-chi  { --sc: #b91c1c; }
-.subject-his  { --sc: #92400e; }
-.subject-geo  { --sc: #166534; }
-.subject-civ  { --sc: #1e40af; }
-.subject-phy  { --sc: #0e7490; }
-.subject-bio  { --sc: #15803d; }
-.subject-ear  { --sc: #6d28d9; }
+.sc-chi { --border: #b91c1c; --tag-bg: #fef2f2; --tag-color: #b91c1c; }
+.sc-eng { --border: #7c3aed; --tag-bg: #f5f3ff; --tag-color: #7c3aed; }
+.sc-math { --border: #065A82; --tag-bg: #f0f7ff; --tag-color: #065A82; }
+.sc-his { --border: #92400e; --tag-bg: #fffbeb; --tag-color: #92400e; }
+.sc-geo { --border: #166534; --tag-bg: #f0fdf4; --tag-color: #166534; }
+.sc-civ { --border: #1e40af; --tag-bg: #eff6ff; --tag-color: #1e40af; }
+.sc-phy { --border: #0e7490; --tag-bg: #ecfeff; --tag-color: #0e7490; }
+.sc-bio { --border: #15803d; --tag-bg: #f0fdf4; --tag-color: #15803d; }
+.sc-ear { --border: #6d28d9; --tag-bg: #f5f3ff; --tag-color: #6d28d9; }
 
-.subject-math .section-icon { background: #f0f7ff; color: #065A82; }
-.subject-eng  .section-icon { background: #f5f3ff; color: #7c3aed; }
-.subject-chi  .section-icon { background: #fef2f2; color: #b91c1c; }
-.subject-his  .section-icon { background: #fffbeb; color: #92400e; }
-.subject-geo  .section-icon { background: #f0fdf4; color: #166534; }
-.subject-civ  .section-icon { background: #eff6ff; color: #1e40af; }
-.subject-phy  .section-icon { background: #ecfeff; color: #0e7490; }
-.subject-bio  .section-icon { background: #f0fdf4; color: #15803d; }
-.subject-ear  .section-icon { background: #f5f3ff; color: #6d28d9; }
+.footer { text-align: center; padding: 20px; font-size: 11px; color: #94a3b8; }
 
-.subject-math .chapter-card { border-left-color: #065A82; }
-.subject-math .card-tag { background: #f0f7ff; color: #065A82; }
-.subject-eng  .chapter-card { border-left-color: #7c3aed; }
-.subject-eng  .card-tag { background: #f5f3ff; color: #7c3aed; }
-.subject-chi  .chapter-card { border-left-color: #b91c1c; }
-.subject-chi  .card-tag { background: #fef2f2; color: #b91c1c; }
-.subject-his  .chapter-card { border-left-color: #92400e; }
-.subject-his  .card-tag { background: #fffbeb; color: #92400e; }
-.subject-geo  .chapter-card { border-left-color: #166534; }
-.subject-geo  .card-tag { background: #f0fdf4; color: #166534; }
-.subject-civ  .chapter-card { border-left-color: #1e40af; }
-.subject-civ  .card-tag { background: #eff6ff; color: #1e40af; }
-.subject-phy  .chapter-card { border-left-color: #0e7490; }
-.subject-phy  .card-tag { background: #ecfeff; color: #0e7490; }
-.subject-bio  .chapter-card { border-left-color: #15803d; }
-.subject-bio  .card-tag { background: #f0fdf4; color: #15803d; }
-.subject-ear  .chapter-card { border-left-color: #6d28d9; }
-.subject-ear  .card-tag { background: #f5f3ff; color: #6d28d9; }
-
-/* ─── Footer ─── */
-.footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 11px;
-  color: #94a3b8;
-}
-
-/* ─── Responsive ─── */
 @media (max-width: 768px) {
   .portal-header { padding: 20px 16px 14px; }
   .portal-header h1 { font-size: 20px; }
@@ -275,7 +92,7 @@ body {
 </head>
 <body>
 
-<!-- ═══ Login ═══ -->
+<!-- Login -->
 <div class="login-container" id="loginScreen">
   <div class="login-box">
     <div class="icon">📚</div>
@@ -287,14 +104,13 @@ body {
   </div>
 </div>
 
-<!-- ═══ Portal ═══ -->
+<!-- Portal -->
 <div class="portal" id="portal">
   <div class="portal-header">
     <h1>📚 2026 學習工具組</h1>
     <p>June & Isabelle 的專屬學習平台 ｜ 選擇章節開始學習</p>
   </div>
   
-  <!-- Subject Filter -->
   <div class="filter-bar">
     <button class="filter-btn active" onclick="filterSubject('all')">全部</button>
     <button class="filter-btn" onclick="filterSubject('chi')">📕 國文</button>
@@ -308,218 +124,21 @@ body {
     <button class="filter-btn" onclick="filterSubject('ear')">🌍 地球科學</button>
   </div>
   
-  <div class="portal-body">
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- 📕 國文                                -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-chi" data-subject="chi">
-      <div class="section-header">
-        <div class="section-icon">📕</div>
-        <div class="section-title">國文</div>
-        <span class="section-count">即將新增</span>
-      </div>
-      <div class="chapter-grid">
-        <div class="chapter-card soon">
-          <div class="card-emoji">🔜</div>
-          <div class="card-title">即將新增</div>
-          <div class="card-desc">上傳教材後自動產生</div>
-          <span class="card-tag">敬請期待</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- 📖 英文                                -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-eng" data-subject="eng">
-      <div class="section-header">
-        <div class="section-icon">📖</div>
-        <div class="section-title">英文</div>
-        <span class="section-count">即將新增</span>
-      </div>
-      <div class="chapter-grid">
-        
-        <!-- ★ 新增英文章節：複製下方模板 ★
-        <a class="chapter-card" href="eng-unit5-passive/index.html">
-          <span class="card-grade">九上</span>
-          <div class="card-emoji">📖</div>
-          <div class="card-title">Unit 5 被動語態</div>
-          <div class="card-desc">被動語態的結構與用法</div>
-          <span class="card-tag">7 份學習工具</span>
-        </a>
-        -->
-        
-        <div class="chapter-card soon">
-          <div class="card-emoji">🔜</div>
-          <div class="card-title">即將新增</div>
-          <div class="card-desc">上傳教材後自動產生</div>
-          <span class="card-tag">敬請期待</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- 📐 數學                                -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-math" data-subject="math">
-      <div class="section-header">
-        <div class="section-icon">📐</div>
-        <div class="section-title">數學</div>
-        <span class="section-count">1 個章節</span>
-      </div>
-      <div class="chapter-grid">
-        
-        <a class="chapter-card" href="數學-九上-第三章-幾何與證明-康軒麻辣講義/index.html">
-          <span class="card-grade">九上</span>
-          <div class="card-emoji">📐</div>
-          <div class="card-title">第三章 幾何與證明</div>
-          <div class="card-desc">康軒麻辣講義 ｜ 證明與推理、外心、內心與重心</div>
-          <span class="card-tag">7 份學習工具</span>
-        </a>
-        
-        <!-- ★ 新增數學章節：複製下方模板，修改內容 ★
-        <a class="chapter-card" href="math-ch4-statistics/index.html">
-          <span class="card-grade">九上</span>
-          <div class="card-emoji">📊</div>
-          <div class="card-title">第四章 統計與機率</div>
-          <div class="card-desc">資料整理、統計圖表、機率</div>
-          <span class="card-tag">7 份學習工具</span>
-        </a>
-        -->
-
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- 🏛️ 歷史                               -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-his" data-subject="his">
-      <div class="section-header">
-        <div class="section-icon">🏛️</div>
-        <div class="section-title">歷史</div>
-        <span class="section-count">即將新增</span>
-      </div>
-      <div class="chapter-grid">
-        <div class="chapter-card soon">
-          <div class="card-emoji">🔜</div>
-          <div class="card-title">即將新增</div>
-          <div class="card-desc">上傳教材後自動產生</div>
-          <span class="card-tag">敬請期待</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- 🗺️ 地理                               -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-geo" data-subject="geo">
-      <div class="section-header">
-        <div class="section-icon">🗺️</div>
-        <div class="section-title">地理</div>
-        <span class="section-count">即將新增</span>
-      </div>
-      <div class="chapter-grid">
-        <div class="chapter-card soon">
-          <div class="card-emoji">🔜</div>
-          <div class="card-title">即將新增</div>
-          <div class="card-desc">上傳教材後自動產生</div>
-          <span class="card-tag">敬請期待</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- ⚖️ 公民                               -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-civ" data-subject="civ">
-      <div class="section-header">
-        <div class="section-icon">⚖️</div>
-        <div class="section-title">公民</div>
-        <span class="section-count">即將新增</span>
-      </div>
-      <div class="chapter-grid">
-        <div class="chapter-card soon">
-          <div class="card-emoji">🔜</div>
-          <div class="card-title">即將新增</div>
-          <div class="card-desc">上傳教材後自動產生</div>
-          <span class="card-tag">敬請期待</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- 🔬 理化                                -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-phy" data-subject="phy">
-      <div class="section-header">
-        <div class="section-icon">🔬</div>
-        <div class="section-title">理化</div>
-        <span class="section-count">即將新增</span>
-      </div>
-      <div class="chapter-grid">
-        <div class="chapter-card soon">
-          <div class="card-emoji">🔜</div>
-          <div class="card-title">即將新增</div>
-          <div class="card-desc">上傳教材後自動產生</div>
-          <span class="card-tag">敬請期待</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- 🧬 生物                                -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-bio" data-subject="bio">
-      <div class="section-header">
-        <div class="section-icon">🧬</div>
-        <div class="section-title">生物</div>
-        <span class="section-count">即將新增</span>
-      </div>
-      <div class="chapter-grid">
-        <div class="chapter-card soon">
-          <div class="card-emoji">🔜</div>
-          <div class="card-title">即將新增</div>
-          <div class="card-desc">上傳教材後自動產生</div>
-          <span class="card-tag">敬請期待</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- 🌍 地球科學                            -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="subject-section subject-ear" data-subject="ear">
-      <div class="section-header">
-        <div class="section-icon">🌍</div>
-        <div class="section-title">地球科學</div>
-        <span class="section-count">即將新增</span>
-      </div>
-      <div class="chapter-grid">
-        <div class="chapter-card soon">
-          <div class="card-emoji">🔜</div>
-          <div class="card-title">即將新增</div>
-          <div class="card-desc">上傳教材後自動產生</div>
-          <span class="card-tag">敬請期待</span>
-        </div>
-      </div>
-    </div>
-
+  <div class="portal-body" id="portalBody">
+    <!-- 由 JavaScript 自動產生 -->
+    <div style="text-align:center; padding:40px; color:#94a3b8;">載入中...</div>
   </div>
   
-  <div class="footer">
-    2026 學習工具組 ｜ 有問題請聯繫老師/家長
-  </div>
+  <div class="footer">2026 學習工具組 ｜ 有問題請聯繫老師/家長</div>
 </div>
 
 <script>
-// ─── Auth ───
+// === Auth ===
 async function sha256(msg) {
   const buf = new TextEncoder().encode(msg);
   const hash = await crypto.subtle.digest('SHA-256', buf);
   return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
-
 const PW_HASH = 'b3282a2f2a28757b3a18ab833de16a9c54518c0b0cf493e3f0a7cf09386f326a';
 
 async function doLogin() {
@@ -530,6 +149,7 @@ async function doLogin() {
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('portal').classList.add('show');
     sessionStorage.setItem('auth2026', '1');
+    loadChapters();
   } else {
     const err = document.getElementById('errorMsg');
     err.classList.remove('show');
@@ -542,32 +162,99 @@ async function doLogin() {
 if (sessionStorage.getItem('auth2026') === '1') {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('portal').classList.add('show');
+  loadChapters();
 }
 document.getElementById('pwInput').focus();
 
-// ─── Subject Filter ───
+// === Subject Config ===
+const SUBJECTS = [
+  { code: 'chi', name: '國文', emoji: '📕' },
+  { code: 'eng', name: '英文', emoji: '📖' },
+  { code: 'math', name: '數學', emoji: '📐' },
+  { code: 'his', name: '歷史', emoji: '🏛️' },
+  { code: 'geo', name: '地理', emoji: '🗺️' },
+  { code: 'civ', name: '公民', emoji: '⚖️' },
+  { code: 'phy', name: '理化', emoji: '🔬' },
+  { code: 'bio', name: '生物', emoji: '🧬' },
+  { code: 'ear', name: '地球科學', emoji: '🌍' }
+];
+
+// === Load chapters.json and render ===
+async function loadChapters() {
+  let chapters = [];
+  try {
+    const res = await fetch('chapters.json?' + Date.now());
+    chapters = await res.json();
+  } catch(e) {
+    console.log('No chapters.json found or error loading:', e);
+  }
+  renderPortal(chapters);
+}
+
+function renderPortal(chapters) {
+  const body = document.getElementById('portalBody');
+  let html = '';
+  
+  for (const subj of SUBJECTS) {
+    const subjChapters = chapters.filter(c => c.subject === subj.code);
+    const count = subjChapters.length > 0 ? subjChapters.length + ' 個章節' : '即將新增';
+    
+    html += `
+    <div class="subject-section" data-subject="${subj.code}">
+      <div class="section-header">
+        <div class="section-icon">${subj.emoji}</div>
+        <div class="section-title">${subj.name}</div>
+        <span class="section-count">${count}</span>
+      </div>
+      <div class="chapter-grid">`;
+    
+    if (subjChapters.length > 0) {
+      for (const ch of subjChapters) {
+        const isReview = ch.folder.includes('段考複習');
+        const borderStyle = isReview ? 'style="border-left-color:#F59E0B;"' : '';
+        const tagStyle = isReview 
+          ? 'style="background:#fffbeb; color:#F59E0B;"' 
+          : `style="background:var(--tag-bg); color:var(--tag-color);"`;
+        const tagText = isReview ? '📝 總複習' : '7 份學習工具';
+        
+        html += `
+        <a class="chapter-card sc-${subj.code}" href="${encodeURI(ch.folder)}/index.html" ${borderStyle}>
+          <span class="card-grade">${ch.grade}</span>
+          <div class="card-emoji">${ch.emoji || subj.emoji}</div>
+          <div class="card-title">${ch.title}</div>
+          <div class="card-desc">${ch.desc}</div>
+          <span class="card-tag" ${tagStyle}>${tagText}</span>
+        </a>`;
+      }
+    } else {
+      html += `
+        <div class="chapter-card soon">
+          <div class="card-emoji">🔜</div>
+          <div class="card-title">即將新增</div>
+          <div class="card-desc">上傳教材後自動產生</div>
+          <span class="card-tag" style="background:#f1f5f9; color:#94a3b8;">敬請期待</span>
+        </div>`;
+    }
+    
+    html += `</div></div>`;
+  }
+  
+  body.innerHTML = html;
+}
+
+// === Filter ===
 function filterSubject(subject) {
-  // Update buttons
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.remove('active');
-    if (btn.textContent.includes(getSubjectName(subject)) || (subject === 'all' && btn.textContent === '全部')) {
+    const name = SUBJECTS.find(s => s.code === subject)?.name;
+    if (btn.textContent.includes(name) || (subject === 'all' && btn.textContent === '全部')) {
       btn.classList.add('active');
     }
   });
-  
-  // Show/hide sections
   document.querySelectorAll('.subject-section').forEach(sec => {
-    if (subject === 'all') {
-      sec.classList.remove('hidden');
-    } else {
-      sec.classList.toggle('hidden', sec.dataset.subject !== subject);
-    }
+    if (subject === 'all') sec.classList.remove('hidden');
+    else sec.classList.toggle('hidden', sec.dataset.subject !== subject);
   });
-}
-
-function getSubjectName(code) {
-  const map = { math:'數學', eng:'英文', chi:'國文', phy:'理化', bio:'生物', ear:'地球科學', his:'歷史', geo:'地理', civ:'公民' };
-  return map[code] || '';
 }
 </script>
 
