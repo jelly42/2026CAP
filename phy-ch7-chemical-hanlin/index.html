@@ -1,0 +1,2500 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧪 化學計量・化學反應・氧化還原 ｜ 學習工具組</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--pri:#065A82;--sec:#1C7293;--acc:#21295C;--orange:#F59E0B;--dark:#1E293B;--gray:#64748B;--light:#F8FAFC;--bg:#F0F4F8;--border:#E2E8F0;--radius:12px;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--dark);line-height:1.7;}
+body.dark{--bg:#0f172a;--light:#1e293b;--dark:#e2e8f0;--border:#334155;--gray:#94a3b8;background:var(--bg);color:var(--dark);}
+
+/* Login */
+.login-container{display:flex;justify-content:center;align-items:center;min-height:100vh;background:linear-gradient(135deg,#065A82,#21295C);}
+.login-box{background:white;border-radius:20px;padding:48px 40px;width:90%;max-width:420px;box-shadow:0 30px 80px rgba(0,0,0,0.3);text-align:center;animation:fadeIn .5s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.login-box .icon{font-size:56px;margin-bottom:16px;}
+.login-box h1{font-size:22px;color:#1E293B;margin-bottom:8px;}
+.login-box p{font-size:14px;color:#64748B;margin-bottom:28px;}
+.login-box input{width:100%;padding:14px 18px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;font-family:inherit;outline:none;margin-bottom:16px;}
+.login-box input:focus{border-color:#065A82;}
+.login-box .btn{width:100%;padding:14px;background:linear-gradient(135deg,#065A82,#1C7293);color:white;border:none;border-radius:12px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;}
+.login-box .btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(6,90,130,0.3);}
+.error{color:#E8363A;font-size:13px;margin-top:12px;display:none;}
+.error.show{display:block;}
+
+/* Header */
+.header{background:linear-gradient(135deg,var(--pri),var(--acc));color:white;padding:16px 20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+.header-top{display:flex;justify-content:space-between;align-items:center;max-width:1000px;margin:0 auto;}
+.header h1{font-size:18px;}
+.header-tools{display:flex;gap:8px;}
+.header-tools button{background:rgba(255,255,255,0.15);border:none;color:white;padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-family:inherit;}
+.header-tools button:hover{background:rgba(255,255,255,0.25);}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;padding:10px 20px;background:var(--light);border-bottom:1px solid var(--border);overflow-x:auto;position:sticky;top:60px;z-index:99;}
+.tab-btn{padding:8px 16px;border:none;background:transparent;color:var(--gray);font-size:13px;font-weight:500;cursor:pointer;border-radius:8px;white-space:nowrap;font-family:inherit;transition:all .2s;}
+.tab-btn:hover{background:rgba(6,90,130,0.08);color:var(--pri);}
+.tab-btn.active{background:var(--pri);color:white;}
+
+/* Progress */
+.progress-bar{height:3px;background:var(--border);}
+.progress-fill{height:100%;background:var(--orange);transition:width .3s;}
+
+/* Content */
+.content{max-width:900px;margin:0 auto;padding:24px 20px 60px;display:none;}
+.content.active{display:block;animation:fadeIn .3s ease;}
+
+/* Typography */
+.content h1{font-size:24px;color:var(--pri);margin:20px 0 12px;border-bottom:2px solid var(--border);padding-bottom:8px;}
+.content h2{font-size:20px;color:var(--acc);margin:24px 0 10px;}
+.content h3{font-size:16px;color:var(--sec);margin:16px 0 8px;}
+.content p{margin:6px 0;}
+.content hr{border:none;border-top:1px solid var(--border);margin:20px 0;}
+.content li{margin:4px 0 4px 20px;}
+.content code{background:rgba(6,90,130,0.08);padding:2px 6px;border-radius:4px;font-size:0.9em;}
+.content pre{background:var(--light);padding:16px;border-radius:8px;overflow-x:auto;margin:12px 0;border:1px solid var(--border);}
+.content pre code{background:none;padding:0;}
+
+/* Tables */
+.table-wrapper{overflow-x:auto;margin:12px 0;}
+.content table{width:100%;border-collapse:collapse;font-size:13px;}
+.content th{background:var(--pri);color:white;padding:10px 12px;text-align:left;font-weight:600;}
+.content td{padding:8px 12px;border-bottom:1px solid var(--border);}
+.content tr:nth-child(even){background:rgba(6,90,130,0.03);}
+body.dark .content th{background:var(--sec);}
+
+/* Callouts */
+.callout{border-radius:8px;padding:16px;margin:12px 0;border-left:4px solid;}
+.callout-title{font-weight:700;margin-bottom:6px;}
+.callout-tip{background:#f0fdf4;border-color:#22c55e;}
+.callout-tip .callout-title{color:#166534;}
+.callout-warning{background:#fffbeb;border-color:#f59e0b;}
+.callout-warning .callout-title{color:#92400e;}
+.callout-info{background:#eff6ff;border-color:#3b82f6;}
+.callout-info .callout-title{color:#1e40af;}
+.callout-question{background:#f5f3ff;border-color:#8b5cf6;}
+.callout-question .callout-title{color:#6d28d9;}
+.callout-success{background:#f0fdf4;border-color:#22c55e;}
+.callout-success .callout-title{color:#166534;}
+body.dark .callout-tip{background:#0d2818;}
+body.dark .callout-warning{background:#2d1f05;}
+body.dark .callout-info{background:#0c1e33;}
+
+/* SVG */
+.svg-container{margin:16px 0;max-width:100%;overflow-x:auto;}
+.svg-container svg{max-width:100%;height:auto;}
+
+/* Anki Cards */
+.anki-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.anki-card{perspective:1000px;cursor:pointer;height:200px;}
+.anki-card-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
+.anki-card.flipped .anki-card-inner{transform:rotateY(180deg);}
+.anki-front,.anki-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:12px;padding:16px;display:flex;flex-direction:column;justify-content:center;}
+.anki-front{background:white;border:2px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.anki-back{background:var(--pri);color:white;transform:rotateY(180deg);overflow-y:auto;}
+.anki-num{font-size:11px;color:var(--gray);position:absolute;top:8px;left:12px;}
+.anki-q{font-size:14px;text-align:center;line-height:1.5;}
+.anki-hint{font-size:11px;color:var(--gray);text-align:center;position:absolute;bottom:8px;left:0;right:0;}
+.anki-a{font-size:13px;line-height:1.6;}
+.anki-tags{position:absolute;bottom:8px;left:12px;right:12px;display:flex;gap:4px;flex-wrap:wrap;}
+.anki-tag{background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:10px;font-size:10px;}
+body.dark .anki-front{background:var(--light);border-color:var(--border);}
+
+/* Exam Timer */
+.exam-timer{background:var(--pri);color:white;padding:12px 20px;border-radius:12px;display:flex;align-items:center;gap:12px;margin-bottom:20px;font-size:14px;}
+.timer-display{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;}
+.timer-btn{background:rgba(255,255,255,0.2);border:none;color:white;padding:6px 14px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:13px;}
+.timer-btn:hover{background:rgba(255,255,255,0.3);}
+
+/* Answer Lock */
+.answer-lock{background:#fef3c7;border:2px solid #f59e0b;border-radius:12px;padding:20px;text-align:center;margin:20px 0;}
+.answer-lock label{cursor:pointer;font-size:14px;}
+.answer-lock input{margin-right:8px;}
+.answer-content{display:none;}
+.answer-content.unlocked{display:block;}
+
+/* Search */
+.search-bar{display:none;padding:10px 20px;background:var(--light);border-bottom:1px solid var(--border);position:sticky;top:108px;z-index:98;}
+.search-bar.show{display:block;}
+.search-bar input{width:100%;max-width:600px;padding:10px 16px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;outline:none;background:white;}
+.search-bar input:focus{border-color:var(--pri);}
+body.dark .search-bar input{background:var(--light);color:var(--dark);}
+
+/* Nav buttons */
+.nav-buttons{display:flex;justify-content:space-between;margin-top:32px;padding-top:16px;border-top:1px solid var(--border);}
+.nav-btn{padding:10px 20px;background:var(--pri);color:white;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-family:inherit;font-weight:600;}
+.nav-btn:hover{background:var(--sec);}
+.nav-btn:disabled{opacity:0.3;cursor:not-allowed;}
+
+/* Footer */
+.footer{text-align:center;padding:20px;font-size:12px;color:var(--gray);}
+
+/* Responsive */
+@media(max-width:768px){
+  .header h1{font-size:15px;}
+  .tabs{gap:2px;padding:8px 12px;}
+  .tab-btn{padding:6px 10px;font-size:12px;}
+  .content{padding:16px 12px 40px;}
+  .anki-grid{grid-template-columns:1fr;}
+}
+
+/* Print */
+@media print{
+  .header,.tabs,.progress-bar,.search-bar,.nav-buttons,.header-tools,.exam-timer,.answer-lock,.footer{display:none!important;}
+  .content{display:block!important;max-width:100%;}
+}
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div class="login-container" id="loginScreen">
+<div class="login-box">
+  <div class="icon">🧪</div>
+  <h1>化學計量・化學反應・氧化還原</h1>
+  <p>八年級上學期 第七單元<br>請輸入密碼進入學習工具組</p>
+  <input type="password" id="pwInput" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter')doLogin()">
+  <button class="btn" onclick="doLogin()">🔓 解鎖進入</button>
+  <div class="error" id="errorMsg">❌ 密碼錯誤</div>
+</div>
+</div>
+
+<!-- Main App -->
+<div id="app" style="display:none">
+
+<div class="header">
+<div class="header-top">
+  <h1>🧪 化學計量・化學反應・氧化還原</h1>
+  <div class="header-tools">
+    <button onclick="toggleSearch()" title="搜尋 (Ctrl+F)">🔍</button>
+    <button onclick="toggleDark()" title="深色模式">🌙</button>
+    <button onclick="window.print()" title="列印/PDF">📥</button>
+  </div>
+</div>
+</div>
+
+<div class="tabs" id="tabBar">
+  <button class="tab-btn active" onclick="switchTab(0)">📖 費曼</button>
+  <button class="tab-btn" onclick="switchTab(1)">📊 簡報</button>
+  <button class="tab-btn" onclick="switchTab(2)">📒 康乃爾</button>
+  <button class="tab-btn" onclick="switchTab(3)">🃏 Anki</button>
+  <button class="tab-btn" onclick="switchTab(4)">⚡ Cheat Sheet</button>
+  <button class="tab-btn" onclick="switchTab(5)">📝 考試卷</button>
+  <button class="tab-btn" onclick="switchTab(6)">✅ 答案卷</button>
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:14.3%"></div></div>
+
+<div class="search-bar" id="searchBar">
+  <input type="text" id="searchInput" placeholder="搜尋關鍵字..." oninput="doSearch(this.value)">
+</div>
+
+<!-- Tab 0: Feynman -->
+<div class="content active" id="tab0">
+
+<h1>🧪 第七單元：化學計量、化學反應、氧化還原</h1>
+
+<div class="callout callout-info"><div class="callout-title">學習目標</div><div class="callout-content">
+<p>用「教 10 歲小孩」的方式，把每個概念講到連小學生都能懂。</p>
+</div></div>
+
+<hr>
+
+<h2>焦點 1：化學計量</h2>
+
+<h3>1-1 原子量與分子量</h3>
+
+<div class="callout callout-tip"><div class="callout-title">白話解釋</div><div class="callout-content">
+<p>想像你有一堆不同大小的彈珠。我們需要一個「標準彈珠」來比較大小。科學家選了**碳-12**這顆原子當標準，規定它的質量＝12。</p>
+<p>></p>
+<p>- **原子量**：就是拿某個原子跟碳-12 比較的「比值」。比如氧原子量是 16，意思是氧比碳-12 重一點點（16/12 倍）。</p>
+<p>- **分子量**：就是一個分子裡所有原子量「加起來」。像水 H₂O = 1×2 + 16 = 18。</p>
+</div></div>
+
+<p><strong>重要公式：</strong></p>
+
+<div class="table-wrapper"><table>
+<tr><th>公式</th><th>說明</th></tr>
+<tr><td>原子量 = 待測原子的質量 / (碳-12 質量 ÷ 12)</td><td>原子量的定義</td></tr>
+<tr><td>分子量 = 各原子量 × 個數之總和</td><td>分子量的計算</td></tr>
+</table></div>
+
+<p><strong>計算範例：</strong></p>
+<li>H₂O 的分子量 = 1×2 + 16×1 = **18**</li>
+<li>CO₂ 的分子量 = 12×1 + 16×2 = **44**</li>
+<li>CH₄ 的分子量 = 12×1 + 1×4 = **16**</li>
+<li>H₂SO₄ 的分子量 = 1×2 + 32×1 + 16×4 = **98**</li>
+
+<div class="callout callout-warning"><div class="callout-title">⚠️ 我還不確定的地方</div><div class="callout-content">
+<p>原子量是「比較值」，**沒有單位**！它不是原子的實際質量（那個超級超級小）。容易跟莫耳質量搞混。</p>
+</div></div>
+
+<hr>
+
+<h3>1-2 莫耳（mole）</h3>
+
+<div class="callout callout-tip"><div class="callout-title">白話解釋</div><div class="callout-content">
+<p>買雞蛋我們說「一打 = 12 顆」，科學家數原子也需要一個「打」。這個「打」就叫**莫耳**，1 莫耳 = 6×10²³ 個（這個數叫亞佛加厥數）。</p>
+<p>></p>
+<p>為什麼是 6×10²³？因為科學家規定：**12 公克的碳-12 剛好含有 6×10²³ 個碳原子**。</p>
+</div></div>
+
+<p><strong>三大轉換公式：</strong></p>
+
+<div class="table-wrapper"><table>
+<tr><th>轉換方向</th><th>公式</th></tr>
+<tr><td>質量 → 莫耳數</td><td>莫耳數 = 物質質量(g) ÷ 分子量(或原子量)</td></tr>
+<tr><td>莫耳數 → 粒子數</td><td>粒子數 = 莫耳數 × 6×10²³</td></tr>
+<tr><td>莫耳數 → 質量</td><td>質量(g) = 莫耳數 × 分子量</td></tr>
+</table></div>
+
+<p><strong>關鍵關係圖：</strong></p>
+
+<pre><code class="lang-">
+質量(g)  ←──÷分子量──→  莫耳數  ←──×6×10²³──→  粒子個數
+</code></pre>
+
+<p><strong>計算範例：</strong></p>
+<li>20 克 H₂ → 莫耳數 = 20/2 = 10 mol</li>
+<li>88 克 CO₂ → 莫耳數 = 88/44 = 2 mol</li>
+<li>90 克 H₂O → 莫耳數 = 90/18 = 5 mol</li>
+
+<div class="callout callout-warning"><div class="callout-title">⚠️ 我還不確定的地方</div><div class="callout-content">
+<p>莫耳是「計量單位」，可以有小數（如 1.6 莫耳），但它數的對象必須是**整數**（不可能有 1.6 個原子）。莫耳數可以是小數，粒子數一定是整數！</p>
+</div></div>
+
+<hr>
+
+<h3>1-3 莫耳質量與質量比</h3>
+
+<div class="callout callout-tip"><div class="callout-title">白話解釋</div><div class="callout-content">
+<p>- **1 莫耳的質量** = 原子量或分子量，但單位變成「公克」！</p>
+<p>  - 例：1 莫耳 H₂O = 18 公克，1 莫耳 CO₂ = 44 公克</p>
+<p>- **1 個原子（分子）的真正質量** = 分子量 ÷ 6×10²³（超級小的數字！）</p>
+<p>- **莫耳數比 = 質量比 ÷ 分子量比**</p>
+</div></div>
+
+<p><strong>範例：已知質量比求莫耳數比</strong></p>
+<li>某化合物中 X 和 O 的質量比為 9:8，原子量 X=27, O=16</li>
+<li>莫耳數比 = (9/27) : (8/16) = 1/3 : 1/2 = 2:3</li>
+<li>所以化合物可能是 X₂O₃（例如 Al₂O₃）</li>
+
+<hr>
+
+<h2>焦點 2：化學反應</h2>
+
+<h3>2-1 化學反應常見的現象</h3>
+
+<div class="callout callout-tip"><div class="callout-title">白話解釋</div><div class="callout-content">
+<p>化學反應就像「變魔術」，原本的東西變成完全不同的新東西。你可以從這些「線索」看出化學反應發生了：</p>
+</div></div>
+
+<div class="table-wrapper"><table>
+<tr><th>現象</th><th>例子</th><th>反應式</th></tr>
+<tr><td>發光、發熱</td><td>鎂在氧氣中燃燒，發出白色強光</td><td>2Mg + O₂ → 2MgO</td></tr>
+<tr><td>顏色改變</td><td>藍色硫酸銅加熱，變白色</td><td>CuSO₄·5H₂O → CuSO₄ + 5H₂O</td></tr>
+<tr><td>產生沉澱</td><td>碳酸鈉 + 氯化鈣 → 白色碳酸鈣沉澱</td><td>Na₂CO₃ + CaCl₂ → CaCO₃↓ + 2NaCl</td></tr>
+<tr><td>產生氣體</td><td>碳酸鈣 + 鹽酸 → 冒泡泡</td><td>CaCO₃ + 2HCl → CaCl₂ + CO₂↑ + H₂O</td></tr>
+</table></div>
+
+<hr>
+
+<h3>2-2 化學反應式的寫法</h3>
+
+<div class="callout callout-tip"><div class="callout-title">白話解釋</div><div class="callout-content">
+<p>化學反應式就像一個「食譜」：</p>
+<p>- **左邊** = 材料（反應物）</p>
+<p>- **右邊** = 成品（生成物）</p>
+<p>- **箭號 →** = 「變成」</p>
+<p>- **+** = 「加上」</p>
+<p>- **係數** = 告訴你要用幾份</p>
+</div></div>
+
+<p><strong>書寫步驟：</strong></p>
+<p>1. 先寫出反應物和生成物的化學式</p>
+<p>2. 用箭號「→」連接（左邊反應物，右邊生成物）</p>
+<p>3. 平衡係數（讓左右兩邊原子數相等）</p>
+
+<p><strong>平衡技巧：</strong></p>
+<li>先平衡最複雜的分子</li>
+<li>如果出現分數，全部乘以最小公倍數變整數</li>
+
+<p><strong>範例：氫氣燃燒生成水</strong></p>
+<pre><code class="lang-">
+未平衡：H₂ + O₂ → H₂O
+平衡後：2H₂ + O₂ → 2H₂O
+</code></pre>
+<li>驗證：左邊 H=4, O=2；右邊 H=4, O=2 ✓</li>
+
+<hr>
+
+<h3>2-3 化學反應式的意義</h3>
+
+<div class="callout callout-tip"><div class="callout-title">白話解釋</div><div class="callout-content">
+<p>化學反應式裡的**係數**，能告訴你三件事：</p>
+</div></div>
+
+<p>以 2H₂O₂ →(MnO₂) 2H₂O + O₂ 為例：</p>
+
+<div class="table-wrapper"><table>
+<tr><th>層次</th><th>反應物 2H₂O₂</th><th>生成物 2H₂O</th><th>生成物 O₂</th></tr>
+<tr><td>係數比</td><td>2</td><td>2</td><td>1</td></tr>
+<tr><td>莫耳數比</td><td>2</td><td>2</td><td>1</td></tr>
+<tr><td>分子數比</td><td>2</td><td>2</td><td>1</td></tr>
+<tr><td>質量比</td><td>2×34 = 68</td><td>2×18 = 36</td><td>1×32 = 32</td></tr>
+</table></div>
+
+<div class="callout callout-warning"><div class="callout-title">⚠️ 我還不確定的地方</div><div class="callout-content">
+<p>係數比 = 莫耳數比 = 分子數比，但**不等於**質量比！質量比要乘上分子量。很多人搞混這個！</p>
+</div></div>
+
+<hr>
+
+<h3>2-4 質量守恆定律</h3>
+
+<div class="callout callout-tip"><div class="callout-title">白話解釋</div><div class="callout-content">
+<p>想像你把樂高積木從一個造型拆開，重新組成另一個造型。積木的**總重量不變**！化學反應也一樣：</p>
+<p>></p>
+<p>**反應前所有物質的總質量 ＝ 反應後所有物質的總質量**</p>
+</div></div>
+
+<p>用道耳頓原子說解釋：</p>
+<li>化學反應只是原子的「重新排列組合」</li>
+<li>原子不會憑空產生或消失</li>
+<li>所以總質量不變</li>
+
+<div class="callout callout-warning"><div class="callout-title">⚠️ 我還不確定的地方</div><div class="callout-content">
+<p>如果反應有氣體跑掉（如 CO₂↑），秤重時質量「看起來」會減少，但實際上加上跑掉的氣體，總質量還是相等的！</p>
+</div></div>
+
+<hr>
+
+<h3>2-5 化學反應式的狀態標示</h3>
+
+<div class="callout callout-tip"><div class="callout-title">白話解釋</div><div class="callout-content">
+<p>我們可以在化學式旁邊加上「標籤」，告訴別人這東西是什麼狀態：</p>
+<p>- **(s)** = 固體 solid</p>
+<p>- **(l)** = 液體 liquid</p>
+<p>- **(g)** = 氣體 gas</p>
+<p>- **(aq)** = 水溶液 aqueous</p>
+<p>- **↑** = 有氣體產生</p>
+<p>- **↓** = 有沉澱產生</p>
+<p>- **△** = 需要加熱</p>
+<p>- **MnO₂** 寫在箭號上方 = 催化劑</p>
+</div></div>
+
+<hr>
+
+<h2>焦點 3：氧化</h2>
+
+<h3>3-1 氧化與活性大小</h3>
+
+<div class="callout callout-tip"><div class="callout-title">白話解釋</div><div class="callout-content">
+<p>**氧化** = 物質跟氧「交朋友」（結合）。</p>
+<p>- **劇烈的氧化** = 燃燒（一下子就反應完）</p>
+<p>- **溫和的氧化** = 生鏽、呼吸作用、光合作用（慢慢來）</p>
+<p>></p>
+<p>**活性** = 一個元素有多「想」跟氧交朋友。活性越大，越容易燃燒。</p>
+</div></div>
+
+<p><strong>活性大小排列（口訣：鉀鈉鋇鈣鎂鋁碳鋅鉻鐵錫鉛氫銅汞銀鉑金）：</strong></p>
+
+<pre><code class="lang-">
+K > Na > Ba > Ca > Mg > Al > C > Zn > Cr > Fe > Sn > Pb > H > Cu > Hg > Ag > Pt > Au
+鉀   鈉   鋇   鈣   鎂   鋁   碳  鋅   鉻   鐵  錫   鉛   氫  銅   汞   銀   鉑   金
+</code></pre>
+
+<div class="callout callout-tip"><div class="callout-title">口訣</div><div class="callout-content">
+<p>「**嫁**（鉀）**那**（鈉）**美**（鎂）**女**（鋁），**心**（鋅）**鐵**（鐵）**真**（錫）**前**（鉛），**統**（銅）**共**（汞）**一**（銀）**百**（鉑）**斤**（金）」</p>
+</div></div>
+
+<div class="table-wrapper"><table>
+<tr><th>活性</th><th>元素特性</th><th>氧化物特性</th><th>例子</th></tr>
+<tr><td>活性大</td><td>不安定</td><td>很安定</td><td>鎂容易燃燒，氧化鎂安定</td></tr>
+<tr><td>活性小</td><td>不安定</td><td>不安定</td><td>銅不容易燃燒，氧化銅不安定</td></tr>
+</table></div>
+
+<hr>
+
+<h3>3-2 金屬燃燒與燃燒產物</h3>
+
+<div class="callout callout-tip"><div class="callout-title">白話解釋</div><div class="callout-content">
+<p>不同金屬燃燒有不同的「表演」：</p>
+</div></div>
+
+<p><strong>鈉、鎂、鋅、銅的燃燒比較：</strong></p>
+
+<div class="table-wrapper"><table>
+<tr><th>金屬</th><th>燃燒難易度</th><th>火焰顏色</th><th>燃燒產物</th><th>氧化物溶水</th><th>水溶液性質</th></tr>
+<tr><td>鈉 Na</td><td>容易</td><td>黃色</td><td>氧化鈉 NaOH</td><td>溶</td><td>鹼性</td></tr>
+<tr><td>鎂 Mg</td><td>容易</td><td>白光</td><td>氧化鎂 Mg(OH)₂</td><td>難溶</td><td>鹼性</td></tr>
+<tr><td>鋅 Zn</td><td>不容易</td><td>黃綠色</td><td>氧化鋅</td><td>難溶</td><td>-</td></tr>
+<tr><td>銅 Cu</td><td>不容易</td><td>-</td><td>氧化銅（黑色）</td><td>不溶</td><td>中性</td></tr>
+</table></div>
+
+<p><strong>非金屬（硫、磷、碳）燃燒比較：</strong></p>
+
+<div class="table-wrapper"><table>
+<tr><th>非金屬</th><th>火焰</th><th>產物</th><th>氧化物溶水</th><th>水溶液性質</th></tr>
+<tr><td>硫 S</td><td>藍紫色</td><td>SO₂ → H₂SO₃（亞硫酸）</td><td>溶</td><td>酸性</td></tr>
+<tr><td>紅磷 P</td><td>黃白色</td><td>P₂O₅ → H₃PO₄（磷酸）</td><td>溶</td><td>弱酸性</td></tr>
+<tr><td>碳 C</td><td>橘紅色</td><td>CO₂ → H₂CO₃（碳酸）</td><td>溶</td><td>弱酸性</td></tr>
+</table></div>
+
+<div class="callout callout-warning"><div class="callout-title">⚠️ 我還不確定的地方</div><div class="callout-content">
+<p>金屬氧化物溶水 → **鹼性**；非金屬氧化物溶水 → **酸性**。但不是所有金屬氧化物都能溶於水！（例如氧化銅不溶）</p>
+</div></div>
+
+<hr>
+
+<h3>3-3 常見鐵製品與防鏽</h3>
+
+<div class="callout callout-tip"><div class="callout-title">白話解釋</div><div class="callout-content">
+<p>- **白鐵**（鍍鋅）：鋅的活性比鐵大，會先犧牲自己被氧化，保護鐵。即使刮傷，鋅也會先被腐蝕。</p>
+<p>- **亞鉛（馬口鐵）**（鍍錫）：錫的活性比鐵小。如果表面被刮傷，鐵會先被腐蝕，錫沒有保護作用。</p>
+<p>- **鋁的防鏽**：鋁表面會生成緻密的氧化鋁，像一層「保護膜」，阻止內部繼續氧化。</p>
+</div></div>
+
+<hr>
+
+<h2>焦點 4：氧化還原與金屬冶煉</h2>
+
+<h3>4-1 氧化還原反應</h3>
+
+<div class="callout callout-tip"><div class="callout-title">白話解釋</div><div class="callout-content">
+<p>氧化和還原就像「搶氧大作戰」：</p>
+<p>- **氧化** = 得到氧（跟氧結合）</p>
+<p>- **還原** = 失去氧（氧被搶走）</p>
+<p>- 兩者**一定同時發生**！有人被氧化，就一定有人被還原。</p>
+</div></div>
+
+<p><strong>通式：</strong></p>
+<pre><code class="lang-">
+活性大的元素 + 活性小元素的氧化物 → 活性大元素的氧化物 + 活性小的元素
+</code></pre>
+
+<p><strong>範例：</strong> 2Mg + CO₂ → 2MgO + C</p>
+<li>Mg 被**氧化**（得到氧，變成 MgO）</li>
+<li>CO₂ 被**還原**（失去氧，變成 C）</li>
+
+<hr>
+
+<h3>4-2 金屬冶煉（高爐煉鐵）</h3>
+
+<div class="callout callout-tip"><div class="callout-title">白話解釋</div><div class="callout-content">
+<p>自然界的鐵大多以**氧化鐵（Fe₂O₃）**形式存在（就是鐵礦石）。要把鐵「救」出來，就要用活性更大的東西把氧搶走。</p>
+<p>></p>
+<p>高爐裡用**煤焦（碳）**當搶氧的角色：</p>
+</div></div>
+
+<p><strong>高爐反應步驟：</strong></p>
+<p>1. 煤焦燃燒產生 CO 和大量的熱：2C + O₂ → 2CO + 熱量</p>
+<p>2. 煤焦跟二氧化碳還原：C + CO₂ → 2CO</p>
+<p>3. <strong>關鍵反應</strong>：CO 把鐵礦石中的氧搶走：Fe₂O₃ + 3CO → 2Fe + 3CO₂</p>
+<p>4. 加入石灰石（CaCO₃）去除雜質</p>
+
+<div class="callout callout-warning"><div class="callout-title">⚠️ 我還不確定的地方</div><div class="callout-content">
+<p>高爐煉鐵中，煤焦的用途有**兩個**：①當燃料（提供熱量）②當還原劑（搶氧）。很多題目會問這個！</p>
+</div></div>
+
+<hr>
+
+<h3>4-3 日常生活中的氧化還原</h3>
+
+<p><strong>光合作用 vs 呼吸作用：</strong></p>
+
+<div class="table-wrapper"><table>
+<tr><th></th><th>光合作用</th><th>呼吸作用</th></tr>
+<tr><td>反應式</td><td>6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂</td><td>C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O</td></tr>
+<tr><td>CO₂ 的角色</td><td>被**還原**</td><td>是**氧化**的產物</td></tr>
+<tr><td>O₂ 的角色</td><td>是**還原**的產物</td><td>是**氧化**劑</td></tr>
+</table></div>
+
+<p><strong>生活中的氧化劑與還原劑：</strong></p>
+
+<div class="table-wrapper"><table>
+<tr><th></th><th>本身被還原（氧化劑）</th><th>本身被氧化（還原劑）</th></tr>
+<tr><td>種類</td><td>氧氣、過氧化氫、次氯酸鈉</td><td>碳、煤焦、二氧化硫</td></tr>
+<tr><td>應用</td><td>漂白劑（漂白水 NaClO）、雙氧水</td><td>煉鐵、食品防腐</td></tr>
+</table></div>
+
+<hr>
+
+<h2>📝 自我檢測（10 題）</h2>
+
+<div class="callout callout-question"><div class="callout-title">測試你是否真的懂了！</div><div class="callout-content">
+</div></div>
+
+<p><strong>1.</strong> 水（H₂O）的分子量是多少？（原子量 H=1, O=16）</p>
+
+<p><strong>2.</strong> 44 公克的 CO₂ 含有多少莫耳？</p>
+
+<p><strong>3.</strong> 2 莫耳的 H₂O 質量是多少公克？</p>
+
+<p><strong>4.</strong> 化學反應 2H₂ + O₂ → 2H₂O 中，氫氣和氧氣的莫耳數比是多少？</p>
+
+<p><strong>5.</strong> 質量守恆定律的核心概念是什麼？用自己的話說。</p>
+
+<p><strong>6.</strong> 活性排列中，鎂（Mg）和銅（Cu）誰的活性大？</p>
+
+<p><strong>7.</strong> 鈉燃燒時火焰是什麼顏色？</p>
+
+<p><strong>8.</strong> 金屬氧化物溶於水後，水溶液呈什麼性？</p>
+
+<p><strong>9.</strong> 在反應 2Mg + CO₂ → 2MgO + C 中，誰被氧化？誰被還原？</p>
+
+<p><strong>10.</strong> 高爐煉鐵中，煤焦的兩個用途是什麼？</p>
+
+<hr>
+
+<div class="callout callout-success"><div class="callout-title">自我檢測答案</div><div class="callout-content">
+<p>1. 18</p>
+<p>2. 1 mol（44÷44=1）</p>
+<p>3. 36 g（2×18=36）</p>
+<p>4. 2:1</p>
+<p>5. 反應前後總質量不變（原子只是重新排列，不會消失或產生）</p>
+<p>6. 鎂的活性大於銅</p>
+<p>7. 黃色</p>
+<p>8. 鹼性</p>
+<p>9. Mg 被氧化（得到氧），CO₂ 被還原（失去氧）</p>
+<p>10. ①當燃料（提供熱量）②當還原劑（搶走氧）</p>
+</div></div>
+
+<div class="nav-buttons">
+  <button class="nav-btn" disabled>← 上一步</button>
+  <button class="nav-btn" onclick="switchTab(1)">下一步：簡報 →</button>
+</div>
+</div>
+
+<!-- Tab 1: Slides -->
+<div class="content" id="tab1">
+<h1>📊 學習簡報</h1>
+<div class="callout callout-info">
+<div class="callout-title">簡報下載</div>
+<div class="callout-content">
+<p>簡報已包含在下載的 ZIP 檔案中。</p>
+<p>檔名：國中理化-...-簡報.pptx</p>
+<p>共 11 張投影片，涵蓋四大焦點的核心概念。</p>
+</div>
+</div>
+<h2>簡報大綱</h2>
+<div class="table-wrapper"><table>
+<tr><th>投影片</th><th>內容</th></tr>
+<tr><td>1</td><td>封面</td></tr>
+<tr><td>2</td><td>章節地圖（四大焦點總覽）</td></tr>
+<tr><td>3</td><td>焦點1：莫耳概念與轉換公式</td></tr>
+<tr><td>4</td><td>焦點2：化學反應式的書寫與係數比</td></tr>
+<tr><td>5</td><td>質量守恆定律</td></tr>
+<tr><td>6</td><td>焦點3：活性大小排列</td></tr>
+<tr><td>7</td><td>金屬與非金屬燃燒比較表</td></tr>
+<tr><td>8</td><td>焦點4：氧化還原反應定義</td></tr>
+<tr><td>9</td><td>高爐煉鐵</td></tr>
+<tr><td>10</td><td>易混淆概念比較</td></tr>
+<tr><td>11</td><td>本單元回顧</td></tr>
+</table></div>
+<div class="nav-buttons">
+  <button class="nav-btn" onclick="switchTab(0)">← 費曼筆記</button>
+  <button class="nav-btn" onclick="switchTab(2)">下一步：康乃爾 →</button>
+</div>
+</div>
+
+<!-- Tab 2: Cornell -->
+<div class="content" id="tab2">
+
+<h1>📒 康乃爾筆記：第七單元 化學計量、化學反應、氧化還原</h1>
+
+<hr>
+
+<h2>焦點 1：化學計量</h2>
+
+<h3>1-1 原子量與分子量</h3>
+
+<div class="table-wrapper"><table>
+<tr><th>提示問題</th><th>筆記內容</th></tr>
+<tr><td>什麼是原子量？</td><td>以碳-12 原子量定為 12 為標準，其他原子與之比較的比值。**原子量沒有單位**。例：H=1, C=12, N=14, O=16, S=32, Fe=56</td></tr>
+<tr><td>什麼是分子量？</td><td>分子式中所含原子量的總和。分子量也**沒有單位**。</td></tr>
+<tr><td>如何計算分子量？</td><td>H₂O = 1×2+16 = 18；CO₂ = 12+16×2 = 44；H₂SO₄ = 1×2+32+16×4 = 98</td></tr>
+<tr><td>原子量的小數？</td><td>原子量是比較值，不是原子的個數，可以是小數。但實際質量需要乘上莫耳數才有意義。</td></tr>
+</table></div>
+
+<p><strong>📊 摘要：</strong> 原子量是以碳-12為標準的比較值，無單位；分子量是分子中所有原子量的加總。</p>
+
+<hr>
+
+<h3>1-2 莫耳概念</h3>
+
+<div class="table-wrapper"><table>
+<tr><th>提示問題</th><th>筆記內容</th></tr>
+<tr><td>什麼是莫耳？</td><td>科學上訂定莫耳作為物質粒子數的單位。12 公克碳-12 中所含碳原子數目訂為 1 莫耳。</td></tr>
+<tr><td>亞佛加厥數？</td><td>1 莫耳 = 6×10²³ 個粒子（原子、分子或離子）</td></tr>
+<tr><td>莫耳與質量的關係？</td><td>莫耳數 = 質量(g) ÷ 原子量(或分子量)。1 莫耳 = 原子量(或分子量) 公克</td></tr>
+<tr><td>莫耳與粒子數？</td><td>粒子數 = 莫耳數 × 6×10²³</td></tr>
+<tr><td>1 個原子的真正質量？</td><td>1 個原子質量 = 原子量 ÷ 6×10²³ (g)</td></tr>
+</table></div>
+
+<p><strong>🔢 計算題 1：質量與莫耳數互換</strong></p>
+
+<p>> 已知 C、H、O 的原子量分別為 12、1、16。請問下列各物質含多少莫耳？</p>
+<p>> (1) 20 克的 H₂ (2) 88 克的 CO₂ (3) 90 克的 H₂O</p>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 280">
+  <rect width="650" height="280" fill="#f8f9fa" rx="8"/>
+  <text x="20" y="30" font-size="16" font-weight="bold" fill="#065A82">解題步驟</text>
+  <!-- (1) -->
+  <text x="20" y="60" font-size="14" fill="#333">（1）H₂ 分子量 = 1×2 = 2</text>
+  <text x="40" y="85" font-size="14" fill="#065A82">莫耳數 = 20 ÷ 2 = <tspan font-weight="bold">10 mol</tspan></text>
+  <!-- (2) -->
+  <text x="20" y="120" font-size="14" fill="#333">（2）CO₂ 分子量 = 12 + 16×2 = 44</text>
+  <text x="40" y="145" font-size="14" fill="#065A82">莫耳數 = 88 ÷ 44 = <tspan font-weight="bold">2 mol</tspan></text>
+  <!-- (3) -->
+  <text x="20" y="180" font-size="14" fill="#333">（3）H₂O 分子量 = 1×2 + 16 = 18</text>
+  <text x="40" y="205" font-size="14" fill="#065A82">莫耳數 = 90 ÷ 18 = <tspan font-weight="bold">5 mol</tspan></text>
+  <!-- 公式框 -->
+  <rect x="380" y="50" width="250" height="80" fill="#e8f4f8" rx="6" stroke="#065A82" stroke-width="1"/>
+  <text x="395" y="75" font-size="13" fill="#065A82" font-weight="bold">通用公式：</text>
+  <text x="395" y="100" font-size="14" fill="#333">莫耳數 = 質量(g) ÷ 分子量</text>
+  <text x="395" y="120" font-size="13" fill="#666">（分子量 = 各原子量之和）</text>
+</svg></div></p>
+
+<p><strong>📊 摘要：</strong> 莫耳是粒子計數單位，1 mol = 6×10²³ 個。莫耳數 = 質量 ÷ 分子量，粒子數 = 莫耳數 × 6×10²³。</p>
+
+<hr>
+
+<h3>1-3 質量與原子量的關係</h3>
+
+<div class="table-wrapper"><table>
+<tr><th>提示問題</th><th>筆記內容</th></tr>
+<tr><td>質量數是什麼？</td><td>質量數 = 質子數 + 中子數，約等於原子的質量。</td></tr>
+<tr><td>如何從質量比求化學式？</td><td>①求各元素莫耳數比（質量÷原子量）②化簡為最簡整數比③寫出化學式</td></tr>
+</table></div>
+
+<p><strong>🔢 計算題 2：從質量比推化學式</strong></p>
+
+<p>> X 為未知元素，氧化物為 X₂O₃，其組成元素 X 與 O 的質量比為 9:8。已知 O 的原子量為 16，求 X 的原子量。</p>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 250">
+  <rect width="650" height="250" fill="#f8f9fa" rx="8"/>
+  <text x="20" y="30" font-size="16" font-weight="bold" fill="#065A82">解題步驟</text>
+  <text x="20" y="60" font-size="14" fill="#333">已知：X₂O₃ 中 X:O 質量比 = 9:8</text>
+  <text x="20" y="90" font-size="14" fill="#333">X₂O₃ 有 2 個 X、3 個 O</text>
+  <text x="20" y="120" font-size="14" fill="#333">質量比 = 原子量×個數之比</text>
+  <text x="20" y="150" font-size="14" fill="#065A82">2X : 3×16 = 9 : 8</text>
+  <text x="20" y="180" font-size="14" fill="#065A82">2X : 48 = 9 : 8</text>
+  <text x="20" y="210" font-size="14" fill="#065A82">2X = 48 × 9/8 = 54 → X = <tspan font-weight="bold">27（鋁 Al）</tspan></text>
+  <!-- 驗算框 -->
+  <rect x="380" y="140" width="250" height="80" fill="#fff3e0" rx="6" stroke="#F59E0B" stroke-width="1"/>
+  <text x="395" y="165" font-size="13" fill="#92400e" font-weight="bold">驗算：</text>
+  <text x="395" y="190" font-size="13" fill="#333">Al₂O₃ = 27×2 + 16×3 = 102</text>
+  <text x="395" y="210" font-size="13" fill="#333">Al:O = 54:48 = 9:8 ✓</text>
+</svg></div></p>
+
+<p><strong>📊 摘要：</strong> 透過質量比 = 原子量×個數之比，可以反推未知元素的原子量和化學式。</p>
+
+<hr>
+
+<h2>焦點 2：化學反應</h2>
+
+<h3>2-1 化學反應式</h3>
+
+<div class="table-wrapper"><table>
+<tr><th>提示問題</th><th>筆記內容</th></tr>
+<tr><td>化學反應式的結構？</td><td>反應物 → 生成物。反應物在左，生成物在右，用箭號連接。</td></tr>
+<tr><td>什麼是係數？</td><td>化學式前面的數字，代表該物質的分子數（莫耳數）比。</td></tr>
+<tr><td>如何平衡？</td><td>①先寫出所有反應物和生成物②調整係數使左右原子數相等③先平衡最複雜的分子</td></tr>
+<tr><td>狀態符號？</td><td>(s)固體 (l)液體 (g)氣體 (aq)水溶液 ↑氣體產生 ↓沉澱 △加熱</td></tr>
+</table></div>
+
+<p><strong>🔢 計算題 3：平衡化學反應式與係數比</strong></p>
+
+<p>> 雙氧水分解產生水和氧氣，反應式為 H₂O₂ → H₂O + O₂（未平衡），加入 MnO₂ 催化。請平衡並寫出各物質的係數比、莫耳數比和質量比。</p>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 320">
+  <rect width="650" height="320" fill="#f8f9fa" rx="8"/>
+  <text x="20" y="30" font-size="16" font-weight="bold" fill="#065A82">解題步驟</text>
+  <text x="20" y="60" font-size="14" fill="#333">Step 1：平衡反應式</text>
+  <text x="40" y="85" font-size="14" fill="#333">未平衡：H₂O₂ → H₂O + O₂</text>
+  <text x="40" y="110" font-size="15" fill="#065A82" font-weight="bold">平衡後：2H₂O₂ → 2H₂O + O₂</text>
+  <text x="20" y="145" font-size="14" fill="#333">Step 2：整理數據</text>
+  <!-- 表格 -->
+  <rect x="40" y="155" width="560" height="30" fill="#065A82" rx="4"/>
+  <text x="50" y="175" font-size="13" fill="white" font-weight="bold">項目</text>
+  <text x="220" y="175" font-size="13" fill="white" font-weight="bold">2H₂O₂</text>
+  <text x="370" y="175" font-size="13" fill="white" font-weight="bold">2H₂O</text>
+  <text x="510" y="175" font-size="13" fill="white" font-weight="bold">O₂</text>
+  
+  <rect x="40" y="185" width="560" height="30" fill="white" stroke="#e2e8f0"/>
+  <text x="50" y="205" font-size="13" fill="#333">係數比（=莫耳數比）</text>
+  <text x="250" y="205" font-size="13" fill="#065A82" font-weight="bold">2</text>
+  <text x="400" y="205" font-size="13" fill="#065A82" font-weight="bold">2</text>
+  <text x="540" y="205" font-size="13" fill="#065A82" font-weight="bold">1</text>
+  
+  <rect x="40" y="215" width="560" height="30" fill="#f0f7ff" stroke="#e2e8f0"/>
+  <text x="50" y="235" font-size="13" fill="#333">質量比</text>
+  <text x="230" y="235" font-size="13" fill="#065A82" font-weight="bold">2×34=68</text>
+  <text x="380" y="235" font-size="13" fill="#065A82" font-weight="bold">2×18=36</text>
+  <text x="520" y="235" font-size="13" fill="#065A82" font-weight="bold">1×32=32</text>
+  
+  <rect x="40" y="245" width="560" height="30" fill="white" stroke="#e2e8f0"/>
+  <text x="50" y="265" font-size="13" fill="#333">質量守恆驗算</text>
+  <text x="230" y="265" font-size="13" fill="#065A82" font-weight="bold">68</text>
+  <text x="350" y="265" font-size="13" fill="#333">=</text>
+  <text x="380" y="265" font-size="13" fill="#065A82" font-weight="bold">36 + 32 = 68 ✓</text>
+</svg></div></p>
+
+<p><strong>📊 摘要：</strong> 化學反應式中，係數比 = 莫耳數比 = 分子數比，但不等於質量比。質量比需要各乘以分子量。</p>
+
+<hr>
+
+<h3>2-2 質量守恆定律</h3>
+
+<div class="table-wrapper"><table>
+<tr><th>提示問題</th><th>筆記內容</th></tr>
+<tr><td>定義？</td><td>化學反應中，反應前所有物質的總質量 = 反應後所有物質的總質量</td></tr>
+<tr><td>誰提出的？</td><td>18 世紀法國科學家拉瓦節</td></tr>
+<tr><td>原因？</td><td>原子只是重新排列組合，不會消失或產生新原子</td></tr>
+<tr><td>實驗注意？</td><td>若有氣體產物，需在密閉容器中進行才能驗證</td></tr>
+</table></div>
+
+<p><strong>📊 摘要：</strong> 質量守恆定律是化學反應的基本定律，反應前後總質量不變，因為原子不會消失或憑空產生。</p>
+
+<hr>
+
+<h3>2-3 化學計量的計算應用</h3>
+
+<p><strong>🔢 計算題 4：燃燒反應的莫耳數與質量計算</strong></p>
+
+<p>> 氫氣和氧氣混合後點火燃燒生成水蒸氣，反應式 H₂ + O₂ → H₂O（未平衡）。將容器抽成真空後，導入氫氣和氧氣各 1.0 莫耳，點火使其完全反應。問：</p>
+<p>> (1) 反應後容器內剩何種物質多少莫耳？</p>
+<p>> (2) 反應後容器內生成水蒸氣多少莫耳？</p>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 350">
+  <rect width="650" height="350" fill="#f8f9fa" rx="8"/>
+  <text x="20" y="30" font-size="16" font-weight="bold" fill="#065A82">解題步驟</text>
+  <text x="20" y="60" font-size="14" fill="#333">Step 1：平衡反應式</text>
+  <text x="40" y="85" font-size="15" fill="#065A82" font-weight="bold">2H₂ + O₂ → 2H₂O</text>
+  <text x="40" y="110" font-size="13" fill="#666">莫耳數比 → H₂:O₂:H₂O = 2:1:2</text>
+  <text x="20" y="145" font-size="14" fill="#333">Step 2：判斷限量試劑</text>
+  <text x="40" y="170" font-size="14" fill="#333">H₂ 需要量：依比例 2:1，1 mol O₂ 需要 2 mol H₂</text>
+  <text x="40" y="195" font-size="14" fill="#333">但只有 1 mol H₂ → H₂ 不夠用 → H₂ 是限量試劑</text>
+  <text x="20" y="230" font-size="14" fill="#333">Step 3：以限量試劑計算</text>
+  <text x="40" y="255" font-size="14" fill="#065A82">消耗 O₂ = 1 mol H₂ × (1/2) = 0.5 mol</text>
+  <text x="40" y="280" font-size="14" fill="#065A82">生成 H₂O = 1 mol H₂ × (2/2) = 1 mol</text>
+  <!-- 答案框 -->
+  <rect x="380" y="225" width="250" height="100" fill="#e8f4f8" rx="6" stroke="#065A82" stroke-width="2"/>
+  <text x="395" y="250" font-size="14" fill="#065A82" font-weight="bold">答案：</text>
+  <text x="395" y="275" font-size="13" fill="#333">(1) 剩餘 O₂ = 1-0.5 = 0.5 mol</text>
+  <text x="395" y="300" font-size="13" fill="#333">(2) 生成 H₂O = 1 mol</text>
+</svg></div></p>
+
+<p><strong>📊 摘要：</strong> 化學計量計算步驟：平衡反應式→判斷限量試劑→以限量試劑為基準計算各物質用量和產量。</p>
+
+<hr>
+
+<h2>焦點 3：氧化</h2>
+
+<h3>3-1 活性大小與氧化</h3>
+
+<div class="table-wrapper"><table>
+<tr><th>提示問題</th><th>筆記內容</th></tr>
+<tr><td>活性的定義？</td><td>依元素在空氣中燃燒的難易程度，比較元素對氧的活性大小</td></tr>
+<tr><td>活性大的特徵？</td><td>元素本身不安定，容易燃燒；氧化物很安定</td></tr>
+<tr><td>活性小的特徵？</td><td>元素本身安定，不容易燃燒；氧化物不安定</td></tr>
+<tr><td>活性順序？</td><td>K>Na>Ba>Ca>Mg>Al>C>Zn>Cr>Fe>Sn>Pb>H>Cu>Hg>Ag>Pt>Au</td></tr>
+<tr><td>劇烈 vs 溫和氧化？</td><td>劇烈氧化=燃燒；溫和氧化=生鏽、呼吸作用、光合作用</td></tr>
+</table></div>
+
+<p><strong>📊 摘要：</strong> 活性大→易燃燒→氧化物安定。活性小→不易燃燒→氧化物不安定。活性排列是重要考點。</p>
+
+<hr>
+
+<h3>3-2 金屬與非金屬的燃燒</h3>
+
+<div class="table-wrapper"><table>
+<tr><th>提示問題</th><th>筆記內容</th></tr>
+<tr><td>金屬氧化物水溶液？</td><td>多呈**鹼性**（但不是全部都能溶於水）</td></tr>
+<tr><td>非金屬氧化物水溶液？</td><td>多呈**酸性**</td></tr>
+<tr><td>鈉的燃燒？</td><td>黃色火焰，產物 Na₂O → 溶水呈鹼性。4Na+O₂→2Na₂O</td></tr>
+<tr><td>鎂的燃燒？</td><td>白色強光，產物 MgO → 難溶水呈鹼性。2Mg+O₂→2MgO</td></tr>
+<tr><td>銅的燃燒？</td><td>不易燃，產物 CuO（黑色）→ 不溶水。2Cu+O₂→2CuO</td></tr>
+<tr><td>硫的燃燒？</td><td>藍紫色火焰，SO₂ 有刺鼻味。S+O₂→SO₂ → 溶水成酸</td></tr>
+</table></div>
+
+<p><strong>📊 摘要：</strong> 金屬氧化物溶水呈鹼性，非金屬氧化物溶水呈酸性。燃燒火焰顏色和產物性質是常考重點。</p>
+
+<hr>
+
+<h2>焦點 4：氧化還原與金屬冶煉</h2>
+
+<h3>4-1 氧化還原反應</h3>
+
+<div class="table-wrapper"><table>
+<tr><th>提示問題</th><th>筆記內容</th></tr>
+<tr><td>氧化反應？</td><td>物質與氧結合（得到氧）</td></tr>
+<tr><td>還原反應？</td><td>氧化物失去氧</td></tr>
+<tr><td>兩者關係？</td><td>一定同時發生！有氧化就有還原</td></tr>
+<tr><td>活性通式？</td><td>活性大元素 + 活性小元素的氧化物 → 活性大元素的氧化物 + 活性小元素</td></tr>
+<tr><td>氧化劑？</td><td>本身被還原（提供氧給別人的物質）</td></tr>
+<tr><td>還原劑？</td><td>本身被氧化（搶走氧的物質）</td></tr>
+</table></div>
+
+<p><strong>🔢 計算題 5：氧化還原反應的計算</strong></p>
+
+<p>> 甲烷（CH₄）與丙烷（C₃H₈）在足量的氧氣下完全燃燒反應。各取 1 莫耳的甲烷與丙烷使其完全燃燒。</p>
+<p>> (1) 燃燒所需氧氣的莫耳數比為多少？</p>
+<p>> (2) 燃燒所產生二氧化碳的莫耳數比為多少？</p>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 380">
+  <rect width="650" height="380" fill="#f8f9fa" rx="8"/>
+  <text x="20" y="30" font-size="16" font-weight="bold" fill="#065A82">解題步驟</text>
+  <text x="20" y="60" font-size="14" fill="#333">Step 1：寫出並平衡兩個反應式</text>
+  <text x="40" y="85" font-size="14" fill="#065A82">CH₄ + 2O₂ → CO₂ + 2H₂O</text>
+  <text x="40" y="110" font-size="14" fill="#065A82">C₃H₈ + 5O₂ → 3CO₂ + 4H₂O</text>
+  <text x="20" y="145" font-size="14" fill="#333">Step 2：各取 1 mol 計算</text>
+  <text x="40" y="170" font-size="14" fill="#333">甲烷 1 mol → 需 O₂ = 2 mol，產 CO₂ = 1 mol</text>
+  <text x="40" y="195" font-size="14" fill="#333">丙烷 1 mol → 需 O₂ = 5 mol，產 CO₂ = 3 mol</text>
+  <!-- 答案框 -->
+  <rect x="40" y="220" width="560" height="130" fill="#e8f4f8" rx="6" stroke="#065A82" stroke-width="2"/>
+  <text x="60" y="250" font-size="14" fill="#065A82" font-weight="bold">答案：</text>
+  <text x="60" y="280" font-size="14" fill="#333">(1) 需氧莫耳數比 = 2:5</text>
+  <text x="60" y="310" font-size="14" fill="#333">(2) 產 CO₂ 莫耳數比 = 1:3</text>
+  <text x="60" y="340" font-size="12" fill="#666">※ 丙烷含 3 個碳，燃燒需更多氧氣，也產生更多 CO₂</text>
+</svg></div></p>
+
+<h3>4-2 高爐煉鐵</h3>
+
+<div class="table-wrapper"><table>
+<tr><th>提示問題</th><th>筆記內容</th></tr>
+<tr><td>冶煉定義？</td><td>從金屬礦中提煉出金屬的過程</td></tr>
+<tr><td>原理？</td><td>用活性大的物質搶走氧化物中的氧，釋放出活性小的金屬</td></tr>
+<tr><td>主要反應？</td><td>Fe₂O₃ + 3CO → 2Fe + 3CO₂</td></tr>
+<tr><td>煤焦用途？</td><td>①燃料（提供熱量）②還原劑（產生 CO 搶氧）</td></tr>
+<tr><td>石灰石用途？</td><td>去除礦石中的雜質（造渣）</td></tr>
+<tr><td>生鐵 vs 鋼？</td><td>生鐵含碳量大，硬度大但脆；鋼含碳量小，韌性好</td></tr>
+</table></div>
+
+<h3>4-3 日常生活的氧化還原</h3>
+
+<div class="table-wrapper"><table>
+<tr><th>提示問題</th><th>筆記內容</th></tr>
+<tr><td>漂白劑原理？</td><td>氧漂白劑（H₂O₂）將氧化鐵的鐵還原。氯漂白劑（NaClO）是強氧化劑</td></tr>
+<tr><td>食品防腐原理？</td><td>抗氧化劑能減緩食物和氧氣反應，延長保存期限</td></tr>
+<tr><td>光合作用的角色？</td><td>CO₂ 被還原，H₂O 被氧化</td></tr>
+<tr><td>呼吸作用的角色？</td><td>C₆H₁₂O₆ 被氧化，O₂ 是氧化劑</td></tr>
+</table></div>
+
+<p><strong>📊 摘要：</strong> 氧化還原同時發生。高爐煉鐵用 CO 做還原劑搶走 Fe₂O₃ 的氧。日常漂白、防腐、呼吸、光合作用都是氧化還原。</p>
+
+<div class="nav-buttons">
+  <button class="nav-btn" onclick="switchTab(1)">← 簡報</button>
+  <button class="nav-btn" onclick="switchTab(3)">下一步：Anki →</button>
+</div>
+</div>
+
+<!-- Tab 3: Anki -->
+<div class="content" id="tab3">
+<h1>🃏 Anki 閃卡練習</h1>
+<p style="color:var(--gray);margin-bottom:16px;">共 67 張卡片 ｜ 點擊卡片翻牌查看答案</p>
+<div class="anki-grid">
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#1</div>
+                    <div class="anki-q">什麼是<b>原子量</b>？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">以<b>碳-12</b>的原子量定為12為標準，其他原子與之比較的<b>比值</b>。原子量<b>沒有單位</b>。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">原子量</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#2</div>
+                    <div class="anki-q">原子量是比較值，它有單位嗎？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>沒有單位</b>。原子量是比值，不是實際質量。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">原子量</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#3</div>
+                    <div class="anki-q">H₂O 的分子量如何計算？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">H₂O = 1×2 + 16×1 = <b>18</b><br>（H的原子量=1，O的原子量=16）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">分子量</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#4</div>
+                    <div class="anki-q">CO₂ 的分子量是多少？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">CO₂ = 12×1 + 16×2 = <b>44</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">分子量</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#5</div>
+                    <div class="anki-q">H₂SO₄ 的分子量是多少？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">H₂SO₄ = 1×2 + 32×1 + 16×4 = <b>98</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">分子量</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#6</div>
+                    <div class="anki-q">CH₄ 的分子量是多少？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">CH₄ = 12×1 + 1×4 = <b>16</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">分子量</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#7</div>
+                    <div class="anki-q">什麼是<b>莫耳</b>（mole）？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">科學上訂定的物質粒子數計量單位。<b>12公克碳-12</b>中所含碳原子數目訂為<b>1莫耳</b>。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">莫耳</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#8</div>
+                    <div class="anki-q">1莫耳等於多少個粒子？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>6×10²³ 個</b>（亞佛加厥數）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">莫耳</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#9</div>
+                    <div class="anki-q">莫耳數的計算公式（質量→莫耳數）？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>莫耳數 = 質量(g) ÷ 分子量(或原子量)</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">莫耳</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#10</div>
+                    <div class="anki-q">粒子數的計算公式（莫耳數→粒子數）？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>粒子數 = 莫耳數 × 6×10²³</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">莫耳</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#11</div>
+                    <div class="anki-q">1莫耳的H₂O質量是多少公克？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>18公克</b>（等於H₂O的分子量）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">莫耳</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#12</div>
+                    <div class="anki-q">1個水分子的真正質量如何計算？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">1個H₂O = 分子量 ÷ 6×10²³ = <b>18 ÷ 6×10²³ 公克</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">莫耳</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#13</div>
+                    <div class="anki-q">莫耳數可以是小數嗎？粒子數呢？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">莫耳數<b>可以</b>是小數（如1.5 mol），但粒子數一定是<b>整數</b>。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">莫耳</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#14</div>
+                    <div class="anki-q">20克的H₂含多少莫耳？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">H₂分子量 = 2<br>莫耳數 = 20 ÷ 2 = <b>10 mol</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">莫耳</span> <span class="anki-tag">計算</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#15</div>
+                    <div class="anki-q">88克的CO₂含多少莫耳？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">CO₂分子量 = 44<br>莫耳數 = 88 ÷ 44 = <b>2 mol</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">莫耳</span> <span class="anki-tag">計算</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#16</div>
+                    <div class="anki-q">90克的H₂O含多少莫耳？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">H₂O分子量 = 18<br>莫耳數 = 90 ÷ 18 = <b>5 mol</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">莫耳</span> <span class="anki-tag">計算</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#17</div>
+                    <div class="anki-q">如何從<b>質量比</b>求<b>莫耳數比</b>？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">莫耳數比 = 各元素的<b>質量 ÷ 原子量</b>之比</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">質量比</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#18</div>
+                    <div class="anki-q">化學反應常見的四種現象？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">①<b>發光、發熱</b>（如鎂燃燒）<br>②<b>顏色改變</b>（如硫酸銅加熱）<br>③<b>產生沉澱</b>（如碳酸鈣沉澱）<br>④<b>產生氣體</b>（如碳酸鈣+鹽酸）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-2</span> <span class="anki-tag">化學反應</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#19</div>
+                    <div class="anki-q">化學反應式中，箭號（→）左邊是什麼？右邊是什麼？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">左邊 = <b>反應物</b><br>右邊 = <b>生成物</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-2</span> <span class="anki-tag">反應式</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#20</div>
+                    <div class="anki-q">化學反應式的<b>係數</b>代表什麼？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">代表各物質的<b>分子數比</b>（= <b>莫耳數比</b>）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-2</span> <span class="anki-tag">反應式</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#21</div>
+                    <div class="anki-q">係數比 = 莫耳數比 = 分子數比，但<b>等不等於</b>質量比？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>不等於</b>質量比！質量比 = 係數 × 分子量之比</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-2</span> <span class="anki-tag">反應式</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#22</div>
+                    <div class="anki-q">如何平衡化學反應式？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">①先平衡<b>最複雜</b>的分子<br>②調整係數使左右原子數相等<br>③出現分數就全部乘以最小公倍數</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-2</span> <span class="anki-tag">反應式</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#23</div>
+                    <div class="anki-q">平衡：H₂ + O₂ → H₂O</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>2H₂ + O₂ → 2H₂O</b><br>左：H=4, O=2；右：H=4, O=2 ✓</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-2</span> <span class="anki-tag">反應式</span> <span class="anki-tag">平衡</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#24</div>
+                    <div class="anki-q">化學反應式中的狀態符號 (s)(l)(g)(aq) 分別代表？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">(s)=<b>固體</b> (l)=<b>液體</b> (g)=<b>氣體</b> (aq)=<b>水溶液</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-2</span> <span class="anki-tag">反應式</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#25</div>
+                    <div class="anki-q">↑ 和 ↓ 在化學反應式中代表什麼？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">↑ = <b>有氣體產生</b><br>↓ = <b>有沉澱產生</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-2</span> <span class="anki-tag">反應式</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#26</div>
+                    <div class="anki-q"><b>質量守恆定律</b>的內容？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">化學反應中，反應前所有物質的<b>總質量 = 反應後</b>所有物質的總質量</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-2</span> <span class="anki-tag">質量守恆</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#27</div>
+                    <div class="anki-q">質量守恆定律是誰提出的？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">18世紀法國科學家<b>拉瓦節</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-2</span> <span class="anki-tag">質量守恆</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#28</div>
+                    <div class="anki-q">用道耳頓原子說解釋質量守恆定律？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">化學反應時，原子只是<b>重新排列組合</b>，不會消失或產生新原子，所以總質量不變。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-2</span> <span class="anki-tag">質量守恆</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#29</div>
+                    <div class="anki-q">開放容器中反應看起來質量減少，這違反質量守恆嗎？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>不違反</b>。是因為有氣體逸出（如CO₂↑），加上逸出氣體的質量，總質量仍相等。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-2</span> <span class="anki-tag">質量守恆</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#30</div>
+                    <div class="anki-q">2H₂O₂ →(MnO₂) 2H₂O + O₂ 的質量比？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">2×34 : 2×18 : 1×32 = <b>68 : 36 : 32</b><br>驗算：68 = 36+32 ✓</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-2</span> <span class="anki-tag">反應式</span> <span class="anki-tag">計算</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#31</div>
+                    <div class="anki-q">什麼是<b>氧化反應</b>？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">物質與氧<b>結合</b>（得到氧）的反應</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">氧化</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#32</div>
+                    <div class="anki-q">劇烈氧化和溫和氧化各有什麼例子？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>劇烈氧化</b>= 燃燒<br><b>溫和氧化</b>= 生鏽、呼吸作用、光合作用</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">氧化</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#33</div>
+                    <div class="anki-q">什麼是<b>活性</b>？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">依元素在空氣中<b>燃燒的難易程度</b>，比較元素對氧的活性大小</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">活性</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#34</div>
+                    <div class="anki-q">活性大的元素有什麼特徵？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">元素本身<b>不安定</b>，容易燃燒；但其氧化物<b>很安定</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">活性</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#35</div>
+                    <div class="anki-q">活性小的元素有什麼特徵？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">元素本身<b>安定</b>，不容易燃燒；其氧化物<b>不安定</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">活性</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#36</div>
+                    <div class="anki-q">金屬活性大小排列？（完整版）</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>K > Na > Ba > Ca > Mg > Al > C > Zn > Cr > Fe > Sn > Pb > H > Cu > Hg > Ag > Pt > Au</b><br>口訣：嫁那美女，心鐵真前，統共一百斤</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">活性</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#37</div>
+                    <div class="anki-q">鈉燃燒的火焰顏色和產物？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">火焰<b>黃色</b>，產物<b>Na₂O</b>（氧化鈉）<br>反應式：4Na + O₂ → 2Na₂O</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">金屬燃燒</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#38</div>
+                    <div class="anki-q">鎂燃燒的火焰顏色和產物？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">發出<b>白色強光</b>，產物<b>MgO</b>（氧化鎂，白色）<br>反應式：2Mg + O₂ → 2MgO</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">金屬燃燒</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#39</div>
+                    <div class="anki-q">銅氧化的產物和顏色？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">產物<b>CuO</b>（氧化銅），<b>黑色</b><br>反應式：2Cu + O₂ → 2CuO</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">金屬燃燒</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#40</div>
+                    <div class="anki-q">鋅燃燒的火焰顏色？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>黃綠色</b>火焰<br>反應式：2Zn + O₂ → 2ZnO</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">金屬燃燒</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#41</div>
+                    <div class="anki-q">金屬氧化物溶於水後呈什麼性？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">多呈<b>鹼性</b>（但不是所有金屬氧化物都能溶於水）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">氧化物</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#42</div>
+                    <div class="anki-q">非金屬氧化物溶於水後呈什麼性？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">多呈<b>酸性</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">氧化物</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#43</div>
+                    <div class="anki-q">硫燃燒的火焰顏色、產物和水溶液性質？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>藍紫色</b>火焰，產物<b>SO₂</b><br>SO₂ + H₂O → H₂SO₃（亞硫酸），呈<b>酸性</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">非金屬燃燒</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#44</div>
+                    <div class="anki-q">碳燃燒的火焰顏色、產物和水溶液性質？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>橘紅色</b>火焰，產物<b>CO₂</b><br>CO₂ + H₂O → H₂CO₃（碳酸），呈<b>弱酸性</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">非金屬燃燒</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#45</div>
+                    <div class="anki-q">紅磷燃燒的產物？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>P₂O₅</b>（十氧化四磷）<br>P₂O₅ + 3H₂O → 2H₃PO₄（磷酸），呈<b>弱酸性</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">非金屬燃燒</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#46</div>
+                    <div class="anki-q">白鐵（鍍鋅）為什麼能防鏽？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">鋅的活性比鐵<b>大</b>，會先犧牲自己被氧化，保護鐵。即使刮傷，鋅也會先被腐蝕。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">防鏽</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#47</div>
+                    <div class="anki-q">馬口鐵（鍍錫）刮傷後為什麼鐵會先鏽？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">錫的活性比鐵<b>小</b>，只能隔絕空氣。一旦刮傷，鐵的活性較大，會先被腐蝕。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">防鏽</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#48</div>
+                    <div class="anki-q">鋁為什麼不容易繼續被腐蝕？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">鋁表面生成<b>緻密的氧化鋁(Al₂O₃)</b>薄膜，阻隔空氣與水，防止內部繼續氧化。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-3</span> <span class="anki-tag">防鏽</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#49</div>
+                    <div class="anki-q">什麼是<b>還原反應</b>？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">氧化物<b>失去氧</b>的反應</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">氧化還原</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#50</div>
+                    <div class="anki-q">氧化反應和還原反應的關係？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>一定同時發生</b>！有人被氧化（得氧），就一定有人被還原（失氧）。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">氧化還原</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#51</div>
+                    <div class="anki-q">氧化還原反應的通式？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">活性大元素 + 活性小元素的氧化物 → 活性大元素的氧化物 + 活性小元素</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">氧化還原</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#52</div>
+                    <div class="anki-q">2Mg + CO₂ → 2MgO + C 中，誰被氧化？誰被還原？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">Mg被<b>氧化</b>（得到氧→MgO）<br>CO₂被<b>還原</b>（失去氧→C）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">氧化還原</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#53</div>
+                    <div class="anki-q">什麼是<b>氧化劑</b>？什麼是<b>還原劑</b>？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>氧化劑</b>=本身被還原（提供氧給別人）<br><b>還原劑</b>=本身被氧化（搶走別人的氧）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">氧化還原</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#54</div>
+                    <div class="anki-q">金屬<b>冶煉</b>的定義和原理？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">從金屬礦中提煉出金屬的過程。<br>原理：用<b>活性大</b>的物質搶走氧化物中的氧，釋放出<b>活性小</b>的金屬。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">冶煉</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#55</div>
+                    <div class="anki-q">高爐煉鐵的<b>主要反應式</b>？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>Fe₂O₃ + 3CO → 2Fe + 3CO₂</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">冶煉</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#56</div>
+                    <div class="anki-q">高爐煉鐵中<b>煤焦</b>的兩個用途？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">①當<b>燃料</b>（提供熱量：2C + O₂ → 2CO）<br>②當<b>還原劑</b>（產生CO搶走Fe₂O₃的氧）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">冶煉</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#57</div>
+                    <div class="anki-q">高爐煉鐵中<b>石灰石</b>的用途？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>造渣</b>：去除礦石中的雜質（SiO₂等）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">冶煉</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#58</div>
+                    <div class="anki-q">高爐的<b>出鐵口</b>在哪？為什麼？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">在<b>下方</b>。因為生鐵密度大，沉到下層。熔渣密度小，浮在上層。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">冶煉</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#59</div>
+                    <div class="anki-q">光合作用的反應式？哪部分被氧化？哪部分被還原？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂<br>CO₂被<b>還原</b>（失去O），H₂O被<b>氧化</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">生活氧化還原</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#60</div>
+                    <div class="anki-q">呼吸作用的反應式？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O<br>（光合作用的逆反應）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">生活氧化還原</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#61</div>
+                    <div class="anki-q">常見的氧化劑有哪些？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>O₂</b>（氧氣）、<b>H₂O₂</b>（過氧化氫/雙氧水）、<b>NaClO</b>（次氯酸鈉/漂白水）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">生活氧化還原</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#62</div>
+                    <div class="anki-q">常見的還原劑有哪些？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>C</b>（碳/煤焦）、<b>CO</b>（一氧化碳）、<b>SO₂</b>（二氧化硫）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">生活氧化還原</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#63</div>
+                    <div class="anki-q">漂白水的有效成分和作用原理？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">有效成分<b>NaClO</b>（次氯酸鈉），是強<b>氧化劑</b>，通過氧化作用破壞色素。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">生活氧化還原</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#64</div>
+                    <div class="anki-q">食品中加<b>抗氧化劑</b>（如維生素C、E）的目的？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a"><b>減緩食物與氧氣的反應</b>（減緩氧化），延長保存期限。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">生活氧化還原</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#65</div>
+                    <div class="anki-q">漂白水和鹽酸混合會怎樣？為什麼危險？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">會產生<b>氯氣（Cl₂）</b>，有毒！所以清潔時<b>不能</b>混合使用鹽酸類和含氯漂白劑。</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-4</span> <span class="anki-tag">生活氧化還原</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#66</div>
+                    <div class="anki-q">亞佛加厥假說的內容？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">在同溫同壓下，任何氣體都含有<b>相同數目的分子</b>。（分子數比 = 體積比）</div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">亞佛加厥</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="anki-card" onclick="this.classList.toggle('flipped')">
+            <div class="anki-card-inner">
+                <div class="anki-front">
+                    <div class="anki-num">#67</div>
+                    <div class="anki-q">在25°C、1大氣壓下，CO和CO₂兩種氣體的原子數比為3:2，它們的體積比是多少？</div>
+                    <div class="anki-hint">👆 點擊翻牌</div>
+                </div>
+                <div class="anki-back">
+                    <div class="anki-a">CO每分子2原子，CO₂每分子3原子<br>設CO有x個分子，CO₂有y個分子<br>2x:3y = 3:2 → x:y = 9:4<br>體積比 = 分子數比 = <b>9:4</b></div>
+                    <div class="anki-tags"><span class="anki-tag">ch7</span> <span class="anki-tag">7-1</span> <span class="anki-tag">亞佛加厥</span> <span class="anki-tag">計算</span></div>
+                </div>
+            </div>
+        </div></div>
+<hr>
+<h2>📋 計算題圖形對照</h2>
+
+<h1>📋 Anki 卡片計算題對照</h1>
+
+<p>本文件為 Anki 卡片中計算題的 SVG 圖形與詳細解題步驟對照。</p>
+
+<hr>
+
+<h2>計算題 1：質量→莫耳數換算</h2>
+
+<p><strong>題目：</strong> 已知 C=12, H=1, O=16，求 (1) 20g H₂ (2) 88g CO₂ (3) 90g H₂O 各含多少莫耳？</p>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 260">
+  <rect width="650" height="260" fill="#f8f9fa" rx="8"/>
+  <text x="20" y="30" font-size="16" font-weight="bold" fill="#065A82">質量→莫耳數 換算步驟</text>
+  <line x1="20" y1="40" x2="630" y2="40" stroke="#065A82" stroke-width="2"/>
+  <text x="20" y="70" font-size="14" fill="#333">(1) H₂ 分子量 = 1×2 = 2</text>
+  <text x="40" y="95" font-size="14" fill="#065A82" font-weight="bold">mol = 20g ÷ 2 = 10 mol ✓</text>
+  <text x="20" y="130" font-size="14" fill="#333">(2) CO₂ 分子量 = 12 + 16×2 = 44</text>
+  <text x="40" y="155" font-size="14" fill="#065A82" font-weight="bold">mol = 88g ÷ 44 = 2 mol ✓</text>
+  <text x="20" y="190" font-size="14" fill="#333">(3) H₂O 分子量 = 1×2 + 16 = 18</text>
+  <text x="40" y="215" font-size="14" fill="#065A82" font-weight="bold">mol = 90g ÷ 18 = 5 mol ✓</text>
+  <rect x="430" y="60" width="200" height="60" fill="#e8f4f8" rx="6" stroke="#065A82"/>
+  <text x="445" y="85" font-size="13" fill="#065A82" font-weight="bold">公式：</text>
+  <text x="445" y="108" font-size="14" fill="#333">mol = g ÷ 分子量</text>
+</svg></div></p>
+
+<hr>
+
+<h2>計算題 2：從質量比推化學式</h2>
+
+<p><strong>題目：</strong> X₂O₃ 中 X:O 質量比為 9:8，O 原子量=16，求 X 原子量。</p>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 220">
+  <rect width="650" height="220" fill="#f8f9fa" rx="8"/>
+  <text x="20" y="30" font-size="16" font-weight="bold" fill="#065A82">從質量比推原子量</text>
+  <line x1="20" y1="40" x2="630" y2="40" stroke="#065A82" stroke-width="2"/>
+  <text x="20" y="70" font-size="14" fill="#333">X₂O₃ 含 2 個 X 原子、3 個 O 原子</text>
+  <text x="20" y="100" font-size="14" fill="#333">質量比 = 原子量 × 個數之比</text>
+  <text x="20" y="130" font-size="14" fill="#065A82">2X : 3×16 = 9 : 8</text>
+  <text x="20" y="160" font-size="14" fill="#065A82">2X : 48 = 9 : 8</text>
+  <text x="20" y="190" font-size="14" fill="#065A82" font-weight="bold">2X = 48 × 9/8 = 54 → X = 27（鋁 Al）</text>
+  <rect x="430" y="100" width="200" height="80" fill="#fff3e0" rx="6" stroke="#F59E0B"/>
+  <text x="445" y="125" font-size="13" fill="#92400e" font-weight="bold">驗算：</text>
+  <text x="445" y="148" font-size="13" fill="#333">Al₂O₃ = 54+48 = 102</text>
+  <text x="445" y="168" font-size="13" fill="#333">Al:O = 54:48 = 9:8 ✓</text>
+</svg></div></p>
+
+<hr>
+
+<h2>計算題 3：亞佛加厥假說應用</h2>
+
+<p><strong>題目：</strong> 在 25°C、1 大氣壓下，CO 和 CO₂ 兩種氣體的原子數比為 3:2，求體積比。</p>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 260">
+  <rect width="650" height="260" fill="#f8f9fa" rx="8"/>
+  <text x="20" y="30" font-size="16" font-weight="bold" fill="#065A82">亞佛加厥假說計算</text>
+  <line x1="20" y1="40" x2="630" y2="40" stroke="#065A82" stroke-width="2"/>
+  <text x="20" y="70" font-size="14" fill="#333">Step 1：分析每個分子的原子數</text>
+  <text x="40" y="95" font-size="14" fill="#333">CO → 每分子含 2 個原子（1個C + 1個O）</text>
+  <text x="40" y="120" font-size="14" fill="#333">CO₂ → 每分子含 3 個原子（1個C + 2個O）</text>
+  <text x="20" y="150" font-size="14" fill="#333">Step 2：設 CO 有 x 個分子，CO₂ 有 y 個分子</text>
+  <text x="40" y="175" font-size="14" fill="#065A82">總原子數比：2x : 3y = 3 : 2</text>
+  <text x="40" y="200" font-size="14" fill="#065A82">→ 4x = 9y → x : y = 9 : 4</text>
+  <text x="20" y="235" font-size="14" fill="#065A82" font-weight="bold">體積比 = 分子數比 = 9 : 4</text>
+  <rect x="430" y="150" width="200" height="60" fill="#e8f4f8" rx="6" stroke="#065A82"/>
+  <text x="445" y="175" font-size="12" fill="#065A82" font-weight="bold">亞佛加厥假說：</text>
+  <text x="445" y="198" font-size="12" fill="#333">同溫同壓，體積比=分子數比</text>
+</svg></div></p>
+
+<hr>
+
+<h2>計算題 4：反應式係數與質量比</h2>
+
+<p><strong>題目：</strong> 2H₂O₂ → 2H₂O + O₂ 的係數比、莫耳數比和質量比各為多少？</p>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 240">
+  <rect width="650" height="240" fill="#f8f9fa" rx="8"/>
+  <text x="20" y="30" font-size="16" font-weight="bold" fill="#065A82">反應式數據整理</text>
+  <line x1="20" y1="40" x2="630" y2="40" stroke="#065A82" stroke-width="2"/>
+  <!-- 表頭 -->
+  <rect x="20" y="55" width="610" height="30" fill="#065A82" rx="4"/>
+  <text x="35" y="75" font-size="13" fill="white" font-weight="bold">項目</text>
+  <text x="200" y="75" font-size="13" fill="white" font-weight="bold">2H₂O₂</text>
+  <text x="370" y="75" font-size="13" fill="white" font-weight="bold">2H₂O</text>
+  <text x="530" y="75" font-size="13" fill="white" font-weight="bold">O₂</text>
+  <!-- row 1 -->
+  <rect x="20" y="85" width="610" height="30" fill="white" stroke="#e2e8f0"/>
+  <text x="35" y="105" font-size="13" fill="#333">分子量</text>
+  <text x="230" y="105" font-size="13" fill="#065A82">34</text>
+  <text x="400" y="105" font-size="13" fill="#065A82">18</text>
+  <text x="560" y="105" font-size="13" fill="#065A82">32</text>
+  <!-- row 2 -->
+  <rect x="20" y="115" width="610" height="30" fill="#f0f7ff" stroke="#e2e8f0"/>
+  <text x="35" y="135" font-size="13" fill="#333">係數比(=莫耳比)</text>
+  <text x="230" y="135" font-size="13" fill="#065A82" font-weight="bold">2</text>
+  <text x="400" y="135" font-size="13" fill="#065A82" font-weight="bold">2</text>
+  <text x="560" y="135" font-size="13" fill="#065A82" font-weight="bold">1</text>
+  <!-- row 3 -->
+  <rect x="20" y="145" width="610" height="30" fill="white" stroke="#e2e8f0"/>
+  <text x="35" y="165" font-size="13" fill="#333">質量比</text>
+  <text x="210" y="165" font-size="13" fill="#065A82" font-weight="bold">2×34=68</text>
+  <text x="380" y="165" font-size="13" fill="#065A82" font-weight="bold">2×18=36</text>
+  <text x="540" y="165" font-size="13" fill="#065A82" font-weight="bold">1×32=32</text>
+  <!-- row 4 -->
+  <rect x="20" y="175" width="610" height="30" fill="#f0f7ff" stroke="#e2e8f0"/>
+  <text x="35" y="195" font-size="13" fill="#333">質量守恆驗算</text>
+  <text x="230" y="195" font-size="13" fill="#065A82">68</text>
+  <text x="350" y="195" font-size="13" fill="#333">=</text>
+  <text x="380" y="195" font-size="13" fill="#065A82">36 + 32 = 68 ✓</text>
+</svg></div></p>
+
+<hr>
+
+<h2>計算題 5：甲烷與丙烷燃燒比較</h2>
+
+<p><strong>題目：</strong> 各取 1 mol CH₄ 和 C₃H₈ 完全燃燒，比較需氧量和 CO₂ 產量。</p>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 260">
+  <rect width="650" height="260" fill="#f8f9fa" rx="8"/>
+  <text x="20" y="30" font-size="16" font-weight="bold" fill="#065A82">甲烷 vs 丙烷燃燒比較</text>
+  <line x1="20" y1="40" x2="630" y2="40" stroke="#065A82" stroke-width="2"/>
+  <text x="20" y="70" font-size="14" fill="#333">甲烷：CH₄ + 2O₂ → CO₂ + 2H₂O</text>
+  <text x="20" y="100" font-size="14" fill="#333">丙烷：C₃H₈ + 5O₂ → 3CO₂ + 4H₂O</text>
+  <text x="20" y="140" font-size="14" fill="#333">各取 1 mol 燃燒：</text>
+  <!-- 比較表 -->
+  <rect x="40" y="155" width="560" height="30" fill="#065A82" rx="4"/>
+  <text x="55" y="175" font-size="13" fill="white" font-weight="bold">項目</text>
+  <text x="220" y="175" font-size="13" fill="white" font-weight="bold">CH₄ (1 mol)</text>
+  <text x="420" y="175" font-size="13" fill="white" font-weight="bold">C₃H₈ (1 mol)</text>
+  <rect x="40" y="185" width="560" height="25" fill="white" stroke="#e2e8f0"/>
+  <text x="55" y="203" font-size="13" fill="#333">需 O₂</text>
+  <text x="250" y="203" font-size="13" fill="#065A82" font-weight="bold">2 mol</text>
+  <text x="450" y="203" font-size="13" fill="#065A82" font-weight="bold">5 mol</text>
+  <rect x="40" y="210" width="560" height="25" fill="#f0f7ff" stroke="#e2e8f0"/>
+  <text x="55" y="228" font-size="13" fill="#333">產 CO₂</text>
+  <text x="250" y="228" font-size="13" fill="#065A82" font-weight="bold">1 mol</text>
+  <text x="450" y="228" font-size="13" fill="#065A82" font-weight="bold">3 mol</text>
+</svg></div></p>
+
+<p><strong>答案：</strong> 需氧莫耳數比 = 2:5，產 CO₂ 莫耳數比 = 1:3</p>
+
+<div class="nav-buttons">
+  <button class="nav-btn" onclick="switchTab(2)">← 康乃爾</button>
+  <button class="nav-btn" onclick="switchTab(4)">下一步：Cheat Sheet →</button>
+</div>
+</div>
+
+<!-- Tab 4: Cheat Sheet -->
+<div class="content" id="tab4">
+
+<h1>⚡ Cheat Sheet：化學計量・化學反應・氧化還原</h1>
+
+<hr>
+
+<h2>🔢 常用原子量速查</h2>
+
+<div class="table-wrapper"><table>
+<tr><th>H</th><th>C</th><th>N</th><th>O</th><th>Na</th><th>Mg</th><th>Al</th><th>S</th><th>Cl</th><th>K</th><th>Ca</th><th>Fe</th><th>Cu</th><th>Zn</th><th>Ag</th><th>Br</th></tr>
+<tr><td>1</td><td>12</td><td>14</td><td>16</td><td>23</td><td>24</td><td>27</td><td>32</td><td>35.5</td><td>39</td><td>40</td><td>56</td><td>64</td><td>65</td><td>108</td><td>80</td></tr>
+</table></div>
+
+<h2>📐 常見分子量速查</h2>
+
+<div class="table-wrapper"><table>
+<tr><th>物質</th><th>化學式</th><th>分子量</th><th>物質</th><th>化學式</th><th>分子量</th></tr>
+<tr><td>水</td><td>H₂O</td><td>18</td><td>氧氣</td><td>O₂</td><td>32</td></tr>
+<tr><td>二氧化碳</td><td>CO₂</td><td>44</td><td>甲烷</td><td>CH₄</td><td>16</td></tr>
+<tr><td>硫酸</td><td>H₂SO₄</td><td>98</td><td>氫氧化鈉</td><td>NaOH</td><td>40</td></tr>
+<tr><td>碳酸鈣</td><td>CaCO₃</td><td>100</td><td>氧化鐵</td><td>Fe₂O₃</td><td>160</td></tr>
+<tr><td>次氯酸鈉</td><td>NaClO</td><td>74.5</td><td>雙氧水</td><td>H₂O₂</td><td>34</td></tr>
+<tr><td>氧化鎂</td><td>MgO</td><td>40</td><td>丙烷</td><td>C₃H₈</td><td>44</td></tr>
+<tr><td>氯化鈉</td><td>NaCl</td><td>58.5</td><td>氧化銅</td><td>CuO</td><td>80</td></tr>
+<tr><td>氧化鋁</td><td>Al₂O₃</td><td>102</td><td>一氧化碳</td><td>CO</td><td>28</td></tr>
+</table></div>
+
+<hr>
+
+<h2>🔄 莫耳三大轉換（核心公式）</h2>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180">
+  <rect width="600" height="180" fill="#f8f9fa" rx="8"/>
+  <!-- 三個框 -->
+  <rect x="20" y="60" width="150" height="60" fill="#065A82" rx="10"/>
+  <text x="95" y="95" text-anchor="middle" font-size="14" fill="white" font-weight="bold">質量 (g)</text>
+  <rect x="225" y="60" width="150" height="60" fill="#1C7293" rx="10"/>
+  <text x="300" y="95" text-anchor="middle" font-size="14" fill="white" font-weight="bold">莫耳數 (mol)</text>
+  <rect x="430" y="60" width="150" height="60" fill="#21295C" rx="10"/>
+  <text x="505" y="95" text-anchor="middle" font-size="14" fill="white" font-weight="bold">粒子數 (個)</text>
+  <!-- 箭頭 -->
+  <text x="185" y="80" font-size="12" fill="#333">÷分子量→</text>
+  <text x="185" y="110" font-size="12" fill="#333">←×分子量</text>
+  <text x="385" y="80" font-size="12" fill="#333">×6×10²³→</text>
+  <text x="385" y="110" font-size="12" fill="#333">←÷6×10²³</text>
+  <text x="300" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#065A82">莫耳轉換三角</text>
+  <text x="300" y="160" text-anchor="middle" font-size="12" fill="#666">1 mol = 6×10²³ 個 = 分子量(g)</text>
+</svg></div></p>
+
+<div class="table-wrapper"><table>
+<tr><th>公式</th><th>說明</th><th>範例</th></tr>
+<tr><td>mol = g ÷ M</td><td>質量→莫耳</td><td>36g H₂O ÷ 18 = 2 mol</td></tr>
+<tr><td>g = mol × M</td><td>莫耳→質量</td><td>3 mol CO₂ × 44 = 132g</td></tr>
+<tr><td>個數 = mol × 6×10²³</td><td>莫耳→粒子數</td><td>2 mol → 1.2×10²⁴</td></tr>
+<tr><td>1個質量 = M ÷ 6×10²³</td><td>單一原子(分子)真正質量</td><td>1個H₂O = 18÷6×10²³ g</td></tr>
+</table></div>
+
+<hr>
+
+<h2>⚗️ 化學反應式重點</h2>
+
+<h3>係數比的三重意義</h3>
+
+<div class="table-wrapper"><table>
+<tr><th>反應式</th><th>係數比</th><th>莫耳數比</th><th>質量比（要乘分子量）</th></tr>
+<tr><td>2H₂ + O₂ → 2H₂O</td><td>2:1:2</td><td>2:1:2</td><td>4:32:36</td></tr>
+<tr><td>2H₂O₂ → 2H₂O + O₂</td><td>2:2:1</td><td>2:2:1</td><td>68:36:32</td></tr>
+<tr><td>CH₄ + 2O₂ → CO₂ + 2H₂O</td><td>1:2:1:2</td><td>1:2:1:2</td><td>16:64:44:36</td></tr>
+</table></div>
+
+<h3>常考反應式速查</h3>
+
+<div class="table-wrapper"><table>
+<tr><th>反應</th><th>化學反應式</th></tr>
+<tr><td>鎂燃燒</td><td>2Mg + O₂ → 2MgO</td></tr>
+<tr><td>碳燃燒</td><td>C + O₂ → CO₂</td></tr>
+<tr><td>硫燃燒</td><td>S + O₂ → SO₂</td></tr>
+<tr><td>鈉燃燒</td><td>4Na + O₂ → 2Na₂O</td></tr>
+<tr><td>銅氧化</td><td>2Cu + O₂ → 2CuO</td></tr>
+<tr><td>鋅氧化</td><td>2Zn + O₂ → 2ZnO</td></tr>
+<tr><td>氫燃燒</td><td>2H₂ + O₂ → 2H₂O</td></tr>
+<tr><td>甲烷燃燒</td><td>CH₄ + 2O₂ → CO₂ + 2H₂O</td></tr>
+<tr><td>丙烷燃燒</td><td>C₃H₈ + 5O₂ → 3CO₂ + 4H₂O</td></tr>
+<tr><td>雙氧水分解</td><td>2H₂O₂ →(MnO₂) 2H₂O + O₂</td></tr>
+<tr><td>碳酸鈣+鹽酸</td><td>CaCO₃+2HCl→CaCl₂+CO₂+H₂O</td></tr>
+<tr><td>碳酸鈉+氯化鈣</td><td>Na₂CO₃+CaCl₂→CaCO₃↓+2NaCl</td></tr>
+<tr><td>高爐煉鐵</td><td>Fe₂O₃ + 3CO → 2Fe + 3CO₂</td></tr>
+</table></div>
+
+<h3>平衡口訣</h3>
+<p>> 先平衡最複雜的分子 → 出現分數就全部乘以最小公倍數</p>
+
+<hr>
+
+<h2>🔥 活性大小排列（超重要！）</h2>
+
+<pre><code class="lang-">
+K > Na > Ba > Ca > Mg > Al > C > Zn > Cr > Fe > Sn > Pb > H > Cu > Hg > Ag > Pt > Au
+鉀   鈉   鋇   鈣   鎂   鋁   碳  鋅   鉻   鐵  錫   鉛   氫  銅   汞   銀   鉑   金
+</code></pre>
+
+<p><strong>口訣：</strong> 嫁那美女，心鐵真前，統共一百斤</p>
+
+<h3>活性判斷速查</h3>
+
+<div class="table-wrapper"><table>
+<tr><th>活性大</th><th>活性小</th></tr>
+<tr><td>元素不安定</td><td>元素安定</td></tr>
+<tr><td>容易燃燒</td><td>不容易燃燒</td></tr>
+<tr><td>氧化物安定</td><td>氧化物不安定</td></tr>
+<tr><td>自然界多以化合物存在</td><td>自然界可以元素態存在</td></tr>
+</table></div>
+
+<hr>
+
+<h2>🔬 金屬燃燒比較表</h2>
+
+<div class="table-wrapper"><table>
+<tr><th>金屬</th><th>火焰顏色</th><th>產物</th><th>溶水性</th><th>水溶液</th><th>反應式</th></tr>
+<tr><td>Na</td><td>黃色</td><td>Na₂O</td><td>溶</td><td>鹼性</td><td>4Na+O₂→2Na₂O</td></tr>
+<tr><td>Mg</td><td>白光</td><td>MgO</td><td>難溶</td><td>鹼性</td><td>2Mg+O₂→2MgO</td></tr>
+<tr><td>Zn</td><td>黃綠色</td><td>ZnO</td><td>難溶</td><td>—</td><td>2Zn+O₂→2ZnO</td></tr>
+<tr><td>Cu</td><td>—</td><td>CuO(黑)</td><td>不溶</td><td>中性</td><td>2Cu+O₂→2CuO</td></tr>
+</table></div>
+
+<h2>非金屬燃燒比較表</h2>
+
+<div class="table-wrapper"><table>
+<tr><th>非金屬</th><th>火焰</th><th>產物</th><th>溶水成</th><th>酸鹼性</th></tr>
+<tr><td>S 硫</td><td>藍紫色</td><td>SO₂</td><td>H₂SO₃ 亞硫酸</td><td>酸性</td></tr>
+<tr><td>P 紅磷</td><td>黃白色</td><td>P₂O₅</td><td>H₃PO₄ 磷酸</td><td>弱酸性</td></tr>
+<tr><td>C 碳</td><td>橘紅色</td><td>CO₂</td><td>H₂CO₃ 碳酸</td><td>弱酸性</td></tr>
+</table></div>
+
+<p>> <strong>記憶：金屬氧化物→鹼性、非金屬氧化物→酸性</strong></p>
+
+<hr>
+
+<h2>⚖️ 氧化還原速查</h2>
+
+<div class="table-wrapper"><table>
+<tr><th></th><th>氧化反應</th><th>還原反應</th></tr>
+<tr><td>定義</td><td>物質與氧結合</td><td>氧化物失去氧</td></tr>
+<tr><td>氧的變化</td><td>得到氧</td><td>失去氧</td></tr>
+<tr><td>同時發生？</td><td>**是！一定伴隨還原**</td><td>**是！一定伴隨氧化**</td></tr>
+</table></div>
+
+<h3>氧化還原通式</h3>
+
+<pre><code class="lang-">
+活性大元素 + 活性小元素的氧化物 → 活性大元素的氧化物 + 活性小元素
+（被氧化）    （被還原）           （氧化產物）        （還原產物）
+</code></pre>
+
+<h3>氧化劑 vs 還原劑</h3>
+
+<div class="table-wrapper"><table>
+<tr><th></th><th>氧化劑（本身被還原）</th><th>還原劑（本身被氧化）</th></tr>
+<tr><td>常見</td><td>O₂、H₂O₂、NaClO</td><td>C、CO、煤焦</td></tr>
+<tr><td>角色</td><td>提供氧給別人</td><td>搶走別人的氧</td></tr>
+</table></div>
+
+<hr>
+
+<h2>🏭 高爐煉鐵速查</h2>
+
+<div class="table-wrapper"><table>
+<tr><th>項目</th><th>內容</th></tr>
+<tr><td>原料</td><td>鐵礦石(Fe₂O₃)、煤焦(C)、石灰石(CaCO₃)、空氣</td></tr>
+<tr><td>主反應</td><td>Fe₂O₃ + 3CO → 2Fe + 3CO₂</td></tr>
+<tr><td>煤焦用途</td><td>①燃料(提供熱) ②還原劑(產CO)</td></tr>
+<tr><td>石灰石用途</td><td>造渣（去除雜質）</td></tr>
+<tr><td>出鐵口</td><td>下方（生鐵密度大，沉下層）</td></tr>
+<tr><td>出渣口</td><td>中間（熔渣密度小，浮上層）</td></tr>
+</table></div>
+
+<hr>
+
+<h2>🛡️ 防鏽比較</h2>
+
+<div class="table-wrapper"><table>
+<tr><th>製品</th><th>表面材質</th><th>防鏽原理</th><th>刮傷後</th></tr>
+<tr><td>白鐵（鍍鋅）</td><td>鋅 Zn</td><td>鋅活性大，犧牲自己保護鐵</td><td>鋅先腐蝕，鐵被保護</td></tr>
+<tr><td>馬口鐵（鍍錫）</td><td>錫 Sn</td><td>錫隔絕空氣與水</td><td>鐵先腐蝕，錫無保護力</td></tr>
+<tr><td>鋁製品</td><td>氧化鋁</td><td>緻密氧化層阻隔</td><td>氧化鋁層自動修復</td></tr>
+</table></div>
+
+<hr>
+
+<h2>💡 易混淆對照表</h2>
+
+<div class="table-wrapper"><table>
+<tr><th>容易搞混的</th><th>正確理解</th></tr>
+<tr><td>原子量 vs 質量</td><td>原子量是「比值」無單位；質量是「公克」有單位</td></tr>
+<tr><td>係數比 vs 質量比</td><td>係數比=莫耳比=分子數比 ≠ 質量比（質量比要乘分子量）</td></tr>
+<tr><td>莫耳可以小數？</td><td>莫耳數可以是小數（1.5 mol），但粒子數一定是整數</td></tr>
+<tr><td>質量守恆 vs 跑掉</td><td>開放系統看起來質量少了，是因為氣體跑掉，不是質量不守恆</td></tr>
+<tr><td>氧化劑 vs 還原劑</td><td>氧化劑=本身被還原（易混淆！），還原劑=本身被氧化</td></tr>
+<tr><td>白鐵 vs 馬口鐵</td><td>白鐵鍍鋅（活性大→犧牲保護），馬口鐵鍍錫（活性小→僅隔絕）</td></tr>
+<tr><td>活性大 vs 安定</td><td>元素活性大→不安定；但氧化物反而安定</td></tr>
+</table></div>
+
+<div class="nav-buttons">
+  <button class="nav-btn" onclick="switchTab(3)">← Anki</button>
+  <button class="nav-btn" onclick="switchTab(5)">下一步：考試卷 →</button>
+</div>
+</div>
+
+<!-- Tab 5: Exam -->
+<div class="content" id="tab5">
+<div class="exam-timer" id="examTimer">
+  <span>⏱️ 考試計時器</span>
+  <span class="timer-display" id="timerDisplay">45:00</span>
+  <button class="timer-btn" onclick="startTimer()">▶ 開始</button>
+  <button class="timer-btn" onclick="pauseTimer()">⏸ 暫停</button>
+  <button class="timer-btn" onclick="resetTimer()">🔄 重置</button>
+</div>
+
+<h1>📝 第七單元：化學計量、化學反應、氧化還原 考試卷</h1>
+
+<p><strong>總分：100 分 ｜ 時間：45 分鐘</strong>  </p>
+<p><strong>原子量參考：H=1, C=12, N=14, O=16, Na=23, Mg=24, Al=27, S=32, Cl=35.5, K=39, Ca=40, Fe=56, Cu=64, Zn=65</strong></p>
+
+<hr>
+
+<h2>一、選擇題（每題 5 分，共 50 分）</h2>
+
+<p><strong>( ) 1.</strong> 下列關於原子量的敘述，何者正確？  </p>
+<p>(A) 原子量的單位是公克  </p>
+<p>(B) 原子量是以氫原子為標準的比值  </p>
+<p>(C) 原子量是以碳-12 為標準，訂定碳-12 的原子量為 12 的比值  </p>
+<p>(D) 原子量就是原子的真正質量</p>
+
+<p><strong>( ) 2.</strong> 已知 C=12, H=1, O=16，下列各物質中，何者所含的分子莫耳數最多？  </p>
+<p>(A) 36 克的 H₂O  </p>
+<p>(B) 44 克的 CO₂  </p>
+<p>(C) 16 克的 CH₄  </p>
+<p>(D) 16 克的 O₂</p>
+
+<p><strong>( ) 3.</strong> 在化學反應式 2H₂ + O₂ → 2H₂O 中，下列敘述何者<strong>錯誤</strong>？  </p>
+<p>(A) 氫氣與氧氣的莫耳數比為 2:1  </p>
+<p>(B) 氫氣與水的分子數比為 1:1  </p>
+<p>(C) 氫氣與氧氣的質量比為 2:1  </p>
+<p>(D) 反應前後原子總數不變</p>
+
+<p><strong>( ) 4.</strong> 甲、乙兩種不同的金屬元素分別與同濃度的鹽酸反應，反應後只會產生氫氣與金屬的氯化物。取甲金屬 24.3g 與鹽酸反應，另取乙金屬與鹽酸反應，且兩個反應物與產物的質量如下：兩反應的鹽酸消耗量相同，但甲反應所需的鹽酸量較多，且產生的氫氣質量均為 2.0g。則下列何者正確？  </p>
+<p>(A) 甲的反應的鹽酸消耗量和乙反應的產物質量相同  </p>
+<p>(B) 甲的反應的鹽酸消耗量和乙反應的產物質量不同  </p>
+<p>(C) 無法判斷  </p>
+<p>(D) 兩反應的生成物質量一定不同</p>
+
+<p><strong>( ) 5.</strong> 下列關於質量守恆定律的敘述，何者正確？  </p>
+<p>(A) 化學反應前後，原子的種類和數目不會改變  </p>
+<p>(B) 化學反應前後，分子的種類不會改變  </p>
+<p>(C) 碳酸鈣與鹽酸反應後質量減少，違反質量守恆定律  </p>
+<p>(D) 質量守恆定律只適用於密閉容器中的反應</p>
+
+<p><strong>( ) 6.</strong> 下列元素對氧的活性大小排列，何者正確？  </p>
+<p>(A) Fe > Al > Mg  </p>
+<p>(B) Na > Mg > Cu  </p>
+<p>(C) Cu > Fe > Zn  </p>
+<p>(D) Au > Ag > Cu</p>
+
+<p><strong>( ) 7.</strong> 有關鎂元素的敘述，下列何者<strong>錯誤</strong>？  </p>
+<p>(A) 鎂易燃燒，且產生強烈白光  </p>
+<p>(B) 鎂的燃燒產物為白色  </p>
+<p>(C) 鎂加入水中，發生劇烈反應，並產生氫氣  </p>
+<p>(D) 鎂的氧化物溶於水，呈鹼性反應</p>
+
+<p><strong>( ) 8.</strong> 關於「白鐵」與「馬口鐵」的比較，下列敘述何者正確？  </p>
+<p>(A) 白鐵是鍍錫，馬口鐵是鍍鋅  </p>
+<p>(B) 兩者表面刮傷後，都會先腐蝕表層金屬  </p>
+<p>(C) 白鐵表面刮傷後，鋅會犧牲自己保護鐵  </p>
+<p>(D) 馬口鐵的防鏽效果比白鐵好</p>
+
+<p><strong>( ) 9.</strong> 在反應式 2Mg + CO₂ → 2MgO + C 中，下列敘述何者正確？  </p>
+<p>(A) Mg 是還原劑，被還原  </p>
+<p>(B) CO₂ 是氧化劑，被氧化  </p>
+<p>(C) Mg 被氧化，CO₂ 被還原  </p>
+<p>(D) 此反應不是氧化還原反應</p>
+
+<p><strong>( ) 10.</strong> 有關高爐煉鐵的敘述，下列何者<strong>錯誤</strong>？  </p>
+<p>(A) 煤焦的用途是作為燃料及還原劑  </p>
+<p>(B) 加入石灰石的目的是去除鑄鐵中的雜質  </p>
+<p>(C) 生成的熔渣可作為沉澱物使用  </p>
+<p>(D) 由高爐所煉製的鐵為生鐵</p>
+
+<hr>
+
+<h2>二、填充題（每格 4 分，共 20 分）</h2>
+
+<p><strong>11.</strong> 已知 C=12, H=1, O=16。</p>
+
+<p>(1) H₂SO₄ 的分子量為 ________。（S=32）</p>
+
+<p>(2) 3 莫耳的 CO₂ 質量為 ________ 公克。</p>
+
+<p>(3) 96 公克的 O₂ 含有 ________ 莫耳。</p>
+
+<p><strong>12.</strong> 在化學反應式的書寫中：</p>
+
+<p>(1) 用箭號「→」的左邊代表 ________，右邊代表 ________。</p>
+
+<p>(2) 雙氧水在二氧化錳催化下分解的平衡反應式為：________</p>
+
+<hr>
+
+<h2>三、問答題（每題 15 分，共 30 分）</h2>
+
+<p><strong>13.</strong> 甲烷（CH₄）完全燃燒的反應式為 CH₄ + 2O₂ → CO₂ + 2H₂O。若有 32 克的甲烷完全燃燒，請計算：（原子量 C=12, H=1, O=16）</p>
+
+<p>(1) 32 克甲烷為多少莫耳？（3 分）</p>
+
+<p>(2) 完全燃燒需要多少莫耳的氧氣？（4 分）</p>
+
+<p>(3) 會產生多少公克的二氧化碳？（4 分）</p>
+
+<p>(4) 會產生多少公克的水？（4 分）</p>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 60">
+  <rect width="600" height="60" fill="#f0f7ff" rx="6" stroke="#065A82"/>
+  <text x="20" y="25" font-size="13" fill="#065A82" font-weight="bold">提示：</text>
+  <text x="20" y="45" font-size="12" fill="#333">CH₄分子量=16，O₂分子量=32，CO₂分子量=44，H₂O分子量=18</text>
+</svg></div></p>
+
+<hr>
+
+<p><strong>14.</strong> 某工廠用高爐煉鐵，已知主要反應式為 Fe₂O₃ + 3CO → 2Fe + 3CO₂。</p>
+
+<p>(1) 在此反應中，哪個物質被氧化？哪個物質被還原？請說明理由。（6 分）</p>
+
+<p>(2) 若要煉出 112 公克的鐵，需要多少公克的氧化鐵（Fe₂O₃）？（Fe=56, O=16）（5 分）</p>
+
+<p>(3) 高爐煉鐵中加入石灰石的目的是什麼？（4 分）</p>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 60">
+  <rect width="600" height="60" fill="#f0f7ff" rx="6" stroke="#065A82"/>
+  <text x="20" y="25" font-size="13" fill="#065A82" font-weight="bold">提示：</text>
+  <text x="20" y="45" font-size="12" fill="#333">Fe₂O₃ 分子量 = 56×2+16×3 = 160，Fe 原子量 = 56</text>
+</svg></div></p>
+
+<hr>
+
+<p><strong>【考試結束，請檢查作答是否完整】</strong></p>
+
+<div class="nav-buttons">
+  <button class="nav-btn" onclick="switchTab(4)">← Cheat Sheet</button>
+  <button class="nav-btn" onclick="switchTab(6)">下一步：答案卷 →</button>
+</div>
+</div>
+
+<!-- Tab 6: Answer -->
+<div class="content" id="tab6">
+<div class="answer-lock" id="answerLock">
+  <p style="font-size:18px;margin-bottom:12px;">🔒 答案卷已鎖定</p>
+  <p style="color:var(--gray);margin-bottom:16px;">請確認你已經完成考試卷作答</p>
+  <label><input type="checkbox" id="confirmCheck" onchange="unlockAnswer()"> 我已完成考試卷，確認查看答案</label>
+</div>
+<div class="answer-content" id="answerContent">
+
+<h1>✅ 第七單元：化學計量、化學反應、氧化還原 答案卷</h1>
+
+<hr>
+
+<h2>一、選擇題答案</h2>
+
+<div class="table-wrapper"><table>
+<tr><th>題號</th><th>答案</th><th>解析</th></tr>
+<tr><td>1</td><td>**(C)**</td><td>原子量以碳-12為標準，定其原子量為12。(A)無單位 (B)是碳-12非氫 (D)是比值非實際質量</td></tr>
+<tr><td>2</td><td>**(A)**</td><td>A: 36/18=2mol; B: 44/44=1mol; C: 16/16=1mol; D: 16/32=0.5mol，A最多</td></tr>
+<tr><td>3</td><td>**(C)**</td><td>係數比=莫耳比=2:1，但質量比=2×2:1×32=4:32=1:8，不是2:1</td></tr>
+<tr><td>4</td><td>**(A)**</td><td>由質量守恆，反應物總質量=生成物總質量。鹽酸消耗量相同、氫氣產量相同，故生成物總質量也相同</td></tr>
+<tr><td>5</td><td>**(A)**</td><td>(B)分子種類會改變 (C)有CO₂逸出，加上氣體仍守恆 (D)適用於所有化學反應</td></tr>
+<tr><td>6</td><td>**(B)**</td><td>活性：Na>Mg>Al>Zn>Fe>Cu>Ag>Au，只有B正確</td></tr>
+<tr><td>7</td><td>**(C)**</td><td>鎂加入水中反應緩慢，不會劇烈反應。鎂在熱水中才有明顯反應。</td></tr>
+<tr><td>8</td><td>**(C)**</td><td>(A)白鐵鍍鋅，馬口鐵鍍錫 (B)白鐵刮傷後鋅先蝕 (D)白鐵防鏽較佳</td></tr>
+<tr><td>9</td><td>**(C)**</td><td>Mg得到O→被氧化；CO₂失去O→被還原。Mg是還原劑，CO₂是氧化劑</td></tr>
+<tr><td>10</td><td>**(C)**</td><td>熔渣用於建築材料等，不是沉澱物。其餘均正確。</td></tr>
+</table></div>
+
+<hr>
+
+<h2>二、填充題答案</h2>
+
+<p><strong>11.</strong></p>
+
+<p><strong>(1)** H₂SO₄ 的分子量 = 1×2 + 32 + 16×4 = **98</strong></p>
+
+<p><strong>(2)** 3 mol CO₂ 質量 = 3 × 44 = **132 公克</strong></p>
+
+<p><strong>(3)** 96g O₂ 的莫耳數 = 96 ÷ 32 = **3 莫耳</strong></p>
+
+<p><strong>12.</strong></p>
+
+<p><strong>(1)** 左邊代表**反應物**，右邊代表**生成物</strong></p>
+
+<p><strong>(2)** **2H₂O₂ →(MnO₂) 2H₂O + O₂</strong></p>
+
+<hr>
+
+<h2>三、問答題答案</h2>
+
+<h3>第 13 題（甲烷燃燒計算）</h3>
+
+<p><strong>反應式：CH₄ + 2O₂ → CO₂ + 2H₂O</strong></p>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 380">
+  <rect width="650" height="380" fill="#f8f9fa" rx="8"/>
+  <text x="20" y="30" font-size="16" font-weight="bold" fill="#065A82">第 13 題 完整解答</text>
+  <line x1="20" y1="40" x2="630" y2="40" stroke="#065A82" stroke-width="2"/>
+  
+  <text x="20" y="70" font-size="14" fill="#333" font-weight="bold">(1) 32g 甲烷的莫耳數：</text>
+  <text x="40" y="95" font-size="14" fill="#333">CH₄ 分子量 = 12 + 1×4 = 16</text>
+  <text x="40" y="120" font-size="14" fill="#065A82" font-weight="bold">莫耳數 = 32 ÷ 16 = 2 mol（3分）</text>
+  
+  <text x="20" y="155" font-size="14" fill="#333" font-weight="bold">(2) 需要的氧氣莫耳數：</text>
+  <text x="40" y="180" font-size="14" fill="#333">由反應式：CH₄:O₂ = 1:2</text>
+  <text x="40" y="205" font-size="14" fill="#065A82" font-weight="bold">需 O₂ = 2 × 2 = 4 mol（4分）</text>
+  
+  <text x="20" y="240" font-size="14" fill="#333" font-weight="bold">(3) 產生的 CO₂ 質量：</text>
+  <text x="40" y="265" font-size="14" fill="#333">由反應式：CH₄:CO₂ = 1:1 → CO₂ = 2 mol</text>
+  <text x="40" y="290" font-size="14" fill="#065A82" font-weight="bold">CO₂ 質量 = 2 × 44 = 88g（4分）</text>
+  
+  <text x="20" y="325" font-size="14" fill="#333" font-weight="bold">(4) 產生的 H₂O 質量：</text>
+  <text x="40" y="350" font-size="14" fill="#333">由反應式：CH₄:H₂O = 1:2 → H₂O = 2×2 = 4 mol</text>
+  <text x="40" y="375" font-size="14" fill="#065A82" font-weight="bold">H₂O 質量 = 4 × 18 = 72g（4分）</text>
+</svg></div></p>
+
+<p><strong>驗算（質量守恆）：</strong> 反應物 = 32 + 4×32 = 160g；生成物 = 88 + 72 = 160g ✓</p>
+
+<hr>
+
+<h3>第 14 題（高爐煉鐵）</h3>
+
+<p><div class="svg-container"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 400">
+  <rect width="650" height="400" fill="#f8f9fa" rx="8"/>
+  <text x="20" y="30" font-size="16" font-weight="bold" fill="#065A82">第 14 題 完整解答</text>
+  <line x1="20" y1="40" x2="630" y2="40" stroke="#065A82" stroke-width="2"/>
+  
+  <text x="20" y="70" font-size="14" fill="#333" font-weight="bold">(1) 氧化還原分析（6分）：</text>
+  <text x="40" y="95" font-size="14" fill="#333">反應式：Fe₂O₃ + 3CO → 2Fe + 3CO₂</text>
+  <text x="40" y="120" font-size="14" fill="#065A82">• CO 被氧化（得到氧，變成 CO₂）→ CO 是還原劑</text>
+  <text x="40" y="145" font-size="14" fill="#065A82">• Fe₂O₃ 被還原（失去氧，Fe被釋放）→ Fe₂O₃ 是氧化劑</text>
+  <text x="40" y="170" font-size="12" fill="#666">理由：氧化=得氧，還原=失氧，兩者同時發生</text>
+  
+  <text x="20" y="210" font-size="14" fill="#333" font-weight="bold">(2) 計算所需 Fe₂O₃ 質量（5分）：</text>
+  <text x="40" y="235" font-size="14" fill="#333">Fe₂O₃ 分子量 = 56×2 + 16×3 = 160</text>
+  <text x="40" y="260" font-size="14" fill="#333">Fe 原子量 = 56</text>
+  <text x="40" y="285" font-size="14" fill="#333">112g Fe = 112 ÷ 56 = 2 mol Fe</text>
+  <text x="40" y="310" font-size="14" fill="#333">由反應式 Fe₂O₃:Fe = 1:2 → 需 Fe₂O₃ = 1 mol</text>
+  <text x="40" y="335" font-size="14" fill="#065A82" font-weight="bold">Fe₂O₃ 質量 = 1 × 160 = 160g</text>
+  
+  <text x="20" y="370" font-size="14" fill="#333" font-weight="bold">(3) 石灰石的目的（4分）：</text>
+  <text x="40" y="395" font-size="14" fill="#065A82">造渣：去除鐵礦石中的雜質（如 SiO₂），使鐵的純度提高。</text>
+</svg></div></p>
+
+<hr>
+
+<h2>評分標準</h2>
+
+<div class="table-wrapper"><table>
+<tr><th>題型</th><th>題數</th><th>每題分數</th><th>小計</th></tr>
+<tr><td>選擇題</td><td>10</td><td>5 分</td><td>50 分</td></tr>
+<tr><td>填充題</td><td>5 格</td><td>4 分</td><td>20 分</td></tr>
+<tr><td>問答題</td><td>2</td><td>15 分</td><td>30 分</td></tr>
+<tr><td>**合計**</td><td></td><td></td><td>**100 分**</td></tr>
+</table></div>
+
+</div>
+<div class="nav-buttons">
+  <button class="nav-btn" onclick="switchTab(5)">← 考試卷</button>
+  <button class="nav-btn" disabled>完成所有學習 🎉</button>
+</div>
+</div>
+
+<div class="footer">
+  🧪 第七單元 化學計量・化學反應・氧化還原 ｜ 2026 學習工具組
+</div>
+
+</div>
+
+<script>
+// Auth
+async function sha256(msg){
+  const buf=new TextEncoder().encode(msg);
+  const hash=await crypto.subtle.digest('SHA-256',buf);
+  return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+const PW_HASH='b3282a2f2a28757b3a18ab833de16a9c54518c0b0cf493e3f0a7cf09386f326a';
+async function doLogin(){
+  const pw=document.getElementById('pwInput').value.trim();
+  if(!pw) return;
+  const hash=await sha256(pw);
+  if(hash===PW_HASH){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('app').style.display='block';
+    sessionStorage.setItem('auth_ch7','1');
+  }else{
+    const err=document.getElementById('errorMsg');
+    err.classList.remove('show');void err.offsetWidth;err.classList.add('show');
+    document.getElementById('pwInput').select();
+  }
+}
+if(sessionStorage.getItem('auth_ch7')==='1'){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('app').style.display='block';
+}
+document.getElementById('pwInput')?.focus();
+
+// Tabs
+let currentTab=0;
+function switchTab(n){
+  currentTab=n;
+  document.querySelectorAll('.content').forEach((c,i)=>c.classList.toggle('active',i===n));
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===n));
+  document.getElementById('progressFill').style.width=((n+1)/7*100)+'%';
+  window.scrollTo(0,0);
+}
+
+// Dark mode
+function toggleDark(){document.body.classList.toggle('dark');}
+
+// Search
+function toggleSearch(){
+  const bar=document.getElementById('searchBar');
+  bar.classList.toggle('show');
+  if(bar.classList.contains('show'))document.getElementById('searchInput').focus();
+}
+function doSearch(q){
+  if(!q)return;
+  // Simple highlight approach
+  const content=document.getElementById('tab'+currentTab);
+  // Remove old highlights
+  content.querySelectorAll('mark').forEach(m=>{
+    m.outerHTML=m.textContent;
+  });
+  if(q.length<2)return;
+  const walker=document.createTreeWalker(content,NodeFilter.SHOW_TEXT);
+  const nodes=[];
+  while(walker.nextNode())nodes.push(walker.currentNode);
+  nodes.forEach(node=>{
+    if(node.textContent.includes(q)){
+      const span=document.createElement('span');
+      span.innerHTML=node.textContent.replaceAll(q,`<mark style="background:#fef08a">${q}</mark>`);
+      node.parentNode.replaceChild(span,node);
+    }
+  });
+}
+
+// Timer
+let timerSeconds=45*60,timerInterval=null;
+function updateTimerDisplay(){
+  const m=Math.floor(timerSeconds/60);
+  const s=timerSeconds%60;
+  document.getElementById('timerDisplay').textContent=
+    String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  if(timerSeconds<=0){clearInterval(timerInterval);document.getElementById('timerDisplay').textContent='00:00';alert('⏰ 時間到！');}
+}
+function startTimer(){if(!timerInterval)timerInterval=setInterval(()=>{timerSeconds--;updateTimerDisplay();},1000);}
+function pauseTimer(){clearInterval(timerInterval);timerInterval=null;}
+function resetTimer(){pauseTimer();timerSeconds=45*60;updateTimerDisplay();}
+
+// Answer lock
+function unlockAnswer(){
+  if(document.getElementById('confirmCheck').checked){
+    document.getElementById('answerContent').classList.add('unlocked');
+    document.getElementById('answerLock').style.display='none';
+  }
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown',e=>{
+  if(e.ctrlKey&&e.key==='f'){e.preventDefault();toggleSearch();}
+  if(e.key==='ArrowRight'&&currentTab<6)switchTab(currentTab+1);
+  if(e.key==='ArrowLeft'&&currentTab>0)switchTab(currentTab-1);
+});
+</script>
+</body>
+</html>
