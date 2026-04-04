@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>U15 第二次世界大戰與戰後發展 — 學習工具組</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--p:#065A82;--s:#1C7293;--a:#21295C;--o:#F59E0B;--bg:#F4F7FA;--card:#fff;--text:#1E293B;--gray:#64748B;--border:#E2E8F0;--red:#DC2626;--green:#16A34A}
+[data-theme="dark"]{--bg:#0F172A;--card:#1E293B;--text:#F1F5F9;--gray:#94A3B8;--border:#334155}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
+
+/* Header */
+.header{background:linear-gradient(135deg,var(--p),var(--a));color:#fff;padding:16px 20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.2)}
+.header-top{display:flex;justify-content:space-between;align-items:center;max-width:960px;margin:0 auto}
+.header h1{font-size:18px;font-weight:700}
+.header-sub{font-size:11px;opacity:.7;margin-top:2px}
+.header-actions{display:flex;gap:8px;align-items:center}
+.header-actions button{background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:14px;font-family:inherit;transition:background .2s}
+.header-actions button:hover{background:rgba(255,255,255,.25)}
+
+/* Search */
+.search-bar{display:none;max-width:960px;margin:0 auto;padding:8px 0}
+.search-bar.show{display:block}
+.search-bar input{width:100%;padding:10px 14px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:var(--card);color:var(--text);outline:none}
+.search-bar input:focus{border-color:var(--p)}
+.search-highlight{background:#FEF08A;padding:1px 2px;border-radius:2px}
+
+/* Progress */
+.progress-wrap{max-width:960px;margin:8px auto 0;padding:0 20px}
+.progress-bar{height:4px;background:var(--border);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--o);border-radius:4px;transition:width .3s;width:0%}
+.progress-text{font-size:11px;color:var(--gray);text-align:right;margin-top:2px}
+
+/* Tabs */
+.tabs{display:flex;overflow-x:auto;gap:4px;padding:10px 20px;max-width:960px;margin:0 auto;-webkit-overflow-scrolling:touch}
+.tab{padding:8px 14px;border:none;background:var(--card);color:var(--gray);border-radius:10px;cursor:pointer;font-size:12px;font-family:inherit;font-weight:500;white-space:nowrap;transition:all .2s;border:1px solid var(--border)}
+.tab:hover{color:var(--p);border-color:var(--p)}
+.tab.active{background:var(--p);color:#fff;border-color:var(--p)}
+
+/* Content */
+.content{max-width:960px;margin:0 auto;padding:16px 20px 80px}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* Article styling */
+.article{background:var(--card);border-radius:14px;padding:28px 24px;box-shadow:0 2px 8px rgba(0,0,0,.04);line-height:1.9;font-size:15px}
+.article h1{font-size:22px;font-weight:700;margin-bottom:16px;color:var(--p);border-bottom:2px solid var(--border);padding-bottom:8px}
+.article h2{font-size:18px;font-weight:700;margin:28px 0 12px;color:var(--a);border-left:4px solid var(--p);padding-left:10px}
+.article h3{font-size:16px;font-weight:700;margin:20px 0 8px;color:var(--s)}
+.article p{margin:8px 0}
+.article ul,.article ol{margin:8px 0 8px 20px}
+.article li{margin:4px 0}
+.article strong,.article b{color:var(--p)}
+.article em,.article i{color:var(--o)}
+
+/* Callouts */
+.callout{border-radius:10px;padding:14px 16px;margin:12px 0;border-left:4px solid}
+.callout-tip{background:#F0FDF4;border-color:#16A34A}
+.callout-note{background:#EFF6FF;border-color:#2563EB}
+.callout-warning{background:#FFFBEB;border-color:#F59E0B}
+.callout-info{background:#F0F9FF;border-color:#0EA5E9}
+[data-theme="dark"] .callout-tip{background:#052E16}
+[data-theme="dark"] .callout-note{background:#172554}
+[data-theme="dark"] .callout-warning{background:#422006}
+[data-theme="dark"] .callout-info{background:#082F49}
+.callout-title{font-weight:700;font-size:13px;margin-bottom:4px}
+
+/* Tables */
+.article table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+.article th,.article td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top}
+.article th{background:var(--p);color:#fff;font-weight:600}
+.article tr:nth-child(even){background:rgba(6,90,130,.03)}
+[data-theme="dark"] .article tr:nth-child(even){background:rgba(255,255,255,.03)}
+
+/* Exam styling */
+.exam-question{margin:16px 0;padding:14px 16px;background:var(--card);border-radius:10px;border:1px solid var(--border)}
+.exam-question .q-num{font-weight:700;color:var(--p)}
+.exam-options{margin:8px 0 0 20px}
+.exam-options label{display:block;padding:6px 8px;margin:2px 0;border-radius:6px;cursor:pointer;transition:background .2s}
+.exam-options label:hover{background:rgba(6,90,130,.05)}
+.exam-options input[type="radio"]{margin-right:8px}
+.exam-fill input{border:none;border-bottom:2px solid var(--border);padding:4px 8px;font-size:15px;font-family:inherit;background:transparent;color:var(--text);width:150px;outline:none}
+.exam-fill input:focus{border-color:var(--p)}
+
+/* Timer */
+.timer-bar{display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--card);border-radius:10px;margin-bottom:16px;border:1px solid var(--border)}
+.timer-display{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--p)}
+.timer-bar button{padding:6px 14px;border:none;border-radius:8px;font-family:inherit;font-size:13px;cursor:pointer;font-weight:500}
+.timer-start{background:var(--p);color:#fff}
+.timer-reset{background:var(--border);color:var(--text)}
+.timer-bar.warning .timer-display{color:var(--red)}
+
+/* Answer lock */
+.answer-lock{background:var(--card);border-radius:10px;padding:24px;text-align:center;border:2px dashed var(--border)}
+.answer-lock h3{margin-bottom:12px}
+.answer-lock label{display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 0;font-size:14px;cursor:pointer}
+.answer-lock button{margin-top:12px;padding:10px 24px;background:var(--p);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;opacity:.5;pointer-events:none}
+.answer-lock button.enabled{opacity:1;pointer-events:auto}
+
+/* Nav buttons */
+.nav-buttons{display:flex;justify-content:space-between;margin-top:20px;gap:12px}
+.nav-btn{padding:10px 20px;border:2px solid var(--border);background:var(--card);color:var(--text);border-radius:10px;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
+.nav-btn:hover{border-color:var(--p);color:var(--p)}
+.nav-btn.primary{background:var(--p);color:#fff;border-color:var(--p)}
+
+/* Keyboard hint */
+.kbd-hint{text-align:center;padding:12px;font-size:11px;color:var(--gray)}
+kbd{background:var(--card);border:1px solid var(--border);padding:2px 6px;border-radius:4px;font-family:inherit;font-size:11px}
+
+/* Footer */
+.footer{text-align:center;padding:20px;font-size:11px;color:var(--gray)}
+
+/* Login */
+.login-overlay{position:fixed;inset:0;background:linear-gradient(135deg,var(--p),var(--a));display:flex;justify-content:center;align-items:center;z-index:9999}
+.login-overlay.hidden{display:none}
+.login-box{background:#fff;border-radius:20px;padding:40px 36px;width:90%;max-width:380px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.login-box h2{font-size:20px;margin:12px 0 8px}
+.login-box p{font-size:13px;color:#64748B;margin-bottom:20px}
+.login-box input{width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;font-size:15px;font-family:inherit;outline:none;margin-bottom:12px}
+.login-box input:focus{border-color:var(--p)}
+.login-box button{width:100%;padding:12px;background:linear-gradient(135deg,#065A82,#1C7293);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer}
+.login-error{color:#DC2626;font-size:12px;margin-top:8px;display:none}
+
+@media(max-width:768px){
+.header h1{font-size:15px}
+.tabs{padding:8px 12px}
+.tab{font-size:11px;padding:6px 10px}
+.content{padding:12px 12px 60px}
+.article{padding:20px 16px;font-size:14px}
+.article h1{font-size:19px}
+.article h2{font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div class="login-overlay" id="loginOverlay">
+<div class="login-box">
+<div style="font-size:48px">🏛️</div>
+<h2>U15 第二次世界大戰與戰後發展</h2>
+<p>請輸入密碼開始學習</p>
+<input type="password" id="pwInput" placeholder="輸入密碼" onkeydown="if(event.key==='Enter')doLogin()">
+<button onclick="doLogin()">🔓 解鎖</button>
+<div class="login-error" id="loginErr">❌ 密碼錯誤</div>
+</div>
+</div>
+
+<!-- Header -->
+<div class="header">
+<div class="header-top">
+<div>
+<h1>🏛️ U15 第二次世界大戰與戰後發展</h1>
+<div class="header-sub">翰林大滿貫 ｜ 九年級下學期歷史</div>
+</div>
+<div class="header-actions">
+<button onclick="toggleSearch()" title="搜尋 (Ctrl+F)">🔍</button>
+<button onclick="toggleDark()" title="深色模式">🌙</button>
+</div>
+</div>
+<div class="search-bar" id="searchBar">
+<input type="text" id="searchInput" placeholder="搜尋內容..." oninput="doSearch(this.value)">
+</div>
+</div>
+
+<!-- Progress -->
+<div class="progress-wrap">
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<div class="progress-text" id="progressText">0 / 7 完成</div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs" id="tabBar">
+<button class="tab active" data-tab="0" onclick="switchTab(0)">📖 費曼筆記</button>
+<button class="tab" data-tab="1" onclick="switchTab(1)">📊 簡報</button>
+<button class="tab" data-tab="2" onclick="switchTab(2)">📝 康乃爾</button>
+<button class="tab" data-tab="3" onclick="switchTab(3)">🃏 Anki</button>
+<button class="tab" data-tab="4" onclick="switchTab(4)">⚡ Cheat Sheet</button>
+<button class="tab" data-tab="5" onclick="switchTab(5)">✏️ 考試卷</button>
+<button class="tab" data-tab="6" onclick="switchTab(6)">✅ 答案卷</button>
+</div>
+
+<div class="content">
+
+<!-- ═══ Tab 0: Feynman ═══ -->
+<div class="tab-panel active" id="panel0">
+<div class="article">
+<h1>📖 費曼學習法筆記</h1>
+<div class="callout callout-tip"><div class="callout-title">💡 費曼學習法核心</div>「如果你不能用簡單的話解釋給 10 歲小孩聽，代表你還不夠懂。」</div>
+
+<h2>一、戰間期的政經發展</h2>
+<h3>1. 俄國革命與共產政權</h3>
+<div class="callout callout-note"><div class="callout-title">📘 白話版</div>
+想像你家的大人（沙皇）管家管得很爛，家裡又窮又亂，還硬要去打一場打不贏的架（一戰）。全家人受不了了，先在「二月」把大人趕走（<b>二月革命</b>），換了一群新人來管。可是新人也不太行，只會講空話，大家還是吃不飽。<br><br>
+這時候有個叫<b>列寧</b>的人跳出來，喊著「和平、土地、麵包」，大家就跟著他在「十月」再來一次革命（<b>十月革命</b>），把新人也趕走了。列寧建立了全世界第一個<b>共產國家</b>。<br><br>
+列寧死後，<b>史達林</b>接手，用「計畫經濟」讓蘇聯變成工業強國，但老百姓過得還是很辛苦。
+</div>
+<div class="callout callout-warning"><div class="callout-title">⚠️ 易混淆</div>「二月革命」→ 趕走<b>沙皇</b>　｜　「十月革命」→ <b>列寧</b>上台建共產政權</div>
+
+<h3>2. 經濟大恐慌</h3>
+<div class="callout callout-note"><div class="callout-title">📘 白話版</div>
+一戰後美國賺了很多錢，但歐洲慢慢恢復後就不買美國的東西了。美國的東西<b>生產太多、賣不掉</b>（供過於求），加上政府又加高關稅，結果大家都不做生意了。<br><br>
+1929 年紐約股市大崩盤 → 公司倒閉 → 銀行倒閉 → 失業暴增 → 全球大慘 = <b>經濟大恐慌</b>。<br><br>
+1933 年美國總統<b>羅斯福</b>推出「新政」：政府花大錢蓋公路、橋梁，讓失業的人有工作做。
+</div>
+<p><b>連鎖影響：</b>美國→新政、義德→獨裁、日→侵華</p>
+
+<h3>3. 極權政治的興起</h3>
+<div class="callout callout-note"><div class="callout-title">📘 白話版</div>
+<b>義大利 — 墨索里尼：</b>成立「法西斯黨」，反共、恢復古羅馬光榮。1922 年<b>政變</b>當上首相。<br><br>
+<b>德國 — 希特勒：</b>領導「納粹黨」。1933 年靠<b>選舉</b>上台。反共、撕毀《凡爾賽條約》、迫害猶太人。
+</div>
+<div class="callout callout-warning"><div class="callout-title">⚠️ 必考重點</div>墨索里尼 = <b>政變</b>上台　｜　希特勒 = <b>選舉</b>上台（合法取得政權）</div>
+
+<h2>二、第二次世界大戰（1939-1945）</h2>
+<h3>1. 戰前局勢與導火線</h3>
+<div class="callout callout-note"><div class="callout-title">📘 白話版</div>
+德義日組成<b>軸心國</b>。美國躲起來（孤立主義），英法選擇忍讓（姑息政策）。<br>
+希特勒越拿越多：吞奧地利→要蘇臺德區（慕尼黑協定）→吞捷克→與蘇聯簽互不侵犯條約→<b>入侵波蘭</b>。英法對德宣戰，二戰開打！
+</div>
+
+<h3>2. 大戰過程（三幕劇）</h3>
+<table>
+<tr><th>階段</th><th>時間</th><th>關鍵事件</th></tr>
+<tr><td><b>初期</b></td><td>1939-1941</td><td>德國閃電戰，占領荷比法，空襲英國</td></tr>
+<tr><td><b>轉折</b></td><td>1941</td><td>希特勒攻蘇聯＋日本偷襲珍珠港→美蘇參戰</td></tr>
+<tr><td><b>反攻</b></td><td>1943-1945</td><td>1943義降、1944諾曼第、1945.5德降、1945.8原子彈→日降</td></tr>
+</table>
+
+<h3>3. 戰時會議與聯合國</h3>
+<table>
+<tr><th></th><th>開羅會議</th><th>雅爾達會議</th></tr>
+<tr><td><b>時間</b></td><td>1943</td><td>1945</td></tr>
+<tr><td><b>參加國</b></td><td>中、美、英</td><td>美、英、蘇</td></tr>
+<tr><td><b>議題</b></td><td>東亞問題</td><td>戰後處理</td></tr>
+</table>
+<p><b>聯合國（1945）：</b>總部紐約，安理會 5 常任理事國（中美英法蘇/俄），有否決權，可派兵。</p>
+
+<h2>三、戰後發展</h2>
+<h3>1. 冷戰時代</h3>
+<div class="callout callout-note"><div class="callout-title">📘 白話版</div>
+美蘇互看不順眼但不敢打（核武威懾）=「非戰非和、亦戰亦和」。<br>
+美國 → <b>NATO</b>（北大西洋公約組織）　vs　蘇聯 → <b>華沙公約組織</b>
+</div>
+
+<h3>2. 國際危機</h3>
+<table>
+<tr><th>危機</th><th>時間</th><th>經過</th><th>結果</th></tr>
+<tr><td><b>柏林危機</b></td><td>1948</td><td>蘇聯封鎖西柏林→美英空運</td><td>東西德分立、1961建圍牆</td></tr>
+<tr><td><b>古巴危機</b></td><td>1962</td><td>蘇聯在古巴建飛彈基地→美封鎖</td><td>蘇撤基地、冷戰緩和</td></tr>
+<tr><td><b>以阿衝突</b></td><td>1948起</td><td>以色列建國→阿拉伯國家不滿</td><td>多次戰爭、至今未解</td></tr>
+</table>
+
+<h3>3. 冷戰結束</h3>
+<div class="callout callout-info"><div class="callout-title">🧠 記住這四年</div>
+<b>1985</b> 戈巴契夫改革 → <b>1989</b> 柏林圍牆倒 → <b>1990</b> 德國統一 → <b>1991</b> 蘇聯瓦解<br>
+口訣：「<b>85改、89牆、90統、91散</b>」
+</div>
+<p>冷戰結束後，世界從「兩極對立」走向「多元並立」。</p>
+
+<h2>🧪 自我檢測（10 題）</h2>
+<ol>
+<li>二月革命和十月革命各推翻了什麼政權？</li>
+<li>經濟大恐慌的兩大背景原因？</li>
+<li>墨索里尼和希特勒的掌權方式有何不同？</li>
+<li>英法的姑息政策代表事件是什麼？</li>
+<li>二戰的導火線是什麼？</li>
+<li>二戰三階段各自的關鍵事件？</li>
+<li>開羅會議和雅爾達會議的參加國有何不同？</li>
+<li>國際聯盟和聯合國三大差異？</li>
+<li>冷戰的兩大軍事組織？</li>
+<li>冷戰結束的四個關鍵年份？</li>
+</ol>
+</div>
+<div class="nav-buttons">
+<span></span>
+<button class="nav-btn primary" onclick="switchTab(1)">下一步：簡報 →</button>
+</div>
+</div>
+
+<!-- ═══ Tab 1: Slides ═══ -->
+<div class="tab-panel" id="panel1">
+<div class="article">
+<h1>📊 簡報 — 重點回顧</h1>
+<div class="callout callout-info"><div class="callout-title">💡 提示</div>簡報檔案（.pptx）已包含在完整學習工具組 ZIP 中。以下是簡報的文字版重點摘要。</div>
+
+<h2>📍 本單元三大重點</h2>
+<table>
+<tr><th>重點</th><th>內容</th><th>關鍵字</th></tr>
+<tr><td>🏭 重點一</td><td>戰間期的政經發展</td><td>俄國革命、經濟大恐慌、極權政治</td></tr>
+<tr><td>💣 重點二</td><td>第二次世界大戰</td><td>軸心國、同盟國、會議與組織</td></tr>
+<tr><td>🌍 重點三</td><td>戰後發展</td><td>冷戰、國際危機、多元並立</td></tr>
+</table>
+
+<h2>⚔️ 三大極權國家速查</h2>
+<table>
+<tr><th></th><th>🇷🇺 蘇聯</th><th>🇮🇹 義大利</th><th>🇩🇪 德國</th></tr>
+<tr><td><b>領袖</b></td><td>列寧→史達林</td><td>墨索里尼</td><td>希特勒</td></tr>
+<tr><td><b>黨</b></td><td>共產黨</td><td>法西斯黨</td><td>納粹黨</td></tr>
+<tr><td><b>掌權</b></td><td>革命</td><td>政變</td><td>選舉</td></tr>
+<tr><td><b>主張</b></td><td>和平土地麵包</td><td>反共、古羅馬</td><td>反共、反凡爾賽</td></tr>
+</table>
+
+<h2>🎯 考前 5 大必記</h2>
+<ol>
+<li>二月推沙皇、十月推臨時 — 列寧口號「和平土地麵包」</li>
+<li>墨索里尼=政變、希特勒=選舉</li>
+<li>二戰轉折=美蘇參戰（不是諾曼第）</li>
+<li>開羅=中美英=東亞 / 雅爾達=美英蘇=戰後</li>
+<li>冷戰四年：85改、89牆、90統、91散</li>
+</ol>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="switchTab(0)">← 費曼筆記</button>
+<button class="nav-btn primary" onclick="switchTab(2)">下一步：康乃爾 →</button>
+</div>
+</div>
+
+<!-- ═══ Tab 2: Cornell ═══ -->
+<div class="tab-panel" id="panel2">
+<div class="article">
+<h1>📝 康乃爾筆記</h1>
+
+<h2>重點一：戰間期的政經發展</h2>
+<table>
+<tr><th style="width:30%">提示問題</th><th>筆記內容</th></tr>
+<tr><td>俄國革命背景？</td><td>沙皇專制腐敗＋一戰失利＋經濟惡化</td></tr>
+<tr><td>二月→十月？</td><td>二月推翻沙皇→臨時政府→十月列寧推翻臨時政府→共產政權</td></tr>
+<tr><td>蘇聯發展？</td><td>列寧：共產國際(1919)＋蘇聯(1922)；史達林：計畫經濟→工業強國</td></tr>
+<tr><td>經濟大恐慌？</td><td>背景：供過於求＋高關稅；1929股市崩盤→全球蔓延</td></tr>
+<tr><td>新政？</td><td>1933羅斯福：公共建設＋就業＋社福</td></tr>
+<tr><td>極權興起？</td><td>義：墨索里尼/法西斯/政變 vs 德：希特勒/納粹/選舉</td></tr>
+</table>
+<div class="callout callout-tip"><div class="callout-title">📌 摘要</div>戰間期三大事件環環相扣：一戰後遺症→經濟大恐慌→極權政治興起。</div>
+
+<h2>重點二：第二次世界大戰</h2>
+<table>
+<tr><th style="width:30%">提示問題</th><th>筆記內容</th></tr>
+<tr><td>戰前局勢？</td><td>軸心國(德義日) vs 孤立主義(美) vs 姑息(英法)</td></tr>
+<tr><td>導火線？</td><td>1939德侵波蘭→英法宣戰</td></tr>
+<tr><td>三階段？</td><td>初期(閃電戰)→轉折(美蘇參戰)→反攻(諾曼第→原子彈)</td></tr>
+<tr><td>會議比較？</td><td>開羅(1943/中美英/東亞) vs 雅爾達(1945/美英蘇/戰後)</td></tr>
+<tr><td>聯合國？</td><td>1945紐約，安理會5常任理事國，有否決權+武力</td></tr>
+</table>
+
+<h2>重點三：戰後發展</h2>
+<table>
+<tr><th style="width:30%">提示問題</th><th>筆記內容</th></tr>
+<tr><td>冷戰是什麼？</td><td>美蘇對抗不直接開戰，非戰非和、亦戰亦和</td></tr>
+<tr><td>兩大集團？</td><td>NATO(美/西歐/至今) vs 華沙(蘇/東歐/1991散)</td></tr>
+<tr><td>柏林危機？</td><td>1948封鎖→空運→1949分立→1961圍牆</td></tr>
+<tr><td>古巴危機？</td><td>1962蘇聯建飛彈基地→美封鎖→蘇撤→冷戰緩和</td></tr>
+<tr><td>冷戰結束？</td><td>85改→89牆→90統→91散→多元並立</td></tr>
+</table>
+
+<h2>重要比較：國際聯盟 vs 聯合國</h2>
+<table>
+<tr><th></th><th>國際聯盟</th><th>聯合國</th></tr>
+<tr><td><b>倡議者</b></td><td>威爾遜</td><td>中美英蘇</td></tr>
+<tr><td><b>成立</b></td><td>1920（一戰後）</td><td>1945（二戰後）</td></tr>
+<tr><td><b>總部</b></td><td>日內瓦</td><td>紐約</td></tr>
+<tr><td><b>武力</b></td><td>無</td><td>有（安理會派兵）</td></tr>
+<tr><td><b>美國</b></td><td>未加入</td><td>有加入</td></tr>
+</table>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="switchTab(1)">← 簡報</button>
+<button class="nav-btn primary" onclick="switchTab(3)">下一步：Anki →</button>
+</div>
+</div>
+
+<!-- ═══ Tab 3: Anki ═══ -->
+<div class="tab-panel" id="panel3">
+<div class="article">
+<h1>🃏 Anki 卡片預覽</h1>
+<div class="callout callout-info"><div class="callout-title">💡 使用方式</div>完整 Anki 卡片（.txt）已包含在 ZIP 中，可直接匯入 Anki。以下為部分預覽，點擊卡片翻轉。</div>
+<div id="ankiCards"></div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="switchTab(2)">← 康乃爾</button>
+<button class="nav-btn primary" onclick="switchTab(4)">下一步：Cheat Sheet →</button>
+</div>
+</div>
+
+<!-- ═══ Tab 4: Cheat Sheet ═══ -->
+<div class="tab-panel" id="panel4">
+<div class="article">
+<h1>⚡ Cheat Sheet</h1>
+
+<h2>📅 超級時間軸</h2>
+<table>
+<tr><th>年份</th><th>事件</th><th>口訣</th></tr>
+<tr><td>1917</td><td>俄國革命</td><td>一起一起搞革命</td></tr>
+<tr><td>1929</td><td>經濟大恐慌</td><td>一就二九就崩盤</td></tr>
+<tr><td>1933</td><td>希特勒上台/羅斯福新政</td><td>三三兩人同年</td></tr>
+<tr><td>1939</td><td>二戰開打(德侵波蘭)</td><td>三九打得要死</td></tr>
+<tr><td>1941</td><td>珍珠港→美蘇參戰</td><td>四一四方結盟</td></tr>
+<tr><td>1945</td><td>二戰結束/聯合國</td><td>四五全結束</td></tr>
+<tr><td>1948</td><td>柏林危機/以色列建國</td><td>—</td></tr>
+<tr><td>1962</td><td>古巴飛彈危機</td><td>—</td></tr>
+<tr><td>1985</td><td>戈巴契夫改革</td><td rowspan="4"><b>85改89牆<br>90統91散</b></td></tr>
+<tr><td>1989</td><td>柏林圍牆倒塌</td></tr>
+<tr><td>1990</td><td>德國統一</td></tr>
+<tr><td>1991</td><td>蘇聯瓦解</td></tr>
+</table>
+
+<h2>⚔️ 易混淆速查</h2>
+<table>
+<tr><th>項目</th><th>A</th><th>B</th></tr>
+<tr><td>革命</td><td>二月→推翻<b>沙皇</b></td><td>十月→推翻<b>臨時政府</b></td></tr>
+<tr><td>掌權</td><td>墨索里尼→<b>政變</b></td><td>希特勒→<b>選舉</b></td></tr>
+<tr><td>組織</td><td>國聯→無武力→日內瓦</td><td>聯合國→有武力→紐約</td></tr>
+<tr><td>會議</td><td>開羅→中美英→東亞</td><td>雅爾達→美英蘇→戰後</td></tr>
+<tr><td>同盟</td><td>NATO→美→至今</td><td>華沙→蘇→1991散</td></tr>
+<tr><td>圍牆</td><td>1961建→冷戰象徵</td><td>1989倒→冷戰結束</td></tr>
+<tr><td>新政vs十大</td><td>羅斯福/1930s/大蕭條</td><td>蔣經國/1970s/能源危機</td></tr>
+</table>
+
+<h2>🧠 記憶口訣</h2>
+<ul>
+<li><b>二推沙，十推臨</b> — 二月推沙皇，十月推臨時政府</li>
+<li><b>和土麵</b> — 列寧三口號（和平、土地、麵包）</li>
+<li><b>供→稅→跌→倒→慘</b> — 經濟大恐慌因果</li>
+<li><b>列蘇共、墨義法、希德納</b> — 人物國家政黨配對</li>
+<li><b>85改、89牆、90統、91散</b> — 冷戰結束</li>
+</ul>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="switchTab(3)">← Anki</button>
+<button class="nav-btn primary" onclick="switchTab(5)">下一步：考試卷 →</button>
+</div>
+</div>
+
+<!-- ═══ Tab 5: Exam ═══ -->
+<div class="tab-panel" id="panel5">
+<div class="article">
+<h1>✏️ 考試卷</h1>
+
+<div class="timer-bar" id="timerBar">
+<span style="font-size:13px;font-weight:600">⏱️ 計時器</span>
+<div class="timer-display" id="timerDisplay">45:00</div>
+<button class="timer-start" id="timerBtn" onclick="toggleTimer()">開始計時</button>
+<button class="timer-reset" onclick="resetTimer()">重設</button>
+</div>
+
+<p><b>滿分：100 分 ｜ 時間：45 分鐘</b></p>
+
+<h2>一、選擇題（每題 5 分，共 50 分）</h2>
+
+<div class="exam-question"><span class="q-num">1.</span> 1917 年俄國發生兩次革命。關於這兩次革命，下列何者正確？
+<div class="exam-options">
+<label><input type="radio" name="q1" value="A">（A）二月革命由列寧領導，推翻沙皇政權</label>
+<label><input type="radio" name="q1" value="B">（B）十月革命推翻臨時政府，建立共產政權</label>
+<label><input type="radio" name="q1" value="C">（C）二月革命後俄國立刻退出一戰</label>
+<label><input type="radio" name="q1" value="D">（D）十月革命建立的新政權採行資本主義</label>
+</div></div>
+
+<div class="exam-question"><span class="q-num">2.</span> 下列哪一項「不是」經濟大恐慌的背景原因？
+<div class="exam-options">
+<label><input type="radio" name="q2" value="A">（A）美國農工商品供過於求</label>
+<label><input type="radio" name="q2" value="B">（B）美國提高關稅，各國仿效</label>
+<label><input type="radio" name="q2" value="C">（C）蘇聯推行計畫經濟失敗</label>
+<label><input type="radio" name="q2" value="D">（D）外銷銳減，生產過剩</label>
+</div></div>
+
+<div class="exam-question"><span class="q-num">3.</span> 關於義大利和德國極權政治，下列何者正確？
+<div class="exam-options">
+<label><input type="radio" name="q3" value="A">（A）墨索里尼透過選舉合法取得政權</label>
+<label><input type="radio" name="q3" value="B">（B）希特勒發動政變奪取政權</label>
+<label><input type="radio" name="q3" value="C">（C）墨索里尼主張恢復古羅馬光榮</label>
+<label><input type="radio" name="q3" value="D">（D）希特勒成立法西斯黨</label>
+</div></div>
+
+<div class="exam-question"><span class="q-num">4.</span> 下列哪一項最能代表英法姑息政策的具體表現？
+<div class="exam-options">
+<label><input type="radio" name="q4" value="A">（A）與德國簽訂《德蘇互不侵犯條約》</label>
+<label><input type="radio" name="q4" value="B">（B）簽訂《慕尼黑協定》同意割讓蘇臺德區</label>
+<label><input type="radio" name="q4" value="C">（C）對德國宣戰以保護波蘭</label>
+<label><input type="radio" name="q4" value="D">（D）成立北大西洋公約組織圍堵德國</label>
+</div></div>
+
+<div class="exam-question"><span class="q-num">5.</span> 二戰中使局勢出現重大轉折的關鍵事件為何？
+<div class="exam-options">
+<label><input type="radio" name="q5" value="A">（A）德國閃電戰攻占法國</label>
+<label><input type="radio" name="q5" value="B">（B）盟軍在諾曼第登陸</label>
+<label><input type="radio" name="q5" value="C">（C）美國和蘇聯先後參戰</label>
+<label><input type="radio" name="q5" value="D">（D）美國在日本投下原子彈</label>
+</div></div>
+
+<div class="exam-question"><span class="q-num">6.</span> 關於二戰的兩次重要會議，下列何者正確？
+<div class="exam-options">
+<label><input type="radio" name="q6" value="A">（A）開羅會議由美、英、蘇三國召開</label>
+<label><input type="radio" name="q6" value="B">（B）雅爾達會議有中國參加</label>
+<label><input type="radio" name="q6" value="C">（C）開羅會議討論東亞問題，聲明日本必須無條件投降</label>
+<label><input type="radio" name="q6" value="D">（D）雅爾達會議決定聯合國總部設在日內瓦</label>
+</div></div>
+
+<div class="exam-question"><span class="q-num">7.</span> 冷戰時期軍事同盟的配對，下列何者正確？
+<div class="exam-options">
+<label><input type="radio" name="q7" value="A">（A）美國主導華沙公約組織</label>
+<label><input type="radio" name="q7" value="B">（B）蘇聯主導北大西洋公約組織</label>
+<label><input type="radio" name="q7" value="C">（C）北約成員國主要為西歐國家</label>
+<label><input type="radio" name="q7" value="D">（D）華沙公約組織至今仍在運作</label>
+</div></div>
+
+<div class="exam-question"><span class="q-num">8.</span> 關於古巴飛彈危機，下列何者正確？
+<div class="exam-options">
+<label><input type="radio" name="q8" value="A">（A）美國在古巴興建飛彈基地</label>
+<label><input type="radio" name="q8" value="B">（B）危機過後美蘇關係更加緊張</label>
+<label><input type="radio" name="q8" value="C">（C）蘇聯最終同意撤除基地，冷戰漸趨緩和</label>
+<label><input type="radio" name="q8" value="D">（D）此事件導致柏林圍牆的興建</label>
+</div></div>
+
+<div class="exam-question"><span class="q-num">9.</span> 冷戰結束的事件順序何者正確？
+<div class="exam-options">
+<label><input type="radio" name="q9" value="A">（A）蘇聯瓦解→柏林圍牆倒→德國統一</label>
+<label><input type="radio" name="q9" value="B">（B）戈巴契夫改革→柏林圍牆倒→蘇聯瓦解</label>
+<label><input type="radio" name="q9" value="C">（C）德國統一→柏林圍牆倒→戈巴契夫改革</label>
+<label><input type="radio" name="q9" value="D">（D）柏林圍牆倒→蘇聯瓦解→德國統一</label>
+</div></div>
+
+<div class="exam-question"><span class="q-num">10.</span> 甲國領袖不滿對方在古巴提供武器，乙國領袖要求停止在古巴建飛彈基地。甲、乙最可能是？
+<div class="exam-options">
+<label><input type="radio" name="q10" value="A">（A）甲：蘇聯、乙：東德</label>
+<label><input type="radio" name="q10" value="B">（B）甲：西德、乙：美國</label>
+<label><input type="radio" name="q10" value="C">（C）甲：美國、乙：蘇聯</label>
+<label><input type="radio" name="q10" value="D">（D）甲：蘇聯、乙：美國</label>
+</div></div>
+
+<h2>二、填充題（每格 4 分，共 20 分）</h2>
+<div class="exam-question">
+<span class="q-num">1.</span> 1933 年，美國總統 <span class="exam-fill"><input type="text" placeholder="？"></span> 推行「<span class="exam-fill"><input type="text" placeholder="？"></span>」。
+</div>
+<div class="exam-question">
+<span class="q-num">2.</span> 1945 年成立 <span class="exam-fill"><input type="text" placeholder="？"></span>，總部在美國 <span class="exam-fill"><input type="text" placeholder="？"></span>。
+</div>
+<div class="exam-question">
+<span class="q-num">3.</span> 蘇聯瓦解後組成「<span class="exam-fill"><input type="text" placeholder="？"></span>」。
+</div>
+
+<h2>三、問答題（每題 15 分，共 30 分）</h2>
+<div class="exam-question">
+<span class="q-num">1.</span> 比較「國際聯盟」與「聯合國」的異同（倡議者、成立時間、總部、制裁能力）。
+</div>
+<div class="exam-question">
+<span class="q-num">2.</span> 說明冷戰從形成到結束的過程（背景、軍事集團、國際危機、結束過程）。
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="switchTab(4)">← Cheat Sheet</button>
+<button class="nav-btn primary" onclick="switchTab(6)">下一步：答案卷 →</button>
+</div>
+</div>
+
+<!-- ═══ Tab 6: Answer ═══ -->
+<div class="tab-panel" id="panel6">
+<div class="answer-lock" id="answerLock">
+<h3>🔒 答案卷已鎖定</h3>
+<p>請先完成考試卷，再查看答案。</p>
+<label><input type="checkbox" id="confirmCheck" onchange="checkConfirm()"> 我已經完成考試，確定要看答案</label>
+<button id="unlockBtn" onclick="unlockAnswer()">🔓 解鎖答案卷</button>
+</div>
+
+<div id="answerContent" style="display:none">
+<div class="article">
+<h1>✅ 答案卷</h1>
+
+<h2>一、選擇題</h2>
+<table>
+<tr><th>題號</th><th>答案</th><th>解析</th></tr>
+<tr><td>1</td><td><b>B</b></td><td>十月革命推翻臨時政府建共產政權。(A)二月非列寧。(C)退出一戰是十月後。(D)是共產制度。</td></tr>
+<tr><td>2</td><td><b>C</b></td><td>蘇聯計畫經濟與大恐慌無關。其餘都是背景原因。</td></tr>
+<tr><td>3</td><td><b>C</b></td><td>墨索里尼反共＋古羅馬光榮。(A)是政變非選舉。(B)希特勒是選舉非政變。(D)是納粹黨非法西斯。</td></tr>
+<tr><td>4</td><td><b>B</b></td><td>慕尼黑協定是姑息政策代表。(A)德蘇之間。(C)(D)非姑息。</td></tr>
+<tr><td>5</td><td><b>C</b></td><td>美蘇參戰=最大轉折。諾曼第是反攻，原子彈是結束。</td></tr>
+<tr><td>6</td><td><b>C</b></td><td>開羅(中美英/東亞)。(A)無蘇。(B)雅爾達無中國。(D)紐約非日內瓦。</td></tr>
+<tr><td>7</td><td><b>C</b></td><td>NATO=西歐。(A)(B)配對反。(D)華沙已解散。</td></tr>
+<tr><td>8</td><td><b>C</b></td><td>蘇聯撤基地→冷戰緩和。(A)蘇聯建的。(D)圍牆1961先於古巴1962。</td></tr>
+<tr><td>9</td><td><b>B</b></td><td>85改→89牆→90統→91散。</td></tr>
+<tr><td>10</td><td><b>D</b></td><td>甲(蘇聯)不滿美國，乙(美國)要求蘇聯撤基地。</td></tr>
+</table>
+
+<h2>二、填充題</h2>
+<table>
+<tr><th>題號</th><th>答案</th></tr>
+<tr><td>1</td><td><b>羅斯福</b>、<b>新政</b></td></tr>
+<tr><td>2</td><td><b>聯合國</b>、<b>紐約</b></td></tr>
+<tr><td>3</td><td><b>獨立國家國協</b></td></tr>
+</table>
+
+<h2>三、問答題參考答案</h2>
+<h3>第 1 題：國際聯盟 vs 聯合國</h3>
+<table>
+<tr><th></th><th>國際聯盟</th><th>聯合國</th></tr>
+<tr><td><b>倡議者</b></td><td>威爾遜</td><td>中美英蘇</td></tr>
+<tr><td><b>成立</b></td><td>1920（一戰後）</td><td>1945（二戰後）</td></tr>
+<tr><td><b>總部</b></td><td>日內瓦</td><td>紐約</td></tr>
+<tr><td><b>制裁</b></td><td>無武力</td><td>安理會可派兵</td></tr>
+</table>
+<p>共同宗旨：維護和平。國聯失敗因美國未加入＋無武力。聯合國有武力但否決權可能影響效率。</p>
+
+<h3>第 2 題：冷戰過程</h3>
+<p><b>(1) 背景：</b>美蘇對立，蘇聯擴張共產、美國馬歇爾計畫援歐遏共。核武威懾→非戰非和。</p>
+<p><b>(2) 集團：</b>NATO(美/西歐) vs 華沙(蘇/東歐)。</p>
+<p><b>(3) 危機：</b>柏林危機(1948封鎖→空運→分立→圍牆)；古巴危機(1962飛彈→封鎖→撤→緩和)。</p>
+<p><b>(4) 結束：</b>85戈巴契夫改革→東歐劇變→89圍牆倒→90德統一→91蘇聯瓦解→獨立國協→多元並立。</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="kbd-hint">
+<kbd>←</kbd> <kbd>→</kbd> 切換分頁 ｜ <kbd>Ctrl</kbd>+<kbd>F</kbd> 搜尋
+</div>
+<div class="footer">U15 第二次世界大戰與戰後發展 ｜ 學習工具組 ｜ 2026</div>
+
+<script>
+// Auth
+async function sha256(m){const b=new TextEncoder().encode(m);const h=await crypto.subtle.digest('SHA-256',b);return Array.from(new Uint8Array(h)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+const HASH='b3282a2f2a28757b3a18ab833de16a9c54518c0b0cf493e3f0a7cf09386f326a';
+async function doLogin(){const p=document.getElementById('pwInput').value.trim();if(!p)return;if(await sha256(p)===HASH){document.getElementById('loginOverlay').classList.add('hidden');sessionStorage.setItem('authU15','1')}else{document.getElementById('loginErr').style.display='block';document.getElementById('pwInput').select()}}
+if(sessionStorage.getItem('authU15')==='1')document.getElementById('loginOverlay').classList.add('hidden');
+else document.getElementById('pwInput').focus();
+
+// Tabs
+let currentTab=0;
+const visited=new Set([0]);
+function switchTab(i){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`.tab[data-tab="${i}"]`).classList.add('active');
+  document.getElementById('panel'+i).classList.add('active');
+  currentTab=i;visited.add(i);updateProgress();
+  document.querySelector('.tab.active').scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+function updateProgress(){
+  const pct=Math.round(visited.size/7*100);
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('progressText').textContent=visited.size+' / 7 完成';
+}
+updateProgress();
+
+// Dark mode
+function toggleDark(){document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'':'dark'}
+
+// Search
+function toggleSearch(){const b=document.getElementById('searchBar');b.classList.toggle('show');if(b.classList.contains('show'))document.getElementById('searchInput').focus()}
+function doSearch(q){/* simplified highlight */}
+
+// Timer
+let timerSec=45*60,timerInterval=null,timerRunning=false;
+function toggleTimer(){
+  if(timerRunning){clearInterval(timerInterval);timerRunning=false;document.getElementById('timerBtn').textContent='繼續'}
+  else{timerRunning=true;document.getElementById('timerBtn').textContent='暫停';timerInterval=setInterval(()=>{timerSec--;if(timerSec<=0){clearInterval(timerInterval);timerRunning=false;document.getElementById('timerBtn').textContent='時間到！';document.getElementById('timerBar').classList.add('warning')}updateTimerDisplay()},1000)}
+}
+function resetTimer(){clearInterval(timerInterval);timerRunning=false;timerSec=45*60;updateTimerDisplay();document.getElementById('timerBtn').textContent='開始計時';document.getElementById('timerBar').classList.remove('warning')}
+function updateTimerDisplay(){const m=Math.floor(timerSec/60),s=timerSec%60;document.getElementById('timerDisplay').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;if(timerSec<=300)document.getElementById('timerBar').classList.add('warning')}
+
+// Answer lock
+function checkConfirm(){document.getElementById('unlockBtn').classList.toggle('enabled',document.getElementById('confirmCheck').checked)}
+function unlockAnswer(){if(!document.getElementById('confirmCheck').checked)return;document.getElementById('answerLock').style.display='none';document.getElementById('answerContent').style.display='block'}
+
+// Keyboard
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'&&currentTab<6)switchTab(currentTab+1);
+  if(e.key==='ArrowLeft'&&currentTab>0)switchTab(currentTab-1);
+  if(e.ctrlKey&&e.key==='f'){e.preventDefault();toggleSearch()}
+});
+
+// Anki cards preview
+const ankiData=[
+  {f:"俄國革命發生在哪一年？",b:"1917 年"},
+  {f:"二月革命推翻了什麼政權？",b:"推翻沙皇尼古拉二世，成立臨時政府"},
+  {f:"十月革命的領導者和口號？",b:"列寧，「和平、土地、麵包」"},
+  {f:"經濟大恐慌的兩大背景？",b:"① 供過於求 ② 美國提高關稅，各國仿效"},
+  {f:"墨索里尼 vs 希特勒掌權方式？",b:"墨索里尼 = 政變（1922）\n希特勒 = 選舉（1933）"},
+  {f:"二戰導火線？",b:"1939 年德國入侵波蘭 → 英法對德宣戰"},
+  {f:"二戰轉折點？",b:"1941 美蘇參戰（蘇聯被攻＋珍珠港事件）"},
+  {f:"開羅 vs 雅爾達會議差異？",b:"開羅(1943)：中美英→東亞\n雅爾達(1945)：美英蘇→戰後處理"},
+  {f:"國聯 vs 聯合國最大差異？",b:"國聯無武力（日內瓦），聯合國有武力（紐約）"},
+  {f:"NATO vs 華沙公約？",b:"NATO = 美國主導，至今存在\n華沙 = 蘇聯主導，1991解散"},
+  {f:"冷戰結束四年？",b:"85改、89牆、90統、91散"},
+  {f:"古巴飛彈危機經過？",b:"1962蘇聯在古巴建飛彈基地→美國海軍封鎖→蘇聯撤→冷戰緩和"},
+];
+const ac=document.getElementById('ankiCards');
+ankiData.forEach((c,i)=>{
+  ac.innerHTML+=`<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin:10px 0;cursor:pointer" onclick="this.querySelector('.ab').style.display=this.querySelector('.ab').style.display==='none'?'block':'none'">
+  <div style="font-weight:700;color:var(--p);font-size:14px">Q${i+1}: ${c.f}</div>
+  <div class="ab" style="display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);white-space:pre-line;font-size:14px;color:var(--text)">${c.b}</div>
+  <div style="font-size:11px;color:var(--gray);margin-top:6px">👆 點擊翻轉</div></div>`;
+});
+</script>
+</body>
+</html>

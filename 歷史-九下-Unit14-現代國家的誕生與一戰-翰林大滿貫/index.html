@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit14 現代國家的誕生與第一次世界大戰 — 學習工具組</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+--pri:#065A82;--sec:#1C7293;--acc:#21295C;--ora:#F59E0B;
+--bg:#F4F7FA;--card:#fff;--text:#1E293B;--gray:#64748B;--light:#f1f5f9;
+--border:#e2e8f0;--success:#16a34a;--danger:#dc2626;
+--font:'Noto Sans TC',sans-serif;
+}
+[data-theme="dark"]{
+--bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--gray:#94a3b8;--light:#334155;
+--border:#475569;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;}
+
+/* === LOGIN === */
+.login-wrap{display:flex;justify-content:center;align-items:center;min-height:100vh;background:linear-gradient(135deg,#065A82,#21295C);}
+.login-box{background:#fff;border-radius:20px;padding:48px 40px;width:90%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.3);text-align:center;}
+.login-box h1{font-size:20px;color:#1E293B;margin:12px 0 6px;}
+.login-box p{font-size:13px;color:#64748B;margin-bottom:24px;}
+.login-box input{width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;font-size:15px;font-family:var(--font);outline:none;margin-bottom:14px;}
+.login-box input:focus{border-color:#065A82;}
+.login-box .btn{width:100%;padding:13px;background:linear-gradient(135deg,#065A82,#1C7293);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);}
+.login-box .btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(6,90,130,.3);}
+.login-err{color:#dc2626;font-size:12px;margin-top:10px;display:none;}
+.login-err.show{display:block;}
+
+/* === HEADER === */
+.header{background:linear-gradient(135deg,var(--pri),var(--acc));padding:16px 20px;color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.15);}
+.header-top{display:flex;justify-content:space-between;align-items:center;max-width:960px;margin:0 auto;}
+.header h1{font-size:16px;font-weight:700;}
+.header-sub{font-size:11px;opacity:.7;margin-top:2px;}
+.header-btns{display:flex;gap:8px;}
+.header-btns button{background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 10px;border-radius:8px;font-size:13px;cursor:pointer;font-family:var(--font);}
+.header-btns button:hover{background:rgba(255,255,255,.25);}
+
+/* === TABS === */
+.tab-bar{background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:60px;z-index:99;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.tab-bar-inner{display:flex;max-width:960px;margin:0 auto;gap:0;}
+.tab-btn{padding:10px 14px;border:none;background:none;font-size:12px;font-family:var(--font);cursor:pointer;color:var(--gray);white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s;font-weight:500;}
+.tab-btn:hover{color:var(--pri);}
+.tab-btn.active{color:var(--pri);border-bottom-color:var(--ora);font-weight:700;}
+
+/* === PROGRESS === */
+.progress-bar{height:3px;background:var(--border);position:sticky;top:102px;z-index:98;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--pri),var(--ora));width:14%;transition:width .3s;}
+
+/* === CONTENT === */
+.app{display:none;}
+.app.show{display:block;}
+.content{max-width:960px;margin:0 auto;padding:20px 16px 80px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* === SEARCH === */
+.search-wrap{margin-bottom:16px;}
+.search-input{width:100%;padding:10px 16px 10px 40px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:var(--font);background:var(--card);color:var(--text);outline:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242.656a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:12px center;}
+.search-input:focus{border-color:var(--pri);}
+.highlight{background:#fef08a;padding:1px 2px;border-radius:2px;}
+
+/* === CARDS & SECTIONS === */
+.section{margin-bottom:28px;}
+.section-title{font-size:18px;font-weight:700;color:var(--pri);margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid var(--border);}
+.card{background:var(--card);border-radius:12px;padding:20px;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,.04);border-left:4px solid var(--pri);}
+.card h3{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.card p,.card li{font-size:13px;line-height:1.8;color:var(--text);}
+.card ul,.card ol{padding-left:20px;}
+.card table{width:100%;border-collapse:collapse;margin:10px 0;font-size:12px;}
+.card th,.card td{padding:8px 10px;border:1px solid var(--border);text-align:left;}
+.card th{background:var(--light);font-weight:700;color:var(--pri);}
+
+/* callouts */
+.callout{padding:14px 16px;border-radius:10px;margin:12px 0;font-size:13px;line-height:1.7;}
+.callout-tip{background:#f0fdf4;border-left:4px solid #16a34a;color:#166534;}
+.callout-warn{background:#fef3c7;border-left:4px solid #f59e0b;color:#92400e;}
+.callout-info{background:#eff6ff;border-left:4px solid #3b82f6;color:#1e40af;}
+.callout-question{background:#faf5ff;border-left:4px solid #8b5cf6;color:#6d28d9;}
+[data-theme="dark"] .callout-tip{background:#052e16;color:#86efac;}
+[data-theme="dark"] .callout-warn{background:#431407;color:#fde68a;}
+[data-theme="dark"] .callout-info{background:#172554;color:#93c5fd;}
+[data-theme="dark"] .callout-question{background:#2e1065;color:#c4b5fd;}
+
+/* === ANKI === */
+.anki-card{background:var(--card);border-radius:12px;padding:18px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.05);cursor:pointer;border-left:4px solid var(--sec);}
+.anki-card .front{font-size:14px;font-weight:600;color:var(--text);}
+.anki-card .back{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);font-size:13px;line-height:1.8;color:var(--text);}
+.anki-card.flipped .back{display:block;}
+.anki-card .flip-hint{font-size:11px;color:var(--gray);margin-top:6px;}
+.anki-card.flipped .flip-hint{display:none;}
+.anki-tag{display:inline-block;background:var(--light);color:var(--pri);padding:2px 8px;border-radius:8px;font-size:10px;margin-top:6px;}
+
+/* === EXAM === */
+.exam-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.timer{background:var(--card);padding:8px 16px;border-radius:10px;font-size:18px;font-weight:700;color:var(--pri);box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.timer.warning{color:var(--ora);}
+.timer.danger{color:var(--danger);animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+.timer-btns{display:flex;gap:6px;}
+.timer-btns button{padding:6px 14px;border:2px solid var(--pri);background:none;color:var(--pri);border-radius:8px;font-size:12px;cursor:pointer;font-family:var(--font);font-weight:600;}
+.timer-btns button:hover{background:var(--pri);color:#fff;}
+.q-block{background:var(--card);border-radius:12px;padding:18px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+.q-block .q-num{font-size:12px;color:var(--pri);font-weight:700;margin-bottom:6px;}
+.q-block .q-text{font-size:14px;line-height:1.8;margin-bottom:10px;}
+.q-block .opts label{display:block;padding:8px 12px;margin:4px 0;border-radius:8px;cursor:pointer;font-size:13px;transition:background .2s;}
+.q-block .opts label:hover{background:var(--light);}
+.q-block .opts input{margin-right:8px;}
+.q-block textarea{width:100%;min-height:80px;padding:10px;border:2px solid var(--border);border-radius:8px;font-size:13px;font-family:var(--font);resize:vertical;background:var(--card);color:var(--text);}
+
+/* === ANSWER LOCK === */
+.answer-lock{background:var(--card);border-radius:12px;padding:24px;text-align:center;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.answer-lock h3{font-size:16px;margin-bottom:12px;}
+.answer-lock label{font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
+.answer-lock .unlock-btn{margin-top:14px;padding:10px 24px;background:var(--pri);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);opacity:.5;pointer-events:none;}
+.answer-lock .unlock-btn.ready{opacity:1;pointer-events:auto;}
+
+/* answer detail */
+.ans-detail{background:var(--card);border-radius:12px;padding:18px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.04);border-left:4px solid var(--success);}
+.ans-detail .ans-num{font-size:12px;color:var(--success);font-weight:700;margin-bottom:4px;}
+.ans-detail .ans-key{font-size:15px;font-weight:700;color:var(--pri);margin-bottom:6px;}
+.ans-detail .ans-exp{font-size:13px;line-height:1.8;}
+
+/* === NAV BUTTONS === */
+.nav-btns{display:flex;justify-content:space-between;padding:16px 0;border-top:1px solid var(--border);margin-top:24px;}
+.nav-btns button{padding:10px 20px;border:2px solid var(--pri);background:none;color:var(--pri);border-radius:10px;font-size:13px;cursor:pointer;font-family:var(--font);font-weight:600;}
+.nav-btns button:hover{background:var(--pri);color:#fff;}
+.nav-btns button:disabled{opacity:.3;cursor:default;}
+
+/* === FOOTER === */
+.footer{text-align:center;padding:20px;font-size:11px;color:var(--gray);}
+
+/* === RESPONSIVE === */
+@media(max-width:768px){
+.header h1{font-size:14px;}
+.tab-btn{padding:8px 10px;font-size:11px;}
+.content{padding:14px 10px 60px;}
+.card{padding:16px;}
+}
+
+/* === PRINT === */
+@media print{
+.header,.tab-bar,.progress-bar,.search-wrap,.nav-btns,.header-btns,.timer-btns,.footer{display:none!important;}
+.tab-panel{display:block!important;}
+.app{display:block!important;}
+.login-wrap{display:none!important;}
+body{background:#fff;color:#000;}
+.card,.q-block,.anki-card,.ans-detail{box-shadow:none;border:1px solid #ddd;page-break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══ -->
+<div class="login-wrap" id="loginScreen">
+<div class="login-box">
+<div style="font-size:48px">📚</div>
+<h1>Unit14 學習工具組</h1>
+<p>現代國家的誕生與第一次世界大戰</p>
+<input type="password" id="pw" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter')doLogin()">
+<button class="btn" onclick="doLogin()">🔓 解鎖進入</button>
+<div class="login-err" id="loginErr">❌ 密碼錯誤</div>
+</div>
+</div>
+
+<!-- ═══ APP ═══ -->
+<div class="app" id="app">
+
+<div class="header">
+<div class="header-top">
+<div>
+<h1>📚 Unit14 現代國家的誕生與第一次世界大戰</h1>
+<div class="header-sub">翰林大滿貫 ｜ 九年級歷史</div>
+</div>
+<div class="header-btns">
+<button onclick="toggleSearch()" title="搜尋 (Ctrl+F)">🔍</button>
+<button onclick="toggleTheme()" title="切換深色模式">🌙</button>
+<button onclick="window.print()" title="列印/PDF">📥</button>
+</div>
+</div>
+</div>
+
+<div class="tab-bar">
+<div class="tab-bar-inner">
+<button class="tab-btn active" onclick="switchTab(0)">📖 費曼筆記</button>
+<button class="tab-btn" onclick="switchTab(1)">📊 簡報</button>
+<button class="tab-btn" onclick="switchTab(2)">📝 康乃爾</button>
+<button class="tab-btn" onclick="switchTab(3)">📇 Anki</button>
+<button class="tab-btn" onclick="switchTab(4)">⚡ Cheat Sheet</button>
+<button class="tab-btn" onclick="switchTab(5)">✏️ 考試卷</button>
+<button class="tab-btn" onclick="switchTab(6)">✅ 答案卷</button>
+</div>
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="content">
+<div class="search-wrap" id="searchWrap" style="display:none;">
+<input class="search-input" id="searchInput" type="text" placeholder="搜尋關鍵字..." oninput="doSearch(this.value)">
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 0: 費曼筆記                                     -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel active" id="tab0">
+
+<div class="callout callout-tip">💡 <b>費曼學習法</b>：用「教 10 歲小孩」的方式重新說一遍，說不清楚代表還沒真正懂。</div>
+
+<div class="section">
+<div class="section-title">一、美國獨立革命 🇺🇸</div>
+<div class="card">
+<h3>用白話解釋</h3>
+<p>想像你住在一個社區（北美 13 州），你們的房東（英國）住在很遠的地方。有一天房東說：「我最近缺錢，所以要加你們的房租！」但你們根本沒有代表可以去開會投票，完全沒有說話的權利。你們很生氣，有一群人跑去把房東寄來的茶葉倒進海裡表示抗議（<b>波士頓茶葉事件，1773 年</b>）。</p>
+<p>後來你們乾脆寫了一份「搬家宣言」（<b>《獨立宣言》，1776 年 7 月 4 日</b>），說：「我們不當你的房客了！」然後打了一場仗（獨立戰爭），在法國、荷蘭、西班牙等鄰居幫忙下，終於贏了，英國承認你們獨立（1783 年）。</p>
+<p>成立了新的管理委員會，用了<b>孟德斯鳩</b>的「三權分立」：總統管行政、國會管立法、聯邦法院管司法，三個部門互相制衡。1787 年制定了世界上<b>第一部成文憲法</b>。</p>
+<table>
+<tr><th>年份</th><th>事件</th></tr>
+<tr><td>1773</td><td>波士頓茶葉事件</td></tr>
+<tr><td>1776</td><td>發表《獨立宣言》</td></tr>
+<tr><td>1783</td><td>英國承認美國獨立</td></tr>
+<tr><td>1787</td><td>制定美國憲法</td></tr>
+<tr><td>1789</td><td>華盛頓就職</td></tr>
+</table>
+</div>
+<div class="callout callout-warn">⚠️ <b>易混淆</b>：《獨立宣言》吸收洛克「天賦人權」+ 盧梭「主權在民」。獨立宣言 → 脫離英國；人權宣言 → 保障自由平等。</div>
+</div>
+
+<div class="section">
+<div class="section-title">二、法國大革命 🇫🇷</div>
+<div class="card">
+<h3>用白話解釋</h3>
+<p>法國社會像一個三層蛋糕：最上層<b>教士</b>（人少、免稅）、中間<b>貴族</b>（人少、免稅）、最下層<b>平民</b>（人最多、要繳超重的稅）。</p>
+<p>國王路易十六因為打仗花太多錢，想加稅，召開「三級會議」但投票對平民不公平。平民自己成立「國民會議」。</p>
+<p><b>1789 年 7 月 14 日</b>，巴黎民眾攻陷了<b>巴士底監獄</b>（象徵推翻專制王權），革命爆發！發表了<b>《人權宣言》</b>。</p>
+<p>之後經歷<b>恐怖統治</b>（羅伯斯比）→ <b>拿破崙崛起</b>（1804 稱帝）→ 征服歐洲、頒行《拿破崙法典》→ 1812 遠征俄國失敗 → 1815 <b>滑鐵盧之役</b>戰敗。</p>
+<p><b>維也納會議（1814-15）</b>：奧國首相<b>梅特涅</b>主導，以「<b>正統原則</b>」恢復舊王室、維持勢力平衡。</p>
+</div>
+<div class="callout callout-warn">⚠️ 法國大革命的「背景→起因→爆發」要分清：社會不公+財政困難是「背景」，三級會議不公是「起因」，攻陷巴士底監獄是「爆發」。</div>
+</div>
+
+<div class="section">
+<div class="section-title">三、拉丁美洲獨立 🌎</div>
+<div class="card">
+<h3>用白話解釋</h3>
+<p>拉丁美洲原本是西班牙和葡萄牙的殖民地。19 世紀初趁拿破崙把西葡搞得焦頭爛額，由<b>玻利瓦</b>等人領導獨立，1820 年代陸續建國。</p>
+<p><b>門羅宣言（1823）</b>：美國總統門羅說「美洲的事由美洲國家自己解決，歐洲不准來干預」。表面保護拉美，實際鞏固美國在美洲的影響力。</p>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">四、德國與義大利統一 🇩🇪🇮🇹</div>
+<div class="card">
+<h3>德國統一</h3>
+<table>
+<tr><th>項目</th><th>內容</th></tr>
+<tr><td>統一前</td><td>日耳曼地區 30+ 小邦</td></tr>
+<tr><td>推手</td><td>威廉一世 + 首相<b>俾斯麥</b>（鐵血政策）</td></tr>
+<tr><td>經濟基礎</td><td>1834 年<b>關稅同盟</b></td></tr>
+<tr><td>關鍵戰役</td><td>1870 德法戰爭獲勝</td></tr>
+<tr><td>結果</td><td>1871 成立<b>德意志帝國</b></td></tr>
+</table>
+<h3>義大利統一</h3>
+<table>
+<tr><th>項目</th><th>內容</th></tr>
+<tr><td>精神領袖</td><td><b>馬志尼</b>（宣揚民族意識）</td></tr>
+<tr><td>政治領袖</td><td>首相<b>加富爾</b></td></tr>
+<tr><td>軍事領袖</td><td><b>加里波底</b>（征服南部）</td></tr>
+<tr><td>結果</td><td>1861 成立義大利王國，1870 收復羅馬</td></tr>
+</table>
+</div>
+<div class="callout callout-warn">⚠️ 德=「鐵血」俾斯麥；義=「三傑」馬志尼/加富爾/加里波底</div>
+</div>
+
+<div class="section">
+<div class="section-title">五、19 世紀帝國主義 🌍</div>
+<div class="card">
+<p><b>定義</b>：利用強勢軍事或政治力量壓迫他國，占領土地、建殖民地。</p>
+<p><b>三大背景</b>：經濟（工業革命→爭原料市場）、政治（民族主義競爭）、文化（社會達爾文主義→合理化侵略）</p>
+<table>
+<tr><th>列強</th><th>主要殖民地</th></tr>
+<tr><td>英國</td><td>印度為中心 → 周邊各國</td></tr>
+<tr><td>法國</td><td>越南（法屬印度支那）</td></tr>
+<tr><td>美國</td><td>日本開港、奪菲律賓</td></tr>
+<tr><td>日本</td><td>琉球、中國、朝鮮</td></tr>
+</table>
+<p>非洲到 19 世紀末僅存<b>衣索比亞</b>和<b>賴比瑞亞</b>獨立。</p>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">六、第一次世界大戰 ⚔️</div>
+<div class="card">
+<p><b>兩大陣營</b>：三國同盟（1882：德奧義）vs 三國協約（1907：英法俄）</p>
+<p><b>歐洲火藥庫</b>：巴爾幹半島。<b>導火線</b>：1914 年 6 月塞拉耶佛事件（奧匈皇儲斐迪南被刺殺）</p>
+<table>
+<tr><th>階段</th><th>內容</th></tr>
+<tr><td>初期</td><td>同盟國佔優勢；西線壕溝戰；東線俄國屢敗</td></tr>
+<tr><td>轉折 1917</td><td>美國參戰（無限制潛艇）；俄國革命退出</td></tr>
+<tr><td>結束 1918</td><td>11 月停戰</td></tr>
+</table>
+<p><b>影響</b>：新式武器（飛機/潛艇/坦克/毒氣）、婦女獲投票權、四大帝國瓦解</p>
+</div>
+<div class="callout callout-warn">⚠️ 義大利原在同盟國，一戰後跳到協約國！常考陷阱。</div>
+</div>
+
+<div class="section">
+<div class="section-title">七、巴黎和會與國際聯盟 🕊️</div>
+<div class="card">
+<p><b>三巨頭</b>：威爾遜（美）、克里蒙梭（法）、乃合喬治（英）</p>
+<p><b>十四點原則</b>：民族自決 + 成立國際聯盟</p>
+<p><b>凡爾賽條約</b>（針對德國）：承擔戰爭責任、割地、削減軍備、鉅額賠款 → <b>埋下二戰禍因</b></p>
+<p><b>國際聯盟</b>（1920）：總部日內瓦。失敗原因：美國因孤立主義未加入 + 缺乏軍事力量。</p>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">自我檢測 🧪</div>
+<div class="callout callout-question">
+<b>10 題自測</b>（點擊問題查看參考提示）<br><br>
+1. 美國獨立戰爭的導火線？<br>
+2. 美國憲法的三權分立是誰的學說？<br>
+3. 法國大革命爆發的標誌性事件？<br>
+4. 維也納會議由誰主導？原則？<br>
+5. 門羅宣言的主張？<br>
+6. 德國統一的核心人物？<br>
+7. 義大利三傑？<br>
+8. 帝國主義三大背景？<br>
+9. 一戰導火線？兩大陣營？<br>
+10. 凡爾賽條約為何埋下二戰禍因？
+</div>
+</div>
+
+<div class="nav-btns">
+<button disabled>← 上一步</button>
+<button onclick="switchTab(1)">下一步：簡報 →</button>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 1: 簡報                                        -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab1">
+<div class="callout callout-info">📊 簡報共 11 張投影片。建議搭配 .pptx 檔案使用 PowerPoint 或 Google Slides 開啟。此處提供文字版重點摘要。</div>
+
+<div class="card"><h3>投影片 1：封面</h3><p>Unit 14 — 現代國家的誕生與第一次世界大戰</p></div>
+<div class="card"><h3>投影片 2：章節地圖</h3><p>8 大主題：美國獨立→法國大革命→拉美獨立→德國統一→義大利統一→帝國主義→一戰→巴黎和會</p></div>
+<div class="card"><h3>投影片 3：美國獨立革命</h3><p>時間軸 1773-1789 + 三權分立圖解</p></div>
+<div class="card"><h3>投影片 4：法國大革命</h3><p>三階級→起因→爆發→拿破崙→維也納會議</p></div>
+<div class="card"><h3>投影片 5：拉美獨立與民族建國</h3><p>拉美獨立+門羅宣言+德義統一對照</p></div>
+<div class="card"><h3>投影片 6：帝國主義</h3><p>定義+三大背景+各列強侵略範圍</p></div>
+<div class="card"><h3>投影片 7-8：第一次世界大戰</h3><p>兩大陣營+導火線+戰爭經過+影響</p></div>
+<div class="card"><h3>投影片 9：巴黎和會</h3><p>三巨頭+凡爾賽條約+國際聯盟</p></div>
+<div class="card"><h3>投影片 10：比較總表</h3><p>美國vs法國 + 維也納vs巴黎</p></div>
+<div class="card"><h3>投影片 11：重點回顧</h3><p>7 大重點一覽</p></div>
+
+<div class="nav-btns">
+<button onclick="switchTab(0)">← 費曼筆記</button>
+<button onclick="switchTab(2)">下一步：康乃爾 →</button>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 2: 康乃爾筆記                                  -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab2">
+
+<div class="section">
+<div class="section-title">一、美國獨立革命</div>
+<div class="card">
+<table>
+<tr><th style="width:25%">提示問題</th><th>筆記內容</th></tr>
+<tr><td>背景？</td><td>17 世紀起歐洲人移民北美，英國在東岸建立 13 州殖民地</td></tr>
+<tr><td>為什麼獨立？</td><td>英國向 13 州徵新稅，殖民地人民沒有國會代表，以「無代表不納稅」反抗</td></tr>
+<tr><td>導火線？</td><td>1773 波士頓茶葉事件</td></tr>
+<tr><td>獨立宣言？</td><td>1776/7/4，費城發表，吸收洛克天賦人權 + 盧梭主權在民</td></tr>
+<tr><td>怎麼贏的？</td><td>華盛頓領導，法荷西援助，1783 英國承認獨立</td></tr>
+<tr><td>政府特色？</td><td>1787 世界第一部成文憲法，三權分立互相制衡</td></tr>
+<tr><td>影響？</td><td>首個聯邦共和國，鼓舞法國大革命和拉美獨立</td></tr>
+</table>
+<div class="callout callout-tip">📌 <b>摘要</b>：美國獨立 = 反對不公徵稅 → 獨立宣言 → 獨立戰爭 → 三權分立共和國 → 影響法國革命、拉美獨立</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">二、法國大革命 + 拿破崙 + 維也納會議</div>
+<div class="card">
+<table>
+<tr><th style="width:25%">提示問題</th><th>筆記內容</th></tr>
+<tr><td>社會背景？</td><td>三階級：教士+貴族（免稅）vs 平民（重稅），社會不公</td></tr>
+<tr><td>導火線？</td><td>1789 三級會議不公 → 國民會議 → 7/14 攻陷巴士底監獄</td></tr>
+<tr><td>革命文件？</td><td>《人權宣言》廢除貴族教會特權，保障人權</td></tr>
+<tr><td>拿破崙？</td><td>1804 稱帝 → 征服歐洲 → 《拿破崙法典》→ 1815 滑鐵盧敗</td></tr>
+<tr><td>維也納會議？</td><td>奧國梅特涅主導，正統原則恢復舊王室</td></tr>
+</table>
+<div class="callout callout-tip">📌 <b>摘要</b>：社會不公→革命→恐怖統治→拿破崙→滑鐵盧→維也納正統原則</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">三、拉美獨立 + 德義統一</div>
+<div class="card">
+<table>
+<tr><th style="width:25%">提示問題</th><th>筆記內容</th></tr>
+<tr><td>拉美獨立？</td><td>受啟蒙+革命鼓舞，趁拿破崙混戰，玻利瓦領導，1820s 建國</td></tr>
+<tr><td>門羅宣言？</td><td>1823 美國：美洲事務美洲管，反對歐洲干預（實際擴大美國控制）</td></tr>
+<tr><td>德國統一？</td><td>俾斯麥鐵血 + 1834 關稅同盟 → 1871 德意志帝國</td></tr>
+<tr><td>義大利統一？</td><td>三傑（馬志尼/加富爾/加里波底）→ 1861 王國 → 1870 統一</td></tr>
+</table>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">四、帝國主義 + 一戰 + 巴黎和會</div>
+<div class="card">
+<table>
+<tr><th style="width:25%">提示問題</th><th>筆記內容</th></tr>
+<tr><td>帝國主義？</td><td>以軍事政治壓迫他國。背景：經濟(原料市場)+政治(民族競爭)+文化(達爾文主義)</td></tr>
+<tr><td>一戰陣營？</td><td>同盟(德奧義) vs 協約(英法俄)；義大利跳槽到協約</td></tr>
+<tr><td>一戰導火線？</td><td>1914/6 塞拉耶佛事件（斐迪南被刺殺）</td></tr>
+<tr><td>一戰轉折？</td><td>1917 美國參戰(無限制潛艇) + 俄國革命退出</td></tr>
+<tr><td>巴黎和會？</td><td>三巨頭，十四點原則，凡爾賽條約嚴懲德國→二戰禍因</td></tr>
+<tr><td>國際聯盟？</td><td>1920 成立，美國未加入（孤立主義），缺軍力→失敗</td></tr>
+</table>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">五、跨主題比較</div>
+<div class="card">
+<h3>美國獨立 vs 法國大革命</h3>
+<table>
+<tr><th></th><th>美國</th><th>法國</th></tr>
+<tr><td><b>反抗對象</b></td><td>英國（殖民母國）</td><td>國王（君主專制）</td></tr>
+<tr><td><b>文件</b></td><td>《獨立宣言》</td><td>《人權宣言》</td></tr>
+<tr><td><b>影響</b></td><td>三權分立憲法</td><td>精神傳播歐洲</td></tr>
+</table>
+<h3>維也納會議 vs 巴黎和會</h3>
+<table>
+<tr><th></th><th>維也納</th><th>巴黎</th></tr>
+<tr><td><b>時間</b></td><td>1814-15</td><td>1919</td></tr>
+<tr><td><b>原則</b></td><td>正統原則</td><td>十四點原則</td></tr>
+<tr><td><b>結果</b></td><td>半世紀和平</td><td>凡爾賽→二戰禍因</td></tr>
+</table>
+</div>
+</div>
+
+<div class="nav-btns">
+<button onclick="switchTab(1)">← 簡報</button>
+<button onclick="switchTab(3)">下一步：Anki →</button>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 3: Anki                                        -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab3">
+<div class="callout callout-info">📇 共 55 張 Anki 卡片。點擊卡片翻面查看答案。可下載 .txt 檔匯入 Anki 軟體。</div>
+<div id="ankiContainer"></div>
+<div class="nav-btns">
+<button onclick="switchTab(2)">← 康乃爾</button>
+<button onclick="switchTab(4)">下一步：Cheat Sheet →</button>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 4: Cheat Sheet                                 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab4">
+
+<div class="section">
+<div class="section-title">🔑 關鍵時間軸</div>
+<div class="card">
+<table>
+<tr><th>年份</th><th>事件</th><th>年份</th><th>事件</th></tr>
+<tr><td>1773</td><td>波士頓茶葉事件</td><td>1871</td><td>德意志帝國成立</td></tr>
+<tr><td>1776</td><td>美國獨立宣言</td><td>1882</td><td>三國同盟(德奧義)</td></tr>
+<tr><td>1789</td><td>法國大革命</td><td>1907</td><td>三國協約(英法俄)</td></tr>
+<tr><td>1804</td><td>拿破崙稱帝</td><td>1914</td><td>塞拉耶佛→一戰</td></tr>
+<tr><td>1814-15</td><td>維也納會議</td><td>1917</td><td>美進俄退</td></tr>
+<tr><td>1823</td><td>門羅宣言</td><td>1918</td><td>一戰結束</td></tr>
+<tr><td>1834</td><td>關稅同盟</td><td>1919</td><td>巴黎和會</td></tr>
+<tr><td>1861</td><td>義大利王國</td><td>1920</td><td>國際聯盟成立</td></tr>
+</table>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">📊 重要人物速查</div>
+<div class="card">
+<table>
+<tr><th>人物</th><th>身份</th><th>關鍵事蹟</th></tr>
+<tr><td>華盛頓</td><td>美首任總統</td><td>領導獨立戰爭</td></tr>
+<tr><td>孟德斯鳩</td><td>思想家</td><td>三權分立</td></tr>
+<tr><td>拿破崙</td><td>法皇帝</td><td>征歐洲、法典</td></tr>
+<tr><td>梅特涅</td><td>奧首相</td><td>維也納會議</td></tr>
+<tr><td>俾斯麥</td><td>普首相</td><td>鐵血統一德國</td></tr>
+<tr><td>馬志尼</td><td>義思想家</td><td>民族意識</td></tr>
+<tr><td>加富爾</td><td>薩首相</td><td>政治外交</td></tr>
+<tr><td>加里波底</td><td>義軍事家</td><td>征服南部</td></tr>
+<tr><td>威爾遜</td><td>美總統</td><td>十四點原則</td></tr>
+</table>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">🧠 記憶口訣</div>
+<div class="card">
+<p>• 同盟=<b>德奧義</b>（德國好煩義）；協約=<b>英法俄</b>（英法餓）</p>
+<p>• 義大利從同盟跳到協約！</p>
+<p>• 1917 <b>美進俄退</b></p>
+<p>• 三傑=<b>馬加加</b>（馬志尼/加富爾/加里波底）</p>
+<p>• 巴黎三巨頭=<b>威克喬</b></p>
+<p>• 威爾遜提議國聯，美國反而不加入（孤立主義）</p>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">⚠️ 易混淆對照表</div>
+<div class="card">
+<table>
+<tr><th>容易搞混</th><th>區別</th></tr>
+<tr><td>獨立宣言 vs 人權宣言</td><td>獨立=脫離英國；人權=保障自由平等</td></tr>
+<tr><td>三級會議 vs 國民會議</td><td>三級=國王召開；國民=平民自組</td></tr>
+<tr><td>正統原則 vs 十四點原則</td><td>正統=復辟舊王室；十四點=民族自決</td></tr>
+<tr><td>三國同盟 vs 三國協約</td><td>同盟=德奧義(1882)；協約=英法俄(1907)</td></tr>
+<tr><td>門羅宣言 vs 孤立主義</td><td>門羅=積極管美洲；孤立=什麼都不管</td></tr>
+</table>
+</div>
+</div>
+
+<div class="nav-btns">
+<button onclick="switchTab(3)">← Anki</button>
+<button onclick="switchTab(5)">下一步：考試卷 →</button>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 5: 考試卷                                      -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab5">
+
+<div class="exam-header">
+<div>
+<h2 style="font-size:18px;">✏️ 考試卷</h2>
+<p style="font-size:12px;color:var(--gray);">總分 100 分 ｜ 45 分鐘</p>
+</div>
+<div style="display:flex;align-items:center;gap:12px;">
+<div class="timer" id="timer">45:00</div>
+<div class="timer-btns">
+<button onclick="startTimer()">開始</button>
+<button onclick="pauseTimer()">暫停</button>
+<button onclick="resetTimer()">重置</button>
+</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">一、選擇題（每題 4 分，共 40 分）</div>
+
+<div class="q-block"><div class="q-num">第 1 題</div>
+<div class="q-text">1773 年，北美殖民地人民將英商茶葉倒入海中，史稱「波士頓茶葉事件」。此事件的根本原因為何？</div>
+<div class="opts">
+<label><input type="radio" name="q1" value="A"> (A) 殖民地人民不喜歡喝茶</label>
+<label><input type="radio" name="q1" value="B"> (B) 英國禁止殖民地與其他國家貿易</label>
+<label><input type="radio" name="q1" value="C"> (C) 殖民地人民不滿英國徵收新稅卻無國會代表</label>
+<label><input type="radio" name="q1" value="D"> (D) 殖民地人民希望加入法國</label>
+</div></div>
+
+<div class="q-block"><div class="q-num">第 2 題</div>
+<div class="q-text">美國獨立後制定憲法，採用三權分立的政府體制。此學說最初由哪位思想家提出？</div>
+<div class="opts">
+<label><input type="radio" name="q2" value="A"> (A) 洛克</label>
+<label><input type="radio" name="q2" value="B"> (B) 盧梭</label>
+<label><input type="radio" name="q2" value="C"> (C) 孟德斯鳩</label>
+<label><input type="radio" name="q2" value="D"> (D) 伏爾泰</label>
+</div></div>
+
+<div class="q-block"><div class="q-num">第 3 題</div>
+<div class="q-text">法國大革命前，法國社會分為三個階級。下列關於第三階級的敘述，何者正確？</div>
+<div class="opts">
+<label><input type="radio" name="q3" value="A"> (A) 由教士組成，享有免稅特權</label>
+<label><input type="radio" name="q3" value="B"> (B) 由貴族組成，擁有政治特權</label>
+<label><input type="radio" name="q3" value="C"> (C) 由平民組成，人數最多但負擔最重的賦稅</label>
+<label><input type="radio" name="q3" value="D"> (D) 由國王直接統治，不需繳稅</label>
+</div></div>
+
+<div class="q-block"><div class="q-num">第 4 題</div>
+<div class="q-text">附圖描繪一名穿著樸素的人背著兩名衣著華麗的人。這最可能反映的是哪個國家的社會問題？</div>
+<div class="opts">
+<label><input type="radio" name="q4" value="A"> (A) 英國的殖民統治</label>
+<label><input type="radio" name="q4" value="B"> (B) 法國大革命前的階級不平等</label>
+<label><input type="radio" name="q4" value="C"> (C) 美國獨立戰爭的背景</label>
+<label><input type="radio" name="q4" value="D"> (D) 德國統一前的邦國分裂</label>
+</div></div>
+
+<div class="q-block"><div class="q-num">第 5 題</div>
+<div class="q-text">拿破崙戰敗後，歐洲各國召開維也納會議，確立了某項原則以恢復歐洲秩序。該原則為何？</div>
+<div class="opts">
+<label><input type="radio" name="q5" value="A"> (A) 民族自決原則</label>
+<label><input type="radio" name="q5" value="B"> (B) 正統原則</label>
+<label><input type="radio" name="q5" value="C"> (C) 門戶開放原則</label>
+<label><input type="radio" name="q5" value="D"> (D) 十四點原則</label>
+</div></div>
+
+<div class="q-block"><div class="q-num">第 6 題</div>
+<div class="q-text">19 世紀中葉，義大利統一運動中，哪位人物以「恢復古羅馬光榮」為號召，宣揚民族意識？</div>
+<div class="opts">
+<label><input type="radio" name="q6" value="A"> (A) 俾斯麥</label>
+<label><input type="radio" name="q6" value="B"> (B) 加富爾</label>
+<label><input type="radio" name="q6" value="C"> (C) 馬志尼</label>
+<label><input type="radio" name="q6" value="D"> (D) 加里波底</label>
+</div></div>
+
+<div class="q-block"><div class="q-num">第 7 題</div>
+<div class="q-text">比較兩個時期的帝國主義，19 世紀帝國主義侵略方式的最大特色為何？</div>
+<div class="opts">
+<label><input type="radio" name="q7" value="A"> (A) 僅以經濟掠奪為主</label>
+<label><input type="radio" name="q7" value="B"> (B) 進行政治、經濟、文化全面性的侵略</label>
+<label><input type="radio" name="q7" value="C"> (C) 僅在沿岸地區建立據點</label>
+<label><input type="radio" name="q7" value="D"> (D) 以宗教傳播為主要目的</label>
+</div></div>
+
+<div class="q-block"><div class="q-num">第 8 題</div>
+<div class="q-text">第一次世界大戰爆發前，歐洲兩大對立軍事集團的配對何者正確？</div>
+<div class="opts">
+<label><input type="radio" name="q8" value="A"> (A) 三國同盟：英國、法國、俄國</label>
+<label><input type="radio" name="q8" value="B"> (B) 三國協約：德國、奧匈帝國、義大利</label>
+<label><input type="radio" name="q8" value="C"> (C) 三國同盟：德國、奧匈帝國、義大利</label>
+<label><input type="radio" name="q8" value="D"> (D) 三國協約：德國、英國、法國</label>
+</div></div>
+
+<div class="q-block"><div class="q-num">第 9 題</div>
+<div class="q-text">一戰期間，原屬三國同盟的某國轉而加入協約國陣營。該國為何？</div>
+<div class="opts">
+<label><input type="radio" name="q9" value="A"> (A) 俄國</label>
+<label><input type="radio" name="q9" value="B"> (B) 日本</label>
+<label><input type="radio" name="q9" value="C"> (C) 義大利</label>
+<label><input type="radio" name="q9" value="D"> (D) 美國</label>
+</div></div>
+
+<div class="q-block"><div class="q-num">第 10 題</div>
+<div class="q-text">《凡爾賽條約》被認為「埋下了第二次世界大戰的禍因」，主要原因為何？</div>
+<div class="opts">
+<label><input type="radio" name="q10" value="A"> (A) 條約鼓勵德國發展軍備</label>
+<label><input type="radio" name="q10" value="B"> (B) 條約允許德國擴張領土</label>
+<label><input type="radio" name="q10" value="C"> (C) 條約對德國過於嚴苛，引起德國人民強烈不滿</label>
+<label><input type="radio" name="q10" value="D"> (D) 條約要求德國加入國際聯盟</label>
+</div></div>
+</div>
+
+<div class="section">
+<div class="section-title">二、填充題（每題 6 分，共 30 分）</div>
+<div class="q-block"><div class="q-num">第 1 題</div>
+<div class="q-text">1776 年 7 月 4 日，北美 13 州代表在費城發表《________》，宣布脫離英國獨立。該文件吸收了洛克的「________」學說。</div>
+<textarea placeholder="在此作答..."></textarea></div>
+
+<div class="q-block"><div class="q-num">第 2 題</div>
+<div class="q-text">1789 年 7 月 14 日，巴黎民眾攻陷________，揭開法國大革命的序幕。革命期間發表了《________》。</div>
+<textarea placeholder="在此作答..."></textarea></div>
+
+<div class="q-block"><div class="q-num">第 3 題</div>
+<div class="q-text">1823 年，美國總統________發表宣言，主張美洲事務由美洲國家自行處理，反對________國家干預。</div>
+<textarea placeholder="在此作答..."></textarea></div>
+
+<div class="q-block"><div class="q-num">第 4 題</div>
+<div class="q-text">德國統一由普魯士首相________主導，他以「________」政策推動統一。1871 年，________帝國建立。</div>
+<textarea placeholder="在此作答..."></textarea></div>
+
+<div class="q-block"><div class="q-num">第 5 題</div>
+<div class="q-text">1914 年 6 月，奧匈帝國皇位繼承人在________被刺殺，史稱「________事件」，成為一戰的導火線。</div>
+<textarea placeholder="在此作答..."></textarea></div>
+</div>
+
+<div class="section">
+<div class="section-title">三、問答題（每題 10 分，共 20 分）</div>
+<div class="q-block"><div class="q-num">第 1 題（10 分）</div>
+<div class="q-text">請比較「美國獨立革命」與「法國大革命」的異同。（至少從反抗對象、重要文件、外國態度、影響四個面向比較）</div>
+<textarea style="min-height:150px" placeholder="在此作答..."></textarea></div>
+
+<div class="q-block"><div class="q-num">第 2 題（10 分）</div>
+<div class="q-text">請說明第一次世界大戰的背景（遠因）、導火線（近因）、重要轉折，以及戰後巴黎和會的主要決議與影響。</div>
+<textarea style="min-height:150px" placeholder="在此作答..."></textarea></div>
+</div>
+
+<div class="nav-btns">
+<button onclick="switchTab(4)">← Cheat Sheet</button>
+<button onclick="switchTab(6)">下一步：答案卷 →</button>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 6: 答案卷                                      -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab6">
+
+<div class="answer-lock" id="answerLock">
+<h3>🔒 答案卷已鎖定</h3>
+<p style="font-size:13px;color:var(--gray);margin-bottom:12px;">請先完成考試卷再查看答案</p>
+<label><input type="checkbox" id="confirmCheck" onchange="checkUnlock()"> 我已完成考試，確認要查看答案</label>
+<button class="unlock-btn" id="unlockBtn" onclick="unlockAnswers()">🔓 解鎖答案卷</button>
+</div>
+
+<div id="answerContent" style="display:none;">
+
+<div class="section">
+<div class="section-title">一、選擇題答案</div>
+<div class="card">
+<table>
+<tr><th>題號</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+<tr><td><b>答案</b></td><td>C</td><td>C</td><td>C</td><td>B</td><td>B</td><td>C</td><td>B</td><td>C</td><td>C</td><td>C</td></tr>
+</table>
+</div>
+
+<div class="ans-detail"><div class="ans-num">第 1 題</div><div class="ans-key">答案：(C)</div><div class="ans-exp">波士頓茶葉事件的根本原因：殖民地人民不滿英國徵稅卻無國會代表，「無代表，不納稅」。</div></div>
+<div class="ans-detail"><div class="ans-num">第 2 題</div><div class="ans-key">答案：(C)</div><div class="ans-exp">三權分立學說由<b>孟德斯鳩</b>提出。洛克=天賦人權；盧梭=主權在民。</div></div>
+<div class="ans-detail"><div class="ans-num">第 3 題</div><div class="ans-key">答案：(C)</div><div class="ans-exp">第三階級=平民，人數最多卻負擔最重。第一=教士，第二=貴族。</div></div>
+<div class="ans-detail"><div class="ans-num">第 4 題</div><div class="ans-key">答案：(B)</div><div class="ans-exp">漫畫描繪平民背負教士和貴族，反映法國大革命前的階級不平等。</div></div>
+<div class="ans-detail"><div class="ans-num">第 5 題</div><div class="ans-key">答案：(B)</div><div class="ans-exp">維也納會議確立「正統原則」恢復舊王室。十四點原則是一戰後威爾遜提出的。</div></div>
+<div class="ans-detail"><div class="ans-num">第 6 題</div><div class="ans-key">答案：(C)</div><div class="ans-exp">馬志尼以「恢復古羅馬光榮」號召。加富爾=政治外交；加里波底=軍事征服。</div></div>
+<div class="ans-detail"><div class="ans-num">第 7 題</div><div class="ans-key">答案：(B)</div><div class="ans-exp">19 世紀帝國主義=政治、經濟、文化<b>全面性</b>侵略。</div></div>
+<div class="ans-detail"><div class="ans-num">第 8 題</div><div class="ans-key">答案：(C)</div><div class="ans-exp">三國同盟(1882)=德、奧匈、義；三國協約(1907)=英、法、俄。</div></div>
+<div class="ans-detail"><div class="ans-num">第 9 題</div><div class="ans-key">答案：(C)</div><div class="ans-exp">義大利從同盟國跳到協約國（因與奧匈有領土問題）。</div></div>
+<div class="ans-detail"><div class="ans-num">第 10 題</div><div class="ans-key">答案：(C)</div><div class="ans-exp">凡爾賽條約對德國過於嚴苛，引起強烈不滿，成為納粹崛起溫床，埋下二戰禍因。</div></div>
+</div>
+
+<div class="section">
+<div class="section-title">二、填充題答案</div>
+<div class="ans-detail"><div class="ans-num">第 1 題</div><div class="ans-key">獨立宣言 / 天賦人權</div></div>
+<div class="ans-detail"><div class="ans-num">第 2 題</div><div class="ans-key">巴士底監獄 / 人權宣言</div></div>
+<div class="ans-detail"><div class="ans-num">第 3 題</div><div class="ans-key">門羅 / 歐洲</div></div>
+<div class="ans-detail"><div class="ans-num">第 4 題</div><div class="ans-key">俾斯麥 / 鐵（和）血 / 德意志</div></div>
+<div class="ans-detail"><div class="ans-num">第 5 題</div><div class="ans-key">塞拉耶佛 / 塞拉耶佛</div></div>
+</div>
+
+<div class="section">
+<div class="section-title">三、問答題參考答案</div>
+<div class="ans-detail">
+<div class="ans-num">第 1 題</div>
+<div class="ans-key">比較美國獨立與法國大革命</div>
+<div class="ans-exp">
+<b>反抗對象</b>：美國反抗英國（殖民母國）；法國反抗國王（君主專制）。<br>
+<b>重要文件</b>：美國《獨立宣言》強調脫離英國；法國《人權宣言》強調保障自由平等。<br>
+<b>外國態度</b>：美國獲法、西、荷支持；法國遭歐洲各國組反法聯軍進攻。<br>
+<b>影響</b>：美國建立聯邦共和國、制定第一部成文憲法；法國精神隨拿破崙傳播歐洲。<br>
+<b>相同</b>：都受啟蒙思想影響，推翻舊秩序，建立新體制。
+</div>
+</div>
+<div class="ans-detail">
+<div class="ans-num">第 2 題</div>
+<div class="ans-key">一戰的背景、導火線、轉折與影響</div>
+<div class="ans-exp">
+<b>背景</b>：列強因殖民地競爭結盟，三國同盟 vs 三國協約；巴爾幹=「歐洲火藥庫」。<br>
+<b>導火線</b>：1914 塞拉耶佛事件（斐迪南被刺殺），各國因同盟接連參戰。<br>
+<b>轉折</b>：1917 美國參戰（無限制潛艇）+ 俄國革命退出。<br>
+<b>戰後</b>：巴黎和會簽凡爾賽條約嚴懲德國；國際聯盟成立但美國未加入；條約過於嚴苛埋下二戰禍因。
+</div>
+</div>
+</div>
+
+</div><!-- end answerContent -->
+
+<div class="nav-btns">
+<button onclick="switchTab(5)">← 考試卷</button>
+<button disabled>已是最後一步</button>
+</div>
+</div>
+
+</div><!-- end content -->
+<div class="footer">2026 學習工具組 ｜ Unit14 現代國家的誕生與第一次世界大戰 ｜ 翰林大滿貫</div>
+</div><!-- end app -->
+
+<script>
+// === AUTH ===
+async function sha256(m){const b=new TextEncoder().encode(m);const h=await crypto.subtle.digest('SHA-256',b);return Array.from(new Uint8Array(h)).map(x=>x.toString(16).padStart(2,'0')).join('');}
+const PW_HASH='b3282a2f2a28757b3a18ab833de16a9c54518c0b0cf493e3f0a7cf09386f326a';
+async function doLogin(){const p=document.getElementById('pw').value.trim();if(!p)return;if(await sha256(p)===PW_HASH){document.getElementById('loginScreen').style.display='none';document.getElementById('app').classList.add('show');sessionStorage.setItem('auth_u14','1');}else{const e=document.getElementById('loginErr');e.classList.add('show');document.getElementById('pw').select();}}
+if(sessionStorage.getItem('auth_u14')==='1'){document.getElementById('loginScreen').style.display='none';document.getElementById('app').classList.add('show');}
+
+// === TABS ===
+const tabNames=['費曼筆記','簡報','康乃爾','Anki','Cheat Sheet','考試卷','答案卷'];
+let currentTab=0;
+function switchTab(i){
+currentTab=i;
+document.querySelectorAll('.tab-btn').forEach((b,idx)=>b.classList.toggle('active',idx===i));
+document.querySelectorAll('.tab-panel').forEach((p,idx)=>p.classList.toggle('active',idx===i));
+document.getElementById('progressFill').style.width=((i+1)/7*100)+'%';
+}
+
+// === THEME ===
+function toggleTheme(){
+const t=document.documentElement.getAttribute('data-theme')==='dark'?'':'dark';
+document.documentElement.setAttribute('data-theme',t);
+localStorage.setItem('theme_u14',t);
+}
+if(localStorage.getItem('theme_u14')==='dark')document.documentElement.setAttribute('data-theme','dark');
+
+// === SEARCH ===
+let searchVisible=false;
+function toggleSearch(){searchVisible=!searchVisible;document.getElementById('searchWrap').style.display=searchVisible?'block':'none';if(searchVisible)document.getElementById('searchInput').focus();}
+function doSearch(q){
+document.querySelectorAll('.highlight').forEach(el=>{el.outerHTML=el.textContent;});
+if(!q||q.length<2)return;
+const panel=document.getElementById('tab'+currentTab);
+const walk=document.createTreeWalker(panel,NodeFilter.SHOW_TEXT);
+const nodes=[];
+while(walk.nextNode()){if(walk.currentNode.textContent.includes(q))nodes.push(walk.currentNode);}
+nodes.forEach(n=>{const parts=n.textContent.split(q);if(parts.length>1){const span=document.createElement('span');parts.forEach((p,i)=>{span.appendChild(document.createTextNode(p));if(i<parts.length-1){const hl=document.createElement('span');hl.className='highlight';hl.textContent=q;span.appendChild(hl);}});n.parentNode.replaceChild(span,n);}});
+if(nodes.length>0){const first=document.querySelector('.highlight');if(first)first.scrollIntoView({behavior:'smooth',block:'center'});}
+}
+
+// === TIMER ===
+let timerSec=2700,timerInterval=null,timerRunning=false;
+function updateTimerDisplay(){const m=Math.floor(timerSec/60);const s=timerSec%60;const el=document.getElementById('timer');el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;el.className='timer'+(timerSec<=300?' danger':timerSec<=600?' warning':'');}
+function startTimer(){if(timerRunning)return;timerRunning=true;timerInterval=setInterval(()=>{if(timerSec>0){timerSec--;updateTimerDisplay();}else{clearInterval(timerInterval);timerRunning=false;alert('⏰ 時間到！');}},1000);}
+function pauseTimer(){clearInterval(timerInterval);timerRunning=false;}
+function resetTimer(){pauseTimer();timerSec=2700;updateTimerDisplay();}
+
+// === ANSWER LOCK ===
+function checkUnlock(){document.getElementById('unlockBtn').classList.toggle('ready',document.getElementById('confirmCheck').checked);}
+function unlockAnswers(){if(!document.getElementById('confirmCheck').checked)return;document.getElementById('answerLock').style.display='none';document.getElementById('answerContent').style.display='block';}
+
+// === ANKI CARDS ===
+const ankiData=[
+["美國獨立革命的導火線事件是什麼？","1773 年的<b>波士頓茶葉事件</b>：波士頓人民將英商茶葉倒入海中，抗議英國徵收新稅。","U14::美國獨立"],
+["美國《獨立宣言》何時發表？","<b>1776 年 7 月 4 日</b>，13 州代表在<b>費城</b>發表。","U14::美國獨立"],
+["《獨立宣言》吸收了哪些思想家的學說？","洛克的<b>天賦人權</b> + 盧梭的<b>主權在民</b>。","U14::美國獨立"],
+["美國憲法採用了誰的學說？","<b>孟德斯鳩</b>的<b>三權分立</b>：總統(行政)、國會(立法)、聯邦法院(司法)。","U14::美國獨立"],
+["美國憲法的歷史意義？","<b>1787 年</b>制定，世界上<b>第一部成文憲法</b>。","U14::美國獨立"],
+["法國大革命前的三個階級？","第一：教士(免稅)、第二：貴族(免稅)、第三：<b>平民</b>(人最多、稅最重)。","U14::法國大革命"],
+["法國大革命的標誌性事件？","<b>1789/7/14</b> 巴黎民眾攻陷<b>巴士底監獄</b>（象徵專制王權）。","U14::法國大革命"],
+["法國大革命發表了什麼文件？","《<b>人權宣言</b>》：廢除貴族教會特權，保障人權與公民權利。","U14::法國大革命"],
+["拿破崙如何崛起與衰敗？","擊敗反法聯軍→1804稱帝→征服歐洲→頒《拿破崙法典》→1812征俄失敗→<b>1815滑鐵盧</b>敗。","U14::拿破崙"],
+["維也納會議的主導者與原則？","<b>奧國</b>首相<b>梅特涅</b>主導，「<b>正統原則</b>」恢復舊王室、維持勢力平衡。","U14::維也納會議"],
+["門羅宣言的內容與影響？","<b>1823</b>美國總統門羅：美洲事務由美洲國家自行處理，反對歐洲干預。鞏固拉美獨立，也擴大<b>美國控制</b>。","U14::門羅宣言"],
+["德國統一的核心人物？","普魯士國王<b>威廉一世</b> + 首相<b>俾斯麥</b>（鐵血政策）。","U14::德國統一"],
+["德國統一的經濟基礎？","<b>1834</b>年的<b>關稅同盟</b>。","U14::德國統一"],
+["義大利統一的「三傑」？","<b>馬志尼</b>(思想)、<b>加富爾</b>(政治)、<b>加里波底</b>(軍事)。","U14::義大利統一"],
+["帝國主義的三大背景？","經濟(原料市場)、政治(民族競爭)、文化(<b>社會達爾文主義</b>合理化侵略)。","U14::帝國主義"],
+["非洲在帝國主義下的命運？","19世紀末僅存<b>衣索比亞</b>和<b>賴比瑞亞</b>獨立。","U14::帝國主義"],
+["一戰前兩大陣營？","三國同盟(1882)：<b>德奧義</b> vs 三國協約(1907)：<b>英法俄</b>。","U14::一戰"],
+["一戰的導火線？","<b>1914/6 塞拉耶佛事件</b>：奧匈皇儲斐迪南夫婦被塞爾維亞民族主義者刺殺。","U14::一戰"],
+["義大利在一戰中的陣營變化？","原屬三國同盟，一戰後<b>跳到協約國</b>（因與奧匈有領土問題）。","U14::一戰"],
+["美國為何參加一戰？","德國「<b>無限制潛艇政策</b>」+ 煽動墨西哥反美。<b>1917</b>加入協約國。","U14::一戰"],
+["一戰導致哪些帝國瓦解？","<b>俄羅斯、德意志、奧匈、鄂圖曼</b>四大帝國。","U14::一戰"],
+["巴黎和會三巨頭？","<b>威爾遜</b>(美)、<b>克里蒙梭</b>(法)、<b>乃合喬治</b>(英)。","U14::巴黎和會"],
+["凡爾賽條約為何埋下二戰禍因？","對德國過於<b>嚴苛</b>（承擔責任+割地+削軍+鉅額賠款），引起強烈不滿。","U14::巴黎和會"],
+["國際聯盟為何失敗？","<b>美國因孤立主義未加入</b> + 缺乏軍事力量。","U14::國際聯盟"],
+["《獨立宣言》vs《人權宣言》？","獨立=<b>脫離英國</b>建國；人權=保障<b>自由平等</b>。","U14::比較"],
+["正統原則 vs 十四點原則？","正統=<b>恢復舊王室</b>（維也納）；十四點=<b>民族自決+國聯</b>（巴黎）。","U14::比較"],
+["門羅宣言 vs 孤立主義？","門羅=<b>積極管美洲</b>；孤立=<b>什麼都不管</b>。","U14::比較"],
+];
+function buildAnki(){
+const c=document.getElementById('ankiContainer');
+ankiData.forEach((d,i)=>{
+const div=document.createElement('div');
+div.className='anki-card';
+div.innerHTML=`<div class="front">${d[0]}</div><div class="back">${d[1]}</div><span class="anki-tag">${d[2]}</span><div class="flip-hint">👆 點擊翻面</div>`;
+div.onclick=()=>div.classList.toggle('flipped');
+c.appendChild(div);
+});
+}
+buildAnki();
+
+// === KEYBOARD SHORTCUTS ===
+document.addEventListener('keydown',e=>{
+if(e.ctrlKey&&e.key==='f'){e.preventDefault();toggleSearch();}
+if(e.key==='ArrowRight'&&currentTab<6)switchTab(currentTab+1);
+if(e.key==='ArrowLeft'&&currentTab>0)switchTab(currentTab-1);
+});
+</script>
+</body>
+</html>
